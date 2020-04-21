@@ -281,7 +281,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Oktett/Oktett-Prefix.pch";
 				INFOPLIST_FILE = "Oktett/Oktett-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Oktett;
 				WRAPPER_EXTENSION = app;
 			};
@@ -297,7 +296,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Oktett/Oktett-Prefix.pch";
 				INFOPLIST_FILE = "Oktett/Oktett-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Oktett;
 				WRAPPER_EXTENSION = app;
 			};
