@@ -8,10 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface OktettWindowController : NSWindowController {
+@class OCMessenger;
+
+@interface OktettWindowController : NSWindowController<NSSplitViewDelegate> {
     IBOutlet NSTextView *statusTextView;
     BOOL didSetup;
-    NSArray *interfaces;
+    OCMessenger *messenger;
 }
 
 -(void)setup;

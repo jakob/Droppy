@@ -16,12 +16,12 @@
 		349A85F92449CF6B001AE238 /* OktettAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 349A85F82449CF6B001AE238 /* OktettAppDelegate.m */; };
 		349A85FC2449CF6B001AE238 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A85FA2449CF6B001AE238 /* MainMenu.xib */; };
 		349A86042449FEEB001AE238 /* OktettWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 349A86032449FEEB001AE238 /* OktettWindowController.m */; };
+		349E67EA244ECF7E00A2E741 /* OCMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67E9244ECF7E00A2E741 /* OCMessenger.m */; };
 		34AEE393244A3E90004E6CEC /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 34AEE392244A3E90004E6CEC /* README.txt */; };
+		34B60C06244E3B2A006C62B9 /* OCAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B60C05244E3B29006C62B9 /* OCAddress.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3498D5E7244C899E00DC2101 /* UDPSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPSender.h; sourceTree = "<group>"; };
-		3498D5E8244C899E00DC2101 /* UDPSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPSender.m; sourceTree = "<group>"; };
 		3498D5EB244C8DD000DC2101 /* NSError+ConvenienceConstructors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+ConvenienceConstructors.h"; sourceTree = "<group>"; };
 		3498D5EC244C8DD000DC2101 /* NSError+ConvenienceConstructors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+ConvenienceConstructors.m"; sourceTree = "<group>"; };
 		3498D5EE244CE6DC00DC2101 /* OCInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCInterface.h; sourceTree = "<group>"; };
@@ -41,9 +41,11 @@
 		349A85FB2449CF6B001AE238 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		349A86022449FEEB001AE238 /* OktettWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OktettWindowController.h; sourceTree = "<group>"; };
 		349A86032449FEEB001AE238 /* OktettWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OktettWindowController.m; sourceTree = "<group>"; };
-		34AEE388244A03C5004E6CEC /* UDPListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPListener.h; sourceTree = "<group>"; };
-		34AEE389244A03C5004E6CEC /* UDPListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPListener.m; sourceTree = "<group>"; };
+		349E67E8244ECF7E00A2E741 /* OCMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMessenger.h; sourceTree = "<group>"; };
+		349E67E9244ECF7E00A2E741 /* OCMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMessenger.m; sourceTree = "<group>"; };
 		34AEE392244A3E90004E6CEC /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		34B60C04244E3B29006C62B9 /* OCAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCAddress.h; path = Oktett.xcodeproj/OCAddress.h; sourceTree = SOURCE_ROOT; };
+		34B60C05244E3B29006C62B9 /* OCAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCAddress.m; path = Oktett.xcodeproj/OCAddress.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,17 +99,12 @@
 		349A85EB2449CF6B001AE238 /* Oktett */ = {
 			isa = PBXGroup;
 			children = (
+				349E67E6244ECF0400A2E741 /* RawNetwork */,
 				349A85F72449CF6B001AE238 /* OktettAppDelegate.h */,
 				349A85F82449CF6B001AE238 /* OktettAppDelegate.m */,
 				349A85FA2449CF6B001AE238 /* MainMenu.xib */,
 				349A86022449FEEB001AE238 /* OktettWindowController.h */,
 				349A86032449FEEB001AE238 /* OktettWindowController.m */,
-				34AEE388244A03C5004E6CEC /* UDPListener.h */,
-				34AEE389244A03C5004E6CEC /* UDPListener.m */,
-				3498D5E7244C899E00DC2101 /* UDPSender.h */,
-				3498D5E8244C899E00DC2101 /* UDPSender.m */,
-				3498D5EE244CE6DC00DC2101 /* OCInterface.h */,
-				3498D5EF244CE6DC00DC2101 /* OCInterface.m */,
 				3498D5EB244C8DD000DC2101 /* NSError+ConvenienceConstructors.h */,
 				3498D5EC244C8DD000DC2101 /* NSError+ConvenienceConstructors.m */,
 				34AEE392244A3E90004E6CEC /* README.txt */,
@@ -126,6 +123,19 @@
 				349A85F42449CF6B001AE238 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		349E67E6244ECF0400A2E741 /* RawNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				34B60C04244E3B29006C62B9 /* OCAddress.h */,
+				34B60C05244E3B29006C62B9 /* OCAddress.m */,
+				3498D5EE244CE6DC00DC2101 /* OCInterface.h */,
+				3498D5EF244CE6DC00DC2101 /* OCInterface.m */,
+				349E67E8244ECF7E00A2E741 /* OCMessenger.h */,
+				349E67E9244ECF7E00A2E741 /* OCMessenger.m */,
+			);
+			name = RawNetwork;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +204,8 @@
 				349A86042449FEEB001AE238 /* OktettWindowController.m in Sources */,
 				3498D5ED244C8DD000DC2101 /* NSError+ConvenienceConstructors.m in Sources */,
 				3498D5F0244CE6DC00DC2101 /* OCInterface.m in Sources */,
+				34B60C06244E3B2A006C62B9 /* OCAddress.m in Sources */,
+				349E67EA244ECF7E00A2E741 /* OCMessenger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

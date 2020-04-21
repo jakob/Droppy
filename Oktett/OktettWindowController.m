@@ -8,9 +8,9 @@
 
 #import "OktettWindowController.h"
 
-#import "OCInterface.h"
+#import "OCMessenger.h"
 
-@interface OktettWindowController() <OCInterfaceDelegate> {
+@interface OktettWindowController() <OCMessengerDelegate> {
     
 }
 @end
@@ -27,9 +27,11 @@
     return self;
 }
 
+
 -(void)awakeFromNib {
     [self setup];
 }
+
 
 -(void)setup {
     if (didSetup) return;
@@ -37,23 +39,16 @@
     
     NSError *error = nil;
 
-    interfaces = [[OCInterface broadcastInterfacesWithError:&error] retain];
-    if (!interfaces) {
+    messenger = [[OCMessenger alloc] init];
+    if (![messenger bindUDPPort:65012 delegate:self error:&error]) {
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             [self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
         });
     }
-    for (OCInterface *interface in interfaces) {
-        if (![interface bindUDPPort:65012 delegate:self error:&error]) {
-            dispatch_async(dispatch_get_main_queue(), ^(void) {
-                [self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
-            });
-        }
-    }
 }
 
--(void)interface:(OCInterface *)interface didReceiveData:(NSData *)data fromAddress:(NSData *)addr {
-    NSString *message = [NSString stringWithFormat:@"%@\nMessage\n%s\n\n", [NSDate date], data.bytes];
+-(void)messenger:(OCMessenger *)messenger didReceiveData:(NSData *)data from:(OCAddress *)addr {
+    NSString *message = [NSString stringWithFormat:@"%@\nMessage from %@:%d\n%s\n\n", [NSDate date], addr.presentationAddress, addr.port, data.bytes];
     [statusTextView replaceCharactersInRange:NSMakeRange(0, 0) withString:message];
     [statusTextView didChangeText];
     [statusTextView setNeedsDisplay:YES];
@@ -62,17 +57,14 @@
 -(IBAction)sayHello:(id)sender {   
     NSError *error = nil;
     NSData *message = [@"Hello!\n" dataUsingEncoding:NSUTF8StringEncoding];
-    for (OCInterface *interface in interfaces) {
-        if (![interface broadcastMessage:message port:65012 error:&error]) {
-            [self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
-            return;
-        }
+    if (![messenger broadcastMessage:message port:65012 error:&error]) {
+        [self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
     }
 }
 
 - (void)dealloc
 {
-    [interfaces release];
+    [messenger release];
     [super dealloc];
 }
 
@@ -81,6 +73,19 @@
     [super windowDidLoad];
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+}
+
+-(void)splitView:(NSSplitView *)splitView resizeSubviewsWithOldSize:(NSSize)oldSize {
+    // first, resize the last view to fit full width
+    NSArray *subviews = [splitView subviews];
+    NSView *lastView = [subviews objectAtIndex:[subviews count]-1];
+    NSRect lastViewFrame = [lastView frame];
+    CGFloat deltaX = NSMaxX([splitView bounds]) - NSMaxX(lastViewFrame);
+    lastViewFrame.size.width += deltaX;
+    [lastView setFrame:lastViewFrame];
+    
+    // now call adjustsubviews to set vertical positions
+    [splitView adjustSubviews];
 }
 
 @end

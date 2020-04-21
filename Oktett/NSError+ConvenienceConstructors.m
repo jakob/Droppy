@@ -24,7 +24,7 @@
     }
 }
 
-+(NSError*)errorWithDomain:(NSString *)domain code:(NSInteger)code localizedDescriptionFormat:(NSString*)format, ... {
++(NSError*)errorWithDomain:(NSString *)domain code:(NSInteger)code format:(NSString*)format, ... {
     va_list args;
     va_start(args, format);
     NSString *localizedDescription = [[NSString alloc] initWithFormat:format arguments:args];
