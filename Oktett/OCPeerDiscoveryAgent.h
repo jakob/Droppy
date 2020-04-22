@@ -21,14 +21,12 @@
 @end
 
 @interface OCPeerDiscoveryAgent : NSObject {
-    OCPeer *identity;
     NSMutableArray *peers;
     OCMessenger *messenger;
     uint16_t peerDiscoveryPort;
     id<OCPeerDiscoveryAgentDelegate> delegate;
 }
 
-@property(retain) OCPeer *identity;
 @property(readonly) NSArray *peers;
 @property(assign) id<OCPeerDiscoveryAgentDelegate> delegate;
 

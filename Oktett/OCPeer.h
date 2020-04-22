@@ -28,4 +28,6 @@
 
 -(void)addRecentAddress:(OCAddress*)address;
 
++(OCPeer*)localPeer;
+
 @end

@@ -35,23 +35,6 @@
 }
 
 
--(NSString*)computerModel {
-	static NSString *computerModel = nil;
-	if (!computerModel) {
-		io_service_t pexpdev;
-		if ((pexpdev = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice"))))
-		{
-			CFDataRef data = IORegistryEntryCreateCFProperty(pexpdev, CFSTR("model"), kCFAllocatorDefault, 0);
-			if (data) {
-				computerModel = (id)CFStringCreateWithBytes(kCFAllocatorDefault, CFDataGetBytePtr(data), CFDataGetLength(data), kCFStringEncodingUTF8, false);
-				CFRelease(data);
-			}
-		}
-		if (!computerModel) computerModel = @"unknown";
-	}
-	return computerModel;
-}
-
 -(void)setup {
     if (didSetup) return;
     didSetup = YES;
@@ -59,23 +42,6 @@
     NSError *error = nil;
     discoveryAgent = [[OCPeerDiscoveryAgent alloc] init];
     discoveryAgent.delegate = self;
-    OCPeer *identity = [[OCPeer alloc] init];
-	
-	/* Get computer name */
-	CFStringRef computername = CSCopyMachineName();
-	identity.shortName = (id)computername;
-	CFRelease(computername);
-	// Alternative method to get computer name
-	// #import <SystemConfiguration/SystemConfiguration.h>
-	// CFStringRef computername = SCDynamicStoreCopyComputerName(nil, nil);
-	
-	/* Get machine name*/
-	identity.deviceType = [self computerModel];
-	
-    CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
-    identity.peerUUID = uuid;
-    CFRelease(uuid);
-    discoveryAgent.identity = identity;
     if (![discoveryAgent setupWithError:&error]) {
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             [self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
@@ -180,7 +146,7 @@
         }
     }
     if ([item isEqual:@"My Stuff"]) {
-        return discoveryAgent.identity;
+        return [OCPeer localPeer];
     }
     if ([item isEqual:@"Discovered Stuff"]) {
         return [discoveryAgent.peers objectAtIndex:index];

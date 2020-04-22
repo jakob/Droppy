@@ -20,7 +20,6 @@
 
 @implementation OCPeerDiscoveryAgent
 
-@synthesize identity;
 @synthesize delegate;
 
 -(id)init {
@@ -73,12 +72,13 @@
 -(void)replyToQuery:(OCQueryMessage*)query from:(OCAddress*)addr {
     NSLog(@"Replying to query message from %@:%d requestUUID: %@", addr.presentationAddress, addr.port, query.requestUUID);
     OCPeerIdentificationMessage *response = [[OCPeerIdentificationMessage alloc] init];
-    response.minSupportedProtocol = identity.minSupportedProtocol;
-    response.maxSupportedProtocol = identity.maxSupportedProtocol;
+	OCPeer *localPeer = [OCPeer localPeer];
+    response.minSupportedProtocol = localPeer.minSupportedProtocol;
+    response.maxSupportedProtocol = localPeer.maxSupportedProtocol;
     response.requestUUID = query.requestUUID;
-    response.peerUUID = identity.peerUUID;
-    response.deviceType = identity.deviceType;
-    response.shortName = identity.shortName;
+    response.peerUUID = localPeer.peerUUID;
+    response.deviceType = localPeer.deviceType;
+    response.shortName = localPeer.shortName;
     NSError *sendError = nil;
     if (![messenger sendMessage:[response data] to:addr error:&sendError]) {
         NSLog(@"Failed to reply to query: %@", sendError);
