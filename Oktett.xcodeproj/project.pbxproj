@@ -23,6 +23,7 @@
 		349E67F8244F6F8000A2E741 /* OCPeerIdentificationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67F7244F6F8000A2E741 /* OCPeerIdentificationMessage.m */; };
 		34AEE393244A3E90004E6CEC /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 34AEE392244A3E90004E6CEC /* README.txt */; };
 		34B60C06244E3B2A006C62B9 /* OCAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B60C05244E3B29006C62B9 /* OCAddress.m */; };
+		36EE71FF24506E1D00193D95 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EE71FE24506E1D00193D95 /* IOKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,13 +52,14 @@
 		349E67ED244EE4D800A2E741 /* OCPeerDiscoveryAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCPeerDiscoveryAgent.m; sourceTree = "<group>"; };
 		349E67EF244EE4F100A2E741 /* OCPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCPeer.h; sourceTree = "<group>"; };
 		349E67F0244EE4F100A2E741 /* OCPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCPeer.m; sourceTree = "<group>"; };
-		349E67F3244EED4100A2E741 /* OCQueryMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; path = OCQueryMessage.h; sourceTree = "<group>"; };
+		349E67F3244EED4100A2E741 /* OCQueryMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCQueryMessage.h; sourceTree = "<group>"; };
 		349E67F4244EED4100A2E741 /* OCQueryMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCQueryMessage.m; sourceTree = "<group>"; };
 		349E67F6244F6F8000A2E741 /* OCPeerIdentificationMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCPeerIdentificationMessage.h; sourceTree = "<group>"; };
 		349E67F7244F6F8000A2E741 /* OCPeerIdentificationMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCPeerIdentificationMessage.m; sourceTree = "<group>"; };
 		34AEE392244A3E90004E6CEC /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		34B60C04244E3B29006C62B9 /* OCAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCAddress.h; path = Oktett.xcodeproj/OCAddress.h; sourceTree = SOURCE_ROOT; };
 		34B60C05244E3B29006C62B9 /* OCAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCAddress.m; path = Oktett.xcodeproj/OCAddress.m; sourceTree = SOURCE_ROOT; };
+		36EE71FE24506E1D00193D95 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				349A85E62449CF6B001AE238 /* Cocoa.framework in Frameworks */,
+				36EE71FF24506E1D00193D95 /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +95,7 @@
 		349A85E42449CF6B001AE238 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				36EE71FE24506E1D00193D95 /* IOKit.framework */,
 				349A85E52449CF6B001AE238 /* Cocoa.framework */,
 				349A85E72449CF6B001AE238 /* Other Frameworks */,
 			);
