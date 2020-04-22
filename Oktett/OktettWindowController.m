@@ -152,6 +152,24 @@
     return NO;
 }
 
+-(BOOL)outlineView:(NSOutlineView*)outlineView isGroupItem:(id)item {
+    if ([item isKindOfClass:[NSString class]]) {
+        return YES;
+    }
+    return NO;
+}
+
+-(BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item {
+    return NO;
+}
+
+-(BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
+    if ([item isKindOfClass:[NSString class]]) {
+        return NO;
+    }
+    return YES;
+}
+
 -(id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
     if (item == nil) {
         if (index==0) {
