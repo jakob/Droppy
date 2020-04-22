@@ -25,23 +25,46 @@
 }
 
 +(OCPeer*)localPeer {
-	OCPeer *localPeer = [[OCPeer alloc] init];
-	
-	/* Peer UUID is created randomly and stored in user defaults */
-	NSData *uuidData = [[NSUserDefaults standardUserDefaults] dataForKey:@"PeerUUID"];
-	CFUUIDRef peerUUID;
-	if (uuidData.length != sizeof(CFUUIDBytes)) {
-		// looks like we do not a valid uuid
-		// generate a new one
-		peerUUID = CFUUIDCreate(kCFAllocatorDefault);
-		NSMutableData *newData = [[NSMutableData alloc] initWithLength:sizeof(CFUUIDBytes)];
-		*((CFUUIDBytes*)[newData mutableBytes]) = CFUUIDGetUUIDBytes(peerUUID);
-		[[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"PeerUUID"];
-		[newData release];
-	} else {
-		peerUUID = CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, *((CFUUIDBytes*)uuidData.bytes));
+	static OCPeer *localPeer;
+	if (!localPeer) {
+		localPeer = [[OCPeer alloc] init];
+		
+		/* Peer UUID is created randomly and stored in user defaults */
+		NSData *uuidData = [[NSUserDefaults standardUserDefaults] dataForKey:@"PeerUUID"];
+		CFUUIDRef peerUUID;
+		if (uuidData.length != sizeof(CFUUIDBytes)) {
+			// looks like we do not a valid uuid
+			// generate a new one
+			peerUUID = CFUUIDCreate(kCFAllocatorDefault);
+			NSMutableData *newData = [[NSMutableData alloc] initWithLength:sizeof(CFUUIDBytes)];
+			*((CFUUIDBytes*)[newData mutableBytes]) = CFUUIDGetUUIDBytes(peerUUID);
+			[[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"PeerUUID"];
+			[newData release];
+		} else {
+			peerUUID = CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, *((CFUUIDBytes*)uuidData.bytes));
+		}
+		localPeer.peerUUID = peerUUID;
+		CFRelease(peerUUID);
+
+		/* Get computer model, eg. MacBookPro12,1 */
+		CFStringRef computerModel = nil;
+		io_service_t pexpdev;
+		if ((pexpdev = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice"))))
+		{
+			CFDataRef data = IORegistryEntryCreateCFProperty(pexpdev, CFSTR("model"), kCFAllocatorDefault, 0);
+			if (data) {
+				computerModel = CFStringCreateWithBytes(kCFAllocatorDefault, CFDataGetBytePtr(data), CFDataGetLength(data), kCFStringEncodingUTF8, false);
+				CFRelease(data);
+			}
+		}
+		if (computerModel) {
+			localPeer.deviceType = (id)computerModel;
+			CFRelease(computerModel);
+		} else {
+			localPeer.deviceType = @"Unknown";
+		}
+
 	}
-	localPeer.peerUUID = peerUUID;
 	
 	/* Get computer name */
 	CFStringRef computername = CSCopyMachineName();
@@ -51,24 +74,7 @@
 	// #import <SystemConfiguration/SystemConfiguration.h>
 	// CFStringRef computername = SCDynamicStoreCopyComputerName(nil, nil);
 	
-	/* Get machine name*/
-	static NSString *computerModel = nil;
-	if (!computerModel) {
-		io_service_t pexpdev;
-		if ((pexpdev = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPlatformExpertDevice"))))
-		{
-			CFDataRef data = IORegistryEntryCreateCFProperty(pexpdev, CFSTR("model"), kCFAllocatorDefault, 0);
-			if (data) {
-				computerModel = (id)CFStringCreateWithBytes(kCFAllocatorDefault, CFDataGetBytePtr(data), CFDataGetLength(data), kCFStringEncodingUTF8, false);
-				CFRelease(data);
-			}
-		}
-		if (!computerModel) computerModel = @"unknown";
-	}
-	localPeer.deviceType = computerModel;
-
-	CFRelease(peerUUID);
-	return [localPeer autorelease];
+	return localPeer;
 }
 
 -(void)addRecentAddress:(OCAddress*)address {
