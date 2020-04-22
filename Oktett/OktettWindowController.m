@@ -70,6 +70,7 @@
     if (![discoveryAgent scanWithError:&error]) {
         [self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
     }
+	[outlineView expandItem:@"Discovered Stuff"];
 }
 
 - (void)dealloc
