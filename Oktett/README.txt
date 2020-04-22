@@ -16,6 +16,9 @@ However, UDP messages sent to a non-broadcast address will only be delivered onc
 
 Conclusion: We need to make sure to use a port that nobody else is using. If another process is already listening on the port, we will run into trouble.
 
+Multiple clients on one machine?
+We could support multiple clients on one machine by using two ports. We bind to the boradcast port with SO_REUSEADDR and SO_REUSEPORT so we can receive broadcast messages.
+We bind on a second, randomized port that we use as source for all outgoing messages. Any response to our broadcast messages are received on that second port.
 
 
 Message Protocol
