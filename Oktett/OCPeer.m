@@ -50,6 +50,8 @@
 
 -(void)dealloc {
     [recentAddresses release];
+	[deviceType release];
+	[shortName release];
     [super dealloc];
 }
 

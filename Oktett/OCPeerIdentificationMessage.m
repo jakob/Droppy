@@ -168,6 +168,8 @@
 }
 
 -(void)dealloc {
+	[deviceType release];
+	[shortName release];
     [super dealloc];
 }
 
