@@ -10,10 +10,11 @@
 
 @class OCPeerDiscoveryAgent;
 
-@interface OktettWindowController : NSWindowController<NSSplitViewDelegate> {
+@interface OktettWindowController : NSWindowController<NSSplitViewDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource> {
     IBOutlet NSTextView *statusTextView;
     BOOL didSetup;
     OCPeerDiscoveryAgent *discoveryAgent;
+    IBOutlet NSOutlineView *outlineView;
 }
 
 -(void)setup;

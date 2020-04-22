@@ -30,6 +30,8 @@
 
 -(void)awakeFromNib {
     [self setup];
+    [outlineView expandItem:[outlineView itemAtRow:1]];
+    [outlineView expandItem:[outlineView itemAtRow:0]];
 }
 
 
@@ -58,6 +60,7 @@
     [statusTextView replaceCharactersInRange:NSMakeRange(0, 0) withString:message];
     [statusTextView didChangeText];
     [statusTextView setNeedsDisplay:YES];
+    [outlineView reloadData];
 }
 
 -(void)agent:(OCPeerDiscoveryAgent *)agent updatedPeer:(OCPeer *)peer {
@@ -65,6 +68,7 @@
     [statusTextView replaceCharactersInRange:NSMakeRange(0, 0) withString:message];
     [statusTextView didChangeText];
     [statusTextView setNeedsDisplay:YES];
+    [outlineView reloadData];
 }
 
 -(IBAction)sayHello:(id)sender {   
@@ -100,4 +104,51 @@
     [splitView adjustSubviews];
 }
 
+-(NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
+    if (item == nil) {
+        return 2;
+    }
+    if ([item isEqual:@"My Stuff"]) {
+        return 1;
+    }
+    if ([item isEqual:@"Discovered Stuff"]) {
+        return discoveryAgent.peers.count;
+    }
+    return 0;
+}
+
+-(BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
+    if ([item isKindOfClass:[NSString class]]) {
+        return YES;
+    }
+    return NO;
+}
+
+-(id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
+    if (item == nil) {
+        if (index==0) {
+            return @"My Stuff";
+        }
+        if (index==1) {
+            return @"Discovered Stuff";
+        }
+    }
+    if ([item isEqual:@"My Stuff"]) {
+        return discoveryAgent.identity;
+    }
+    if ([item isEqual:@"Discovered Stuff"]) {
+        return [discoveryAgent.peers objectAtIndex:index];
+    }
+    return nil;
+}
+
+-(id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
+    if ([item isKindOfClass:[NSString class]]) {
+        return item;
+    }
+    if ([item isKindOfClass:[OCPeer class]]) {
+        return [item shortName];
+    }
+    return nil;
+}
 @end
