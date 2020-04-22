@@ -8,12 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class OCMessenger;
+@class OCPeerDiscoveryAgent;
 
 @interface OktettWindowController : NSWindowController<NSSplitViewDelegate> {
     IBOutlet NSTextView *statusTextView;
     BOOL didSetup;
-    OCMessenger *messenger;
+    OCPeerDiscoveryAgent *discoveryAgent;
 }
 
 -(void)setup;

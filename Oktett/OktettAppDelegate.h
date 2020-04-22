@@ -15,6 +15,4 @@
 
 @property (assign) IBOutlet NSWindow *window;
 
--(IBAction)sayHello:(id)sender;
-
 @end

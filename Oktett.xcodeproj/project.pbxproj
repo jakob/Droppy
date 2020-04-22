@@ -17,6 +17,10 @@
 		349A85FC2449CF6B001AE238 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A85FA2449CF6B001AE238 /* MainMenu.xib */; };
 		349A86042449FEEB001AE238 /* OktettWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 349A86032449FEEB001AE238 /* OktettWindowController.m */; };
 		349E67EA244ECF7E00A2E741 /* OCMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67E9244ECF7E00A2E741 /* OCMessenger.m */; };
+		349E67EE244EE4D800A2E741 /* OCPeerDiscoveryAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67ED244EE4D800A2E741 /* OCPeerDiscoveryAgent.m */; };
+		349E67F1244EE4F100A2E741 /* OCPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67F0244EE4F100A2E741 /* OCPeer.m */; };
+		349E67F5244EED4100A2E741 /* OCQueryMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67F4244EED4100A2E741 /* OCQueryMessage.m */; };
+		349E67F8244F6F8000A2E741 /* OCPeerIdentificationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67F7244F6F8000A2E741 /* OCPeerIdentificationMessage.m */; };
 		34AEE393244A3E90004E6CEC /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 34AEE392244A3E90004E6CEC /* README.txt */; };
 		34B60C06244E3B2A006C62B9 /* OCAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B60C05244E3B29006C62B9 /* OCAddress.m */; };
 /* End PBXBuildFile section */
@@ -43,6 +47,14 @@
 		349A86032449FEEB001AE238 /* OktettWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OktettWindowController.m; sourceTree = "<group>"; };
 		349E67E8244ECF7E00A2E741 /* OCMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMessenger.h; sourceTree = "<group>"; };
 		349E67E9244ECF7E00A2E741 /* OCMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMessenger.m; sourceTree = "<group>"; };
+		349E67EC244EE4D800A2E741 /* OCPeerDiscoveryAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCPeerDiscoveryAgent.h; sourceTree = "<group>"; };
+		349E67ED244EE4D800A2E741 /* OCPeerDiscoveryAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCPeerDiscoveryAgent.m; sourceTree = "<group>"; };
+		349E67EF244EE4F100A2E741 /* OCPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCPeer.h; sourceTree = "<group>"; };
+		349E67F0244EE4F100A2E741 /* OCPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCPeer.m; sourceTree = "<group>"; };
+		349E67F3244EED4100A2E741 /* OCQueryMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; path = OCQueryMessage.h; sourceTree = "<group>"; };
+		349E67F4244EED4100A2E741 /* OCQueryMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCQueryMessage.m; sourceTree = "<group>"; };
+		349E67F6244F6F8000A2E741 /* OCPeerIdentificationMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCPeerIdentificationMessage.h; sourceTree = "<group>"; };
+		349E67F7244F6F8000A2E741 /* OCPeerIdentificationMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCPeerIdentificationMessage.m; sourceTree = "<group>"; };
 		34AEE392244A3E90004E6CEC /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		34B60C04244E3B29006C62B9 /* OCAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCAddress.h; path = Oktett.xcodeproj/OCAddress.h; sourceTree = SOURCE_ROOT; };
 		34B60C05244E3B29006C62B9 /* OCAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCAddress.m; path = Oktett.xcodeproj/OCAddress.m; sourceTree = SOURCE_ROOT; };
@@ -99,6 +111,7 @@
 		349A85EB2449CF6B001AE238 /* Oktett */ = {
 			isa = PBXGroup;
 			children = (
+				349E67EB244EE4B500A2E741 /* Discovery Agent */,
 				349E67E6244ECF0400A2E741 /* RawNetwork */,
 				349A85F72449CF6B001AE238 /* OktettAppDelegate.h */,
 				349A85F82449CF6B001AE238 /* OktettAppDelegate.m */,
@@ -136,6 +149,29 @@
 				349E67E9244ECF7E00A2E741 /* OCMessenger.m */,
 			);
 			name = RawNetwork;
+			sourceTree = "<group>";
+		};
+		349E67EB244EE4B500A2E741 /* Discovery Agent */ = {
+			isa = PBXGroup;
+			children = (
+				349E67F2244EED0E00A2E741 /* Messages */,
+				349E67EC244EE4D800A2E741 /* OCPeerDiscoveryAgent.h */,
+				349E67ED244EE4D800A2E741 /* OCPeerDiscoveryAgent.m */,
+				349E67EF244EE4F100A2E741 /* OCPeer.h */,
+				349E67F0244EE4F100A2E741 /* OCPeer.m */,
+			);
+			name = "Discovery Agent";
+			sourceTree = "<group>";
+		};
+		349E67F2244EED0E00A2E741 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				349E67F3244EED4100A2E741 /* OCQueryMessage.h */,
+				349E67F4244EED4100A2E741 /* OCQueryMessage.m */,
+				349E67F6244F6F8000A2E741 /* OCPeerIdentificationMessage.h */,
+				349E67F7244F6F8000A2E741 /* OCPeerIdentificationMessage.m */,
+			);
+			name = Messages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,6 +242,10 @@
 				3498D5F0244CE6DC00DC2101 /* OCInterface.m in Sources */,
 				34B60C06244E3B2A006C62B9 /* OCAddress.m in Sources */,
 				349E67EA244ECF7E00A2E741 /* OCMessenger.m in Sources */,
+				349E67EE244EE4D800A2E741 /* OCPeerDiscoveryAgent.m in Sources */,
+				349E67F1244EE4F100A2E741 /* OCPeer.m in Sources */,
+				349E67F5244EED4100A2E741 /* OCQueryMessage.m in Sources */,
+				349E67F8244F6F8000A2E741 /* OCPeerIdentificationMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

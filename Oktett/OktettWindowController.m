@@ -8,9 +8,9 @@
 
 #import "OktettWindowController.h"
 
-#import "OCMessenger.h"
+#import "OCPeerDiscoveryAgent.h"
 
-@interface OktettWindowController() <OCMessengerDelegate> {
+@interface OktettWindowController() <OCPeerDiscoveryAgentDelegate> {
     
 }
 @end
@@ -38,17 +38,30 @@
     didSetup = YES;
     
     NSError *error = nil;
-
-    messenger = [[OCMessenger alloc] init];
-    if (![messenger bindUDPPort:65012 delegate:self error:&error]) {
+    discoveryAgent = [[OCPeerDiscoveryAgent alloc] init];
+    discoveryAgent.delegate = self;
+    OCPeer *identity = [[OCPeer alloc] init];
+    identity.shortName = [NSString stringWithFormat:@"%@'s Computer", NSUserName()];
+    CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
+    identity.peerUUID = uuid;
+    CFRelease(uuid);
+    discoveryAgent.identity = identity;
+    if (![discoveryAgent setupWithError:&error]) {
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             [self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
         });
     }
 }
 
--(void)messenger:(OCMessenger *)messenger didReceiveData:(NSData *)data from:(OCAddress *)addr {
-    NSString *message = [NSString stringWithFormat:@"%@\nMessage from %@:%d\n%s\n\n", [NSDate date], addr.presentationAddress, addr.port, data.bytes];
+-(void)agent:(OCPeerDiscoveryAgent *)agent discoveredPeer:(OCPeer *)peer {
+    NSString *message = [NSString stringWithFormat:@"%@\nDiscovered peer: %@\n\n", [NSDate date], peer.shortName];
+    [statusTextView replaceCharactersInRange:NSMakeRange(0, 0) withString:message];
+    [statusTextView didChangeText];
+    [statusTextView setNeedsDisplay:YES];
+}
+
+-(void)agent:(OCPeerDiscoveryAgent *)agent updatedPeer:(OCPeer *)peer {
+    NSString *message = [NSString stringWithFormat:@"%@\nUpdated peer: %@\n\n", [NSDate date], peer.shortName];
     [statusTextView replaceCharactersInRange:NSMakeRange(0, 0) withString:message];
     [statusTextView didChangeText];
     [statusTextView setNeedsDisplay:YES];
@@ -56,15 +69,14 @@
 
 -(IBAction)sayHello:(id)sender {   
     NSError *error = nil;
-    NSData *message = [@"Hello!\n" dataUsingEncoding:NSUTF8StringEncoding];
-    if (![messenger broadcastMessage:message port:65012 error:&error]) {
+    if (![discoveryAgent scanWithError:&error]) {
         [self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
     }
 }
 
 - (void)dealloc
 {
-    [messenger release];
+    [discoveryAgent release];
     [super dealloc];
 }
 
