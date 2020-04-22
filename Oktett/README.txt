@@ -139,8 +139,8 @@ Name Brainstorming
     Six Things
     Six Box
     Sextett -> "sex" prefix may cause problems
-    Oktett -> too masculin, not generic enough
-    Sixpak
+    Oktett 
+    Sixpak -> too masculin, not generic enough
     6pak
     Sixbag
     Sechser Tragerl
@@ -174,6 +174,9 @@ Name Brainstorming
     Ablage
     Octet
  => Oktett <=
+    Octdoc
+    Okidok
+    Okidoki
 
 
 
