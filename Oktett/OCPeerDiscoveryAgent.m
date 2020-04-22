@@ -116,6 +116,7 @@
 -(void)dealloc {
     [messenger release];
     [peers release];
+	[super dealloc];
 }
 
 -(NSArray *)peers {
