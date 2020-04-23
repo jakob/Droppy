@@ -10,6 +10,7 @@
 
 #import "OCQueryMessage.h"
 #import "NSError+ConvenienceConstructors.h"
+#import "NSString+Additions.h"
 
 @implementation OCPeerIdentificationMessage
 
@@ -47,14 +48,12 @@
 
     [data appendBytes:&peerUUID length:sizeof(peerUUID)];
 
-    NSString *truncatedDeviceType = deviceType.length > 50 ? [deviceType substringToIndex:50] : deviceType;
-    NSData *deviceTypeData = [truncatedDeviceType dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *deviceTypeData = [deviceType dataUsingEncoding:NSUTF8StringEncoding maxEncodedLength:255];
     uint8_t deviceTypeLength = [deviceTypeData length];
     [data appendBytes:&deviceTypeLength length:1];
     [data appendData:deviceTypeData];
 
-    NSString *truncatedName = shortName.length > 50 ? [shortName substringToIndex:50] : shortName;
-    NSData *truncatedNameData = [truncatedName dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *truncatedNameData = [shortName dataUsingEncoding:NSUTF8StringEncoding maxEncodedLength:255];
     uint8_t truncatedNameLength = [truncatedNameData length];
     [data appendBytes:&truncatedNameLength length:1];
     [data appendData:truncatedNameData];
