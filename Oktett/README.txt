@@ -21,79 +21,58 @@ We could support multiple clients on one machine by using two ports. We bind to 
 We bind on a second, randomized port that we use as source for all outgoing messages. Any response to our broadcast messages are received on that second port.
 
 
-Message Protocol
-================
+PEER DISCOVERY PROTOCOL
+=======================
 
 All UDP messages start with a "magic number", which makes random collisions much less likely.
 
-General format:
 
-7 bytes: magic number
-1 byte: message type
+4 bytes   Magic Number "\03PDP"
 
+1 byte    Length of Header Data
 
-Messages
---------
+1 byte    'A': Announce presence or new state (eg. computer sleeping)
+          'S': Scan: Request announce messages from the recipient (or from everyone).
+               Optionally includes all the info from an announce message in the same packet.
+          'C': Command.
 
+1 byte    Flags
 
- => Greeting and introduction message
-    
-    Magic Number
-    7 bytes
+          0x01 Supports v1 protocol
+          0x02 Has Ed25519 Key + Signature
+          0x04 Reserved
+          0x08 Reserved
+          0x10 Reserved
+          0x20 Reserved
+          0x40 Reserved
+          0x80 Reserved
 
-    Message Type: 'I'
-    1 byte
+1 byte    Extra Flags ???
 
-    uint16 Minimum Compatible Protocol Version
-    2 bytes
+          0x01 Reserved
+          0x02 Reserved
+          0x04 Reserved
+          0x08 Reserved
+          0x10 Reserved
+          0x20 Reserved
+          0x40 Reserved
+          0x80 Reserved
 
-    uint16 Current Protocol Version
-    2 bytes
+Key/Value Section
 
-    UUID
-    16 bytes
+1 byte    Length Of Key = Lk
+Lk bytes  Key
+1 byte    Length of Value = Lv
+Lv bytes  Value
 
-    TCP Listen Port
-    2 bytes
+...
 
-    Short Name
-    1 byte (length) + UTF8 bytes
+Keys:
 
-    Device Type
-    1 byte (length) + UTF8 bytes
-
-    Capabilities
-    1 byte flag
-    0x1 Offers services
-
-
-
-OKTETT PEER DISCOVERY PROTOCOL
-==============================
-
-
-Oktett/Q
---------
-
-Query message.
-
-Requests information about the current state of all peers on the network.
-
-Repeat this message several times.
-
-
-Oktett/I
---------
-
-Inform peers on the network about my current state.
-
-Repeat this message until an ack arrives.
-
-
-Oktett/Ack
-----------
-
-Acknowledges receipt of something.
+N         Device Name
+M         Device Model
+T         Request Token (will be included in responses)
+K         32 byte Ed25519 Public Key + 64 byte Signature (must be last value)
 
 
 
@@ -106,31 +85,31 @@ Acknowledges receipt of something.
 UDP Protocol
 ------------
 
-- Listen for greeting messages. Add services that we are told about, and reply to greetings that have the "Wants TCP reply" flag set
+- Listen for scan messages. Add services that we are told about, and reply to scan messages
 
 
-- If we offer a service, whenever the computer wakes from sleep, or whenever properties are changed: Broadcast a greeting message
+- If we offer a service, whenever the computer wakes from sleep, or whenever properties are changed: Broadcast an announcement message
 
 
-- When the app is opened, or when the user presses the scan button: Broadcast a greeting message with the "Wants TCP reply"
+- When the app is opened, or when the user presses the scan button: Broadcast a scan message
 
 
-TCP Service
------------
+TCP Service ?
+-------------
 
-- Listen for connections. Respond with a greeting message?
+- Listen for connections. Respond with an announce message?
 
-- After the greeting message, wait for more commands / messages
+- After the announce message, wait for more commands / messages
 
 
 Messages
 --------
 
-- Identification Message (spontaneous or in reply to identification request)
+- Announcement Message (spontaneous or in reply to scan messages)
 
-- Identification Request Message
+- Scan Message
 
-- Error Message
+- Error Messages ?
 
 
 
