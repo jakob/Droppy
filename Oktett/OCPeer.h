@@ -11,19 +11,15 @@
 @class OCAddress;
 
 @interface OCPeer : NSObject {
-    uint16_t minSupportedProtocol;
-    uint16_t maxSupportedProtocol;
-    CFUUIDBytes peerUUID;
-    NSString *deviceType;
-    NSString *shortName;
+    BOOL supportsProtocolVersion1;
+    NSString *deviceName;
+    NSString *deviceModel;
     NSMutableArray *recentAddresses;
 }
 
-@property uint16_t minSupportedProtocol;
-@property uint16_t maxSupportedProtocol;
-@property CFUUIDRef peerUUID;
-@property(copy) NSString *deviceType;
-@property(copy) NSString *shortName;
+@property BOOL supportsProtocolVersion1;
+@property(copy) NSString *deviceName;
+@property(copy) NSString *deviceModel;
 @property(readonly) NSArray *recentAddresses;
 
 -(void)addRecentAddress:(OCAddress*)address;

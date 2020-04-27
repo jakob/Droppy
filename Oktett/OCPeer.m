@@ -11,10 +11,9 @@
 
 @implementation OCPeer
 
-@synthesize minSupportedProtocol;
-@synthesize maxSupportedProtocol;
-@synthesize deviceType;
-@synthesize shortName;
+@synthesize supportsProtocolVersion1;
+@synthesize deviceName;
+@synthesize deviceModel;
 
 -(id)init {
     self = [super init];
@@ -28,24 +27,9 @@
 	static OCPeer *localPeer;
 	if (!localPeer) {
 		localPeer = [[OCPeer alloc] init];
-		
-		/* Peer UUID is created randomly and stored in user defaults */
-		NSData *uuidData = [[NSUserDefaults standardUserDefaults] dataForKey:@"PeerUUID"];
-		CFUUIDRef peerUUID;
-		if (uuidData.length != sizeof(CFUUIDBytes)) {
-			// looks like we do not a valid uuid
-			// generate a new one
-			peerUUID = CFUUIDCreate(kCFAllocatorDefault);
-			NSMutableData *newData = [[NSMutableData alloc] initWithLength:sizeof(CFUUIDBytes)];
-			*((CFUUIDBytes*)[newData mutableBytes]) = CFUUIDGetUUIDBytes(peerUUID);
-			[[NSUserDefaults standardUserDefaults] setObject:newData forKey:@"PeerUUID"];
-			[newData release];
-		} else {
-			peerUUID = CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, *((CFUUIDBytes*)uuidData.bytes));
-		}
-		localPeer.peerUUID = peerUUID;
-		CFRelease(peerUUID);
 
+        localPeer.supportsProtocolVersion1 = YES;
+        
 		/* Get computer model, eg. MacBookPro12,1 */
 		CFStringRef computerModel = nil;
 		io_service_t pexpdev;
@@ -58,18 +42,18 @@
 			}
 		}
 		if (computerModel) {
-			localPeer.deviceType = (id)computerModel;
+			localPeer.deviceModel = (id)computerModel;
 			CFRelease(computerModel);
 		} else {
-			localPeer.deviceType = @"Unknown";
+			localPeer.deviceModel = @"UnknownDevice";
 		}
 
 	}
 	
 	/* Get computer name */
-	CFStringRef computername = CSCopyMachineName();
-	localPeer.shortName = (id)computername;
-	CFRelease(computername);
+	CFStringRef deviceName = CSCopyMachineName();
+	localPeer.deviceName = (id)deviceName;
+	CFRelease(deviceName);
 	// Alternative method to get computer name
 	// #import <SystemConfiguration/SystemConfiguration.h>
 	// CFStringRef computername = SCDynamicStoreCopyComputerName(nil, nil);
@@ -92,19 +76,10 @@
     return [[recentAddresses copy] autorelease];
 }
 
--(CFUUIDRef)peerUUID {
-    CFUUIDRef ref = CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, peerUUID);
-    return (CFUUIDRef)[(id)ref autorelease];
-}
-
--(void)setPeerUUID:(CFUUIDRef)newUUID {
-    peerUUID = CFUUIDGetUUIDBytes(newUUID);
-}
-
 -(void)dealloc {
     [recentAddresses release];
-	[deviceType release];
-	[shortName release];
+	[deviceModel release];
+	[deviceName release];
     [super dealloc];
 }
 

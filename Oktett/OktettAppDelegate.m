@@ -12,6 +12,10 @@
 
 @synthesize window;
 
+-(void)applicationWillFinishLaunching:(NSNotification *)notification {
+    srandomdev();
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application

@@ -78,4 +78,16 @@
     return copy;
 }
 
+-(NSUInteger)hash {
+    return self.presentationAddress.hash ^ self.port;
+}
+
+-(BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[OCAddress class]]) {
+        OCAddress *otherAddr = object;
+        return [otherAddr.presentationAddress isEqual:self.presentationAddress] && otherAddr.port == self.port;
+    }
+    return NO;
+}
+
 @end

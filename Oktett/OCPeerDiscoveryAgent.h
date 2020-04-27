@@ -25,6 +25,7 @@
     OCMessenger *messenger;
     uint16_t peerDiscoveryPort;
     id<OCPeerDiscoveryAgentDelegate> delegate;
+    NSData *lastScanToken;
 }
 
 @property(readonly) NSArray *peers;

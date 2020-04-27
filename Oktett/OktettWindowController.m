@@ -50,7 +50,7 @@
 }
 
 -(void)agent:(OCPeerDiscoveryAgent *)agent discoveredPeer:(OCPeer *)peer {
-	NSString *message = [NSString stringWithFormat:@"%@\nDiscovered peer: %@ (%@)\n\n", [NSDate date], peer.shortName, peer.deviceType];
+	NSString *message = [NSString stringWithFormat:@"%@\nDiscovered peer: %@ (%@)\n\n", [NSDate date], peer.deviceName, peer.deviceModel];
     [statusTextView replaceCharactersInRange:NSMakeRange(0, 0) withString:message];
     [statusTextView didChangeText];
     [statusTextView setNeedsDisplay:YES];
@@ -58,7 +58,7 @@
 }
 
 -(void)agent:(OCPeerDiscoveryAgent *)agent updatedPeer:(OCPeer *)peer {
-    NSString *message = [NSString stringWithFormat:@"%@\nUpdated peer: %@\n\n", [NSDate date], peer.shortName];
+    NSString *message = [NSString stringWithFormat:@"%@\nUpdated peer: %@\n\n", [NSDate date], peer.deviceName];
     [statusTextView replaceCharactersInRange:NSMakeRange(0, 0) withString:message];
     [statusTextView didChangeText];
     [statusTextView setNeedsDisplay:YES];
@@ -160,7 +160,7 @@
         return item;
     }
     if ([item isKindOfClass:[OCPeer class]]) {
-        return [item shortName];
+        return [item deviceName];
     }
     return nil;
 }

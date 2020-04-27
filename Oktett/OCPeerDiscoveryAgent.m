@@ -8,13 +8,11 @@
 
 #import "OCPeerDiscoveryAgent.h"
 #import "OCMessenger.h"
-#import "OCQueryMessage.h"
-#import "OCPeerIdentificationMessage.h"
+#import "PDPMessage.h"
 
-@interface OCPeerDiscoveryAgent() <OCMessengerDelegate> {
-}
--(void)replyToQuery:(OCQueryMessage*)query from:(OCAddress*)addr;
--(void)handlePeerIdentificationMessage:(OCPeerIdentificationMessage*)message from:(OCAddress*)addr;
+@interface OCPeerDiscoveryAgent() <OCMessengerDelegate> 
+-(void)replyToQuery:(PDPMessage*)query from:(OCAddress*)addr;
+-(void)handlePeerIdentificationMessage:(PDPMessage*)message from:(OCAddress*)addr;
 @end
 
 
@@ -39,9 +37,16 @@
 }
 
 -(BOOL)scanWithError:(NSError**)error {
-    OCQueryMessage *message = [[OCQueryMessage alloc] init];
-    message.minSupportedProtocol = MIN_PEER_DISCOVERY_PROTOCOL_VERSION;
-    message.maxSupportedProtocol = MAX_PEER_DISCOVERY_PROTOCOL_VERSION;
+    PDPMessage *message = [[PDPMessage alloc] init];
+    
+    message.supportsProtocolVersion1 = YES;
+    message.messageType = PDPMessageTypeScan;
+    
+    long token = random();
+    
+    [lastScanToken release];
+    lastScanToken = [[NSData alloc] initWithBytes:&token length:sizeof(token)];
+    message.requestToken = lastScanToken;
     
     NSData *data = [message data];
     BOOL success = [messenger broadcastMessage:data port:peerDiscoveryPort error:error];
@@ -52,33 +57,30 @@
 
 -(void)messenger:(OCMessenger *)messenger didReceiveData:(NSData *)data from:(OCAddress *)addr {
     NSError *parseError = nil;
-    {
-        OCQueryMessage *message = [OCQueryMessage messageFromData:data error:&parseError];
-        if (message) {
-            [self replyToQuery:message from:addr];
-            return;
-        }
+    PDPMessage *message = [PDPMessage messageFromData:data error:&parseError];
+    if (!message) {
+        NSLog(@"Received invalid message: %@", parseError);
     }
-    
-    {
-        OCPeerIdentificationMessage *message = [OCPeerIdentificationMessage messageFromData:data error:&parseError];
-        if (message) {
-            [self handlePeerIdentificationMessage:message from:addr];
-            return;
-        }
+    if (message.messageType == PDPMessageTypeScan) {
+        [self replyToQuery:message from:addr];
+    }
+    else if (message.messageType == PDPMessageTypeAnnounce) {
+        [self handlePeerIdentificationMessage:message from:addr];
+    }
+    else {
+        NSLog(@"Received message of unknown type: %02x", message.messageType);
     }
 }
 
--(void)replyToQuery:(OCQueryMessage*)query from:(OCAddress*)addr {
-    NSLog(@"Replying to query message from %@:%d requestUUID: %@", addr.presentationAddress, addr.port, query.requestUUID);
-    OCPeerIdentificationMessage *response = [[OCPeerIdentificationMessage alloc] init];
+-(void)replyToQuery:(PDPMessage*)query from:(OCAddress*)addr {
+    NSLog(@"Replying to query message from %@:%d requestToken: %@", addr.presentationAddress, addr.port, query.requestToken);
+    PDPMessage *response = [[PDPMessage alloc] init];
 	OCPeer *localPeer = [OCPeer localPeer];
-    response.minSupportedProtocol = localPeer.minSupportedProtocol;
-    response.maxSupportedProtocol = localPeer.maxSupportedProtocol;
-    response.requestUUID = query.requestUUID;
-    response.peerUUID = localPeer.peerUUID;
-    response.deviceType = localPeer.deviceType;
-    response.shortName = localPeer.shortName;
+    response.messageType = PDPMessageTypeAnnounce;
+    response.supportsProtocolVersion1 = localPeer.supportsProtocolVersion1;
+    response.deviceName = localPeer.deviceName;
+    response.deviceModel = localPeer.deviceModel;
+    response.requestToken = query.requestToken;
     NSError *sendError = nil;
     if (![messenger sendMessage:[response data] to:addr error:&sendError]) {
         NSLog(@"Failed to reply to query: %@", sendError);
@@ -86,12 +88,11 @@
     [response release];
 }
 
--(void)handlePeerIdentificationMessage:(OCPeerIdentificationMessage*)message from:(OCAddress*)addr {
-    NSLog(@"Peer discovered: %@:%d %@ %@", addr.presentationAddress, addr.port, message.deviceType, message.shortName);
+-(void)handlePeerIdentificationMessage:(PDPMessage*)message from:(OCAddress*)addr {
+    NSLog(@"Peer discovered: %@:%d %@ %@", addr.presentationAddress, addr.port, message.deviceModel, message.deviceName);
     OCPeer *peer = nil;
-    CFUUIDRef peerUUID = message.peerUUID;
     for (OCPeer *existingPeer in peers) {
-        if (CFEqual(existingPeer.peerUUID, peerUUID)) {
+        if ([[existingPeer.recentAddresses objectAtIndex:0] isEqual:addr]) {
             // it's a match!
             peer = existingPeer;
             break;
@@ -100,14 +101,12 @@
     BOOL isNew = !peer;
     if (isNew) {
         peer = [[OCPeer alloc] init];
-        peer.peerUUID = peerUUID;
         [peers addObject:peer];
         [peer release];
     }
-    peer.deviceType = message.deviceType;
-    peer.shortName = message.shortName;
-    peer.minSupportedProtocol = peer.minSupportedProtocol;
-    peer.maxSupportedProtocol = peer.maxSupportedProtocol;
+    if (message.deviceModel) peer.deviceModel = message.deviceModel;
+    if (message.deviceName) peer.deviceName = message.deviceName;
+    peer.supportsProtocolVersion1 = peer.supportsProtocolVersion1;
     [peer addRecentAddress:addr];
     if (isNew) [delegate agent:self discoveredPeer:peer];
     else [delegate agent:self updatedPeer:peer];

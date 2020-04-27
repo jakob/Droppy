@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		344EA683245591EB00CFEE0A /* KVPDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 344EA682245591EB00CFEE0A /* KVPDictionary.m */; };
+		344EA6872455CB1D00CFEE0A /* KVPMutableDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 344EA6862455CB1D00CFEE0A /* KVPMutableDictionary.m */; };
+		344EA68A2455DBE700CFEE0A /* PDPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 344EA6892455DBE700CFEE0A /* PDPMessage.m */; };
 		3498D5ED244C8DD000DC2101 /* NSError+ConvenienceConstructors.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498D5EC244C8DD000DC2101 /* NSError+ConvenienceConstructors.m */; };
 		3498D5F0244CE6DC00DC2101 /* OCInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498D5EF244CE6DC00DC2101 /* OCInterface.m */; };
 		349A85E62449CF6B001AE238 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349A85E52449CF6B001AE238 /* Cocoa.framework */; };
@@ -19,8 +22,6 @@
 		349E67EA244ECF7E00A2E741 /* OCMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67E9244ECF7E00A2E741 /* OCMessenger.m */; };
 		349E67EE244EE4D800A2E741 /* OCPeerDiscoveryAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67ED244EE4D800A2E741 /* OCPeerDiscoveryAgent.m */; };
 		349E67F1244EE4F100A2E741 /* OCPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67F0244EE4F100A2E741 /* OCPeer.m */; };
-		349E67F5244EED4100A2E741 /* OCQueryMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67F4244EED4100A2E741 /* OCQueryMessage.m */; };
-		349E67F8244F6F8000A2E741 /* OCPeerIdentificationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67F7244F6F8000A2E741 /* OCPeerIdentificationMessage.m */; };
 		349E6807245192D900A2E741 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E6806245192D900A2E741 /* NSString+Additions.m */; };
 		34AEE393244A3E90004E6CEC /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 34AEE392244A3E90004E6CEC /* README.txt */; };
 		34B60C06244E3B2A006C62B9 /* OCAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B60C05244E3B29006C62B9 /* OCAddress.m */; };
@@ -28,6 +29,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		344EA681245591EB00CFEE0A /* KVPDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVPDictionary.h; sourceTree = "<group>"; };
+		344EA682245591EB00CFEE0A /* KVPDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVPDictionary.m; sourceTree = "<group>"; };
+		344EA6852455CB1C00CFEE0A /* KVPMutableDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVPMutableDictionary.h; sourceTree = "<group>"; };
+		344EA6862455CB1D00CFEE0A /* KVPMutableDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVPMutableDictionary.m; sourceTree = "<group>"; };
+		344EA6882455DBE600CFEE0A /* PDPMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDPMessage.h; sourceTree = "<group>"; };
+		344EA6892455DBE700CFEE0A /* PDPMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPMessage.m; sourceTree = "<group>"; };
 		3498D5EB244C8DD000DC2101 /* NSError+ConvenienceConstructors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+ConvenienceConstructors.h"; sourceTree = "<group>"; };
 		3498D5EC244C8DD000DC2101 /* NSError+ConvenienceConstructors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+ConvenienceConstructors.m"; sourceTree = "<group>"; };
 		3498D5EE244CE6DC00DC2101 /* OCInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCInterface.h; sourceTree = "<group>"; };
@@ -53,15 +60,11 @@
 		349E67ED244EE4D800A2E741 /* OCPeerDiscoveryAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCPeerDiscoveryAgent.m; sourceTree = "<group>"; };
 		349E67EF244EE4F100A2E741 /* OCPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCPeer.h; sourceTree = "<group>"; };
 		349E67F0244EE4F100A2E741 /* OCPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCPeer.m; sourceTree = "<group>"; };
-		349E67F3244EED4100A2E741 /* OCQueryMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCQueryMessage.h; sourceTree = "<group>"; };
-		349E67F4244EED4100A2E741 /* OCQueryMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCQueryMessage.m; sourceTree = "<group>"; };
-		349E67F6244F6F8000A2E741 /* OCPeerIdentificationMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCPeerIdentificationMessage.h; sourceTree = "<group>"; };
-		349E67F7244F6F8000A2E741 /* OCPeerIdentificationMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCPeerIdentificationMessage.m; sourceTree = "<group>"; };
 		349E6805245192D900A2E741 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
 		349E6806245192D900A2E741 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
 		34AEE392244A3E90004E6CEC /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		34B60C04244E3B29006C62B9 /* OCAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCAddress.h; path = Oktett.xcodeproj/OCAddress.h; sourceTree = SOURCE_ROOT; };
-		34B60C05244E3B29006C62B9 /* OCAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCAddress.m; path = Oktett.xcodeproj/OCAddress.m; sourceTree = SOURCE_ROOT; };
+		34B60C04244E3B29006C62B9 /* OCAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAddress.h; sourceTree = "<group>"; };
+		34B60C05244E3B29006C62B9 /* OCAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAddress.m; sourceTree = "<group>"; };
 		36EE71FE24506E1D00193D95 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -163,24 +166,18 @@
 		349E67EB244EE4B500A2E741 /* Discovery Agent */ = {
 			isa = PBXGroup;
 			children = (
-				349E67F2244EED0E00A2E741 /* Messages */,
 				349E67EC244EE4D800A2E741 /* OCPeerDiscoveryAgent.h */,
 				349E67ED244EE4D800A2E741 /* OCPeerDiscoveryAgent.m */,
 				349E67EF244EE4F100A2E741 /* OCPeer.h */,
 				349E67F0244EE4F100A2E741 /* OCPeer.m */,
+				344EA681245591EB00CFEE0A /* KVPDictionary.h */,
+				344EA682245591EB00CFEE0A /* KVPDictionary.m */,
+				344EA6852455CB1C00CFEE0A /* KVPMutableDictionary.h */,
+				344EA6862455CB1D00CFEE0A /* KVPMutableDictionary.m */,
+				344EA6882455DBE600CFEE0A /* PDPMessage.h */,
+				344EA6892455DBE700CFEE0A /* PDPMessage.m */,
 			);
 			name = "Discovery Agent";
-			sourceTree = "<group>";
-		};
-		349E67F2244EED0E00A2E741 /* Messages */ = {
-			isa = PBXGroup;
-			children = (
-				349E67F3244EED4100A2E741 /* OCQueryMessage.h */,
-				349E67F4244EED4100A2E741 /* OCQueryMessage.m */,
-				349E67F6244F6F8000A2E741 /* OCPeerIdentificationMessage.h */,
-				349E67F7244F6F8000A2E741 /* OCPeerIdentificationMessage.m */,
-			);
-			name = Messages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,9 +250,10 @@
 				349E67EA244ECF7E00A2E741 /* OCMessenger.m in Sources */,
 				349E67EE244EE4D800A2E741 /* OCPeerDiscoveryAgent.m in Sources */,
 				349E67F1244EE4F100A2E741 /* OCPeer.m in Sources */,
-				349E67F5244EED4100A2E741 /* OCQueryMessage.m in Sources */,
-				349E67F8244F6F8000A2E741 /* OCPeerIdentificationMessage.m in Sources */,
 				349E6807245192D900A2E741 /* NSString+Additions.m in Sources */,
+				344EA683245591EB00CFEE0A /* KVPDictionary.m in Sources */,
+				344EA6872455CB1D00CFEE0A /* KVPMutableDictionary.m in Sources */,
+				344EA68A2455DBE700CFEE0A /* PDPMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
