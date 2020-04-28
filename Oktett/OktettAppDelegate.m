@@ -7,13 +7,17 @@
 //
 
 #import "OktettAppDelegate.h"
+#import "sodium.h"
 
 @implementation OktettAppDelegate
 
 @synthesize window;
 
 -(void)applicationWillFinishLaunching:(NSNotification *)notification {
-    srandomdev();
+    if (sodium_init() < 0) {
+        NSLog(@"Failed to init libsodium.");
+        exit(1);
+    }
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification

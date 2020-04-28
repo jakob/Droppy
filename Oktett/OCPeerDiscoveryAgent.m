@@ -9,6 +9,7 @@
 #import "OCPeerDiscoveryAgent.h"
 #import "OCMessenger.h"
 #import "PDPMessage.h"
+#import "sodium.h"
 
 @interface OCPeerDiscoveryAgent() <OCMessengerDelegate> 
 -(void)replyToQuery:(PDPMessage*)query from:(OCAddress*)addr;
@@ -42,10 +43,11 @@
     message.supportsProtocolVersion1 = YES;
     message.messageType = PDPMessageTypeScan;
     
-    long token = random();
-    
     [lastScanToken release];
-    lastScanToken = [[NSData alloc] initWithBytes:&token length:sizeof(token)];
+    NSMutableData *mutableToken = [[NSMutableData alloc] initWithLength:12];
+    randombytes_buf(mutableToken.mutableBytes, 12);
+    lastScanToken = [mutableToken copy];
+    [mutableToken release];
     message.requestToken = lastScanToken;
     
     NSData *data = [message data];

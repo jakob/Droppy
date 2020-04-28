@@ -10,6 +10,8 @@
 		344EA683245591EB00CFEE0A /* KVPDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 344EA682245591EB00CFEE0A /* KVPDictionary.m */; };
 		344EA6872455CB1D00CFEE0A /* KVPMutableDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 344EA6862455CB1D00CFEE0A /* KVPMutableDictionary.m */; };
 		344EA68A2455DBE700CFEE0A /* PDPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 344EA6892455DBE700CFEE0A /* PDPMessage.m */; };
+		344EA690245783F900CFEE0A /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 344EA68F245783F900CFEE0A /* libsodium.a */; };
+		344EA693245785BD00CFEE0A /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 344EA692245785BD00CFEE0A /* libsodium.a */; };
 		3498D5ED244C8DD000DC2101 /* NSError+ConvenienceConstructors.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498D5EC244C8DD000DC2101 /* NSError+ConvenienceConstructors.m */; };
 		3498D5F0244CE6DC00DC2101 /* OCInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498D5EF244CE6DC00DC2101 /* OCInterface.m */; };
 		349A85E62449CF6B001AE238 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349A85E52449CF6B001AE238 /* Cocoa.framework */; };
@@ -35,6 +37,9 @@
 		344EA6862455CB1D00CFEE0A /* KVPMutableDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVPMutableDictionary.m; sourceTree = "<group>"; };
 		344EA6882455DBE600CFEE0A /* PDPMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDPMessage.h; sourceTree = "<group>"; };
 		344EA6892455DBE700CFEE0A /* PDPMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPMessage.m; sourceTree = "<group>"; };
+		344EA68F245783F900CFEE0A /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsodium.a; path = libsodium/libsodium.a; sourceTree = "<group>"; };
+		344EA691245784D800CFEE0A /* sodium.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sodium.h; path = libsodium/sodium.h; sourceTree = "<group>"; };
+		344EA692245785BD00CFEE0A /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsodium.a; path = libsodium/libsodium.a; sourceTree = "<group>"; };
 		3498D5EB244C8DD000DC2101 /* NSError+ConvenienceConstructors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+ConvenienceConstructors.h"; sourceTree = "<group>"; };
 		3498D5EC244C8DD000DC2101 /* NSError+ConvenienceConstructors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+ConvenienceConstructors.m"; sourceTree = "<group>"; };
 		3498D5EE244CE6DC00DC2101 /* OCInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCInterface.h; sourceTree = "<group>"; };
@@ -73,17 +78,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				344EA690245783F900CFEE0A /* libsodium.a in Frameworks */,
 				349A85E62449CF6B001AE238 /* Cocoa.framework in Frameworks */,
 				36EE71FF24506E1D00193D95 /* IOKit.framework in Frameworks */,
+				344EA693245785BD00CFEE0A /* libsodium.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		344EA68B2457837C00CFEE0A /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				344EA691245784D800CFEE0A /* sodium.h */,
+				344EA692245785BD00CFEE0A /* libsodium.a */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
 		349A85D62449CF6A001AE238 = {
 			isa = PBXGroup;
 			children = (
+				344EA68F245783F900CFEE0A /* libsodium.a */,
+				344EA68B2457837C00CFEE0A /* Vendor */,
 				349A85EB2449CF6B001AE238 /* Oktett */,
 				349A85E42449CF6B001AE238 /* Frameworks */,
 				349A85E22449CF6B001AE238 /* Products */,
@@ -329,6 +347,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Oktett/Oktett-Prefix.pch";
 				INFOPLIST_FILE = "Oktett/Oktett-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libsodium\"",
+				);
 				PRODUCT_NAME = Oktett;
 				WRAPPER_EXTENSION = app;
 			};
@@ -344,6 +366,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Oktett/Oktett-Prefix.pch";
 				INFOPLIST_FILE = "Oktett/Oktett-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libsodium\"",
+				);
 				PRODUCT_NAME = Oktett;
 				WRAPPER_EXTENSION = app;
 			};
