@@ -50,7 +50,7 @@
 
 -(NSData*)dataForDataKey:(NSData*)needle {
     const uint8_t *needle_bytes = needle.bytes;
-    int needle_len = needle.length;
+    NSUInteger needle_len = needle.length;
     const uint8_t *bytes = data.bytes;
     const uint8_t *end = bytes + data.length;
     while (bytes<end) {
