@@ -20,6 +20,13 @@
 @synthesize deviceModel;
 @synthesize requestToken;
 
+-(void)dealloc{
+	[deviceName release];
+	[deviceModel release];
+	[requestToken release];
+	[super dealloc];
+}
+
 +(PDPMessage *)messageFromData:(NSData *)data error:(NSError **)error {
     
     // first check the header
