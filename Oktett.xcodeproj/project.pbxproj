@@ -27,6 +27,9 @@
 		349E6807245192D900A2E741 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E6806245192D900A2E741 /* NSString+Additions.m */; };
 		34AEE393244A3E90004E6CEC /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 34AEE392244A3E90004E6CEC /* README.txt */; };
 		34B60C06244E3B2A006C62B9 /* OCAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B60C05244E3B29006C62B9 /* OCAddress.m */; };
+		368A4C952458180A0020E6CE /* Ed25519KeyPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 368A4C942458180A0020E6CE /* Ed25519KeyPair.m */; };
+		368A4C9824581BE30020E6CE /* Ed25519PublicKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 368A4C9724581BE30020E6CE /* Ed25519PublicKey.m */; };
+		368A4C9A245AEF340020E6CE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368A4C99245AEF340020E6CE /* Security.framework */; };
 		36EE71FF24506E1D00193D95 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EE71FE24506E1D00193D95 /* IOKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +73,11 @@
 		34AEE392244A3E90004E6CEC /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		34B60C04244E3B29006C62B9 /* OCAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAddress.h; sourceTree = "<group>"; };
 		34B60C05244E3B29006C62B9 /* OCAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAddress.m; sourceTree = "<group>"; };
+		368A4C932458180A0020E6CE /* Ed25519KeyPair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ed25519KeyPair.h; sourceTree = "<group>"; };
+		368A4C942458180A0020E6CE /* Ed25519KeyPair.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Ed25519KeyPair.m; sourceTree = "<group>"; };
+		368A4C9624581BE30020E6CE /* Ed25519PublicKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ed25519PublicKey.h; sourceTree = "<group>"; };
+		368A4C9724581BE30020E6CE /* Ed25519PublicKey.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Ed25519PublicKey.m; sourceTree = "<group>"; };
+		368A4C99245AEF340020E6CE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		36EE71FE24506E1D00193D95 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -79,6 +87,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				344EA690245783F900CFEE0A /* libsodium.a in Frameworks */,
+				368A4C9A245AEF340020E6CE /* Security.framework in Frameworks */,
 				349A85E62449CF6B001AE238 /* Cocoa.framework in Frameworks */,
 				36EE71FF24506E1D00193D95 /* IOKit.framework in Frameworks */,
 				344EA693245785BD00CFEE0A /* libsodium.a in Frameworks */,
@@ -119,6 +128,7 @@
 		349A85E42449CF6B001AE238 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				368A4C99245AEF340020E6CE /* Security.framework */,
 				36EE71FE24506E1D00193D95 /* IOKit.framework */,
 				349A85E52449CF6B001AE238 /* Cocoa.framework */,
 				349A85E72449CF6B001AE238 /* Other Frameworks */,
@@ -194,6 +204,10 @@
 				344EA6862455CB1D00CFEE0A /* KVPMutableDictionary.m */,
 				344EA6882455DBE600CFEE0A /* PDPMessage.h */,
 				344EA6892455DBE700CFEE0A /* PDPMessage.m */,
+				368A4C932458180A0020E6CE /* Ed25519KeyPair.h */,
+				368A4C942458180A0020E6CE /* Ed25519KeyPair.m */,
+				368A4C9624581BE30020E6CE /* Ed25519PublicKey.h */,
+				368A4C9724581BE30020E6CE /* Ed25519PublicKey.m */,
 			);
 			name = "Discovery Agent";
 			sourceTree = "<group>";
@@ -268,10 +282,12 @@
 				349E67EA244ECF7E00A2E741 /* OCMessenger.m in Sources */,
 				349E67EE244EE4D800A2E741 /* OCPeerDiscoveryAgent.m in Sources */,
 				349E67F1244EE4F100A2E741 /* OCPeer.m in Sources */,
+				368A4C952458180A0020E6CE /* Ed25519KeyPair.m in Sources */,
 				349E6807245192D900A2E741 /* NSString+Additions.m in Sources */,
 				344EA683245591EB00CFEE0A /* KVPDictionary.m in Sources */,
 				344EA6872455CB1D00CFEE0A /* KVPMutableDictionary.m in Sources */,
 				344EA68A2455DBE700CFEE0A /* PDPMessage.m in Sources */,
+				368A4C9824581BE30020E6CE /* Ed25519PublicKey.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
