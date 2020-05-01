@@ -59,7 +59,7 @@
 }
 
 +(Ed25519KeyPair*)keyPairFromKeychainWithServiceName:(NSString*)serviceName accountName:(NSString*)accountName error:(NSError**)error {
-	uint32_t pwLength = 0;
+	UInt32 pwLength = 0;
 	void *pw = nil;
 	OSStatus status = SecKeychainFindGenericPassword(
 		NULL /* Default Keychain */,
