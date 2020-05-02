@@ -12,8 +12,10 @@
 @implementation OCPeer
 
 @synthesize supportsProtocolVersion1;
+@synthesize supportsEd25519;
 @synthesize deviceName;
 @synthesize deviceModel;
+@synthesize publicKey;
 
 -(id)init {
     self = [super init];

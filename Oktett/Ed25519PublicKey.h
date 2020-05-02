@@ -13,6 +13,8 @@
 	uint8_t pk[crypto_sign_ed25519_PUBLICKEYBYTES];
 }
 
+@property(readonly) NSData *data;
+
 +(Ed25519PublicKey*)publicKeyWithData:(NSData*)data error:(NSError**)error;
 
 -(BOOL)verifySignature:(NSData*)sig forMessage:(NSData*)message error:(NSError**)error;

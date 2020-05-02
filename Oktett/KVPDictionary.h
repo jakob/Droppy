@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Ed25519PublicKey.h"
 
+typedef enum {
+    KVPErrorCodeNoSignature      = 4500001,
+    KVPErrorCodeInvalidSignature = 4500002
+} KVPErrorCode;
+
+extern NSString *KVPErrorDomain;
 
 @interface KVPDictionary : NSObject {
     NSMutableData *data;
@@ -25,5 +32,6 @@
 
 -(NSString*)stringForStringKey:(NSString*)key;
 
+-(Ed25519PublicKey*)verifiedPublicKeyForKey:(NSString*)key error:(NSError**)error;
 
 @end

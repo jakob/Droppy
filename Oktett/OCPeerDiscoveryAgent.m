@@ -50,8 +50,8 @@
     [mutableToken release];
     message.requestToken = lastScanToken;
     
-    NSData *data = [message data];
-    BOOL success = [messenger broadcastMessage:data port:peerDiscoveryPort error:error];
+    NSData *data = [message dataSignedWithKeyPair:nil error:error];
+    BOOL success = data && [messenger broadcastMessage:data port:peerDiscoveryPort error:error];
     [message release];
     
     return success;
@@ -80,11 +80,13 @@
 	OCPeer *localPeer = [OCPeer localPeer];
     response.messageType = PDPMessageTypeAnnounce;
     response.supportsProtocolVersion1 = localPeer.supportsProtocolVersion1;
+    response.supportsEd25519 = localPeer.supportsEd25519;
     response.deviceName = localPeer.deviceName;
     response.deviceModel = localPeer.deviceModel;
     response.requestToken = query.requestToken;
     NSError *sendError = nil;
-    if (![messenger sendMessage:[response data] to:addr error:&sendError]) {
+    NSData *message = [response dataSignedWithKeyPair:[Ed25519KeyPair currentDeviceKeyPair] error:&sendError];
+    if (!message || ![messenger sendMessage:message to:addr error:&sendError]) {
         NSLog(@"Failed to reply to query: %@", sendError);
     }
     [response release];
@@ -93,22 +95,36 @@
 -(void)handlePeerIdentificationMessage:(PDPMessage*)message from:(OCAddress*)addr {
     NSLog(@"Peer discovered: %@:%d %@ %@", addr.presentationAddress, addr.port, message.deviceModel, message.deviceName);
     OCPeer *peer = nil;
-    for (OCPeer *existingPeer in peers) {
-        if ([[existingPeer.recentAddresses objectAtIndex:0] isEqual:addr]) {
-            // it's a match!
-            peer = existingPeer;
-            break;
+    if (message.publicKey) {
+        for (OCPeer *existingPeer in peers) {
+            if ([existingPeer.publicKey isEqual:message.publicKey]) {
+                peer = existingPeer;
+                break;
+            }
+        }
+    } else {
+        for (OCPeer *existingPeer in peers) {
+            if (existingPeer.publicKey) {
+                // if the peer has a public key, all their messages must be signed
+                continue;
+            }
+            if ([[existingPeer.recentAddresses objectAtIndex:0] isEqual:addr]) {
+                peer = existingPeer;
+                break;
+            }
         }
     }
     BOOL isNew = !peer;
     if (isNew) {
         peer = [[OCPeer alloc] init];
+        peer.publicKey = message.publicKey;
         [peers addObject:peer];
         [peer release];
     }
     if (message.deviceModel) peer.deviceModel = message.deviceModel;
     if (message.deviceName) peer.deviceName = message.deviceName;
     peer.supportsProtocolVersion1 = peer.supportsProtocolVersion1;
+    peer.supportsEd25519 = peer.supportsEd25519;
     [peer addRecentAddress:addr];
     if (isNew) [delegate agent:self discoveredPeer:peer];
     else [delegate agent:self updatedPeer:peer];

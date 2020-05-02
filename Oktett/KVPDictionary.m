@@ -9,6 +9,8 @@
 #import "KVPDictionary.h"
 #import "NSError+ConvenienceConstructors.h"
 
+NSString *KVPErrorDomain = @"KVPErrorDomain";
+
 @implementation KVPDictionary
 
 -(id)init {
@@ -86,6 +88,43 @@
 
 -(NSData *)data {
     return [[data copy] autorelease];
+}
+
+-(Ed25519PublicKey *)verifiedPublicKeyForKey:(NSString *)key error:(NSError **)error {
+    NSData *keyAndSignature = [self dataForStringKey:key];
+    if (!keyAndSignature) {
+        [NSError set:error 
+              domain:KVPErrorDomain
+                code:KVPErrorCodeNoSignature
+              format:@"Message is not signed."];
+        return nil;
+    }
+    if (keyAndSignature.length != 96) {
+        [NSError set:error 
+              domain:KVPErrorDomain
+                code:KVPErrorCodeInvalidSignature
+              format:@"Signature is not the right length."];
+        return nil;
+    }
+    if (memcmp(keyAndSignature.bytes, data.bytes+data.length-96, 96) != 0) {
+        [NSError set:error 
+              domain:KVPErrorDomain
+                code:KVPErrorCodeInvalidSignature
+              format:@"Signature expected at end of message."];
+        return nil;
+    }
+    NSData *keyData = [NSData dataWithBytes:keyAndSignature.bytes length:32];
+    Ed25519PublicKey *publicKey = [Ed25519PublicKey publicKeyWithData:keyData error:error];
+    if (!publicKey) {
+        return nil;
+    }
+    NSData *signatureData = [NSData dataWithBytes:keyAndSignature.bytes+32 length:64];
+    NSData *truncatedData = [NSData dataWithBytes:data.bytes length:data.length-64];
+    BOOL isSignatureValid = [publicKey verifySignature:signatureData forMessage:truncatedData error:error];
+    if (!isSignatureValid) {
+        return nil;
+    }
+    return publicKey;
 }
 
 @end

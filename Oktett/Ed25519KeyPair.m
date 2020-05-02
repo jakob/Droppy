@@ -26,15 +26,27 @@
 }
 
 -(Ed25519PublicKey*)publicKey {
-	NSData *data = [[NSData alloc] initWithBytes:pk length:sizeof(crypto_sign_ed25519_PUBLICKEYBYTES)];
-	Ed25519PublicKey *publicKey = [Ed25519PublicKey publicKeyWithData:data error:nil];
+	NSData *data = [[NSData alloc] initWithBytes:pk length:crypto_sign_ed25519_PUBLICKEYBYTES];
+    NSError *publicKeyMakeError = nil;
+	Ed25519PublicKey *publicKey = [Ed25519PublicKey publicKeyWithData:data error:&publicKeyMakeError];
+    if (!publicKey) {
+        NSLog(@"Could not make public key: %@", publicKeyMakeError);
+        exit(1);
+    }
 	[data release];
 	return publicKey;
 }
 
--(NSData*)signatureForMessage:(NSData*)message {
+-(NSData*)signatureForMessage:(NSData*)message error:(NSError**)error {
 	uint8_t sig[crypto_sign_ed25519_BYTES];
-	crypto_sign_detached(sig, NULL, message.bytes, message.length, sk);
+    int status = crypto_sign_detached(sig, NULL, message.bytes, message.length, sk);
+	if (status != 0) {
+        [NSError set:error
+              domain:@"Ed25519"
+                code:1
+              format:@"Message signing failed (status code %d).", status];
+        return nil;
+    }
 	return [NSData dataWithBytes:sig length:crypto_sign_ed25519_BYTES];
 }
 
@@ -123,6 +135,7 @@
         [alert addButtonWithTitle:@"Quit"];
         [alert addButtonWithTitle:@"Generate New Key"];
         NSInteger result = [alert runModal];
+        [alert release];
         if (result == NSAlertFirstButtonReturn) {
             exit(0);
         }
@@ -144,6 +157,7 @@
         [alert addButtonWithTitle:@"Quit"];
         [alert addButtonWithTitle:@"Continue"];
         NSInteger result = [alert runModal];
+        [alert release];
         if (result == NSAlertFirstButtonReturn) {
             exit(0);
         }

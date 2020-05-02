@@ -16,14 +16,17 @@
 
 @synthesize messageType;
 @synthesize supportsProtocolVersion1;
+@synthesize supportsEd25519;
 @synthesize deviceName;
 @synthesize deviceModel;
 @synthesize requestToken;
+@synthesize publicKey;
 
 -(void)dealloc{
 	[deviceName release];
 	[deviceModel release];
 	[requestToken release];
+	[publicKey release];
 	[super dealloc];
 }
 
@@ -66,17 +69,33 @@
     message.messageType = pdp_bytes[0];
     uint8_t flags = pdp_bytes[1];
     message.supportsProtocolVersion1 = flags & 0x01 ? YES : NO;
+    message.supportsEd25519 = flags & 0x02 ? YES : NO;
     
     // Extract optional fields
     message.deviceName = [dict stringForStringKey:@"N"];
     message.deviceModel = [dict stringForStringKey:@"M"];
     message.requestToken = [dict dataForStringKey:@"T"];
     
+    NSError *signatureError = nil;
+    Ed25519PublicKey *publicKey = [dict verifiedPublicKeyForKey:@"K" error:&signatureError];
+    if (publicKey) {
+        message.publicKey = publicKey;
+    } else {
+        if ([[signatureError domain] isEqualToString:KVPErrorDomain] && [signatureError code]==KVPErrorCodeNoSignature) {
+            // unsigned message is allowed
+        } else {
+            // message with broken signature is not allowed
+            // return error!
+            if (error) *error = signatureError;
+            return nil;
+        }
+    }
+    
     return [message autorelease];
 }
 
 
--(NSData *)data {
+-(NSData *)dataSignedWithKeyPair:(Ed25519KeyPair*)keyPair error:(NSError**)error {
     KVPMutableDictionary *dict = [[KVPMutableDictionary alloc] init];
     
     // Write Header
@@ -84,32 +103,48 @@
     uint8_t *pdp_bytes = pdp.mutableBytes;
     pdp_bytes[0] = self.messageType;
     if (self.supportsProtocolVersion1) pdp_bytes[1] |= 0x01;
-    NSError *error = nil;
-    if (![dict setData:pdp forStringKey:@"PDP" error:&error]) goto error;
+    if (self.supportsEd25519) pdp_bytes[1] |= 0x02;
+    if (![dict setData:pdp forStringKey:@"PDP" error:error]) {
+        [pdp release];
+        [dict release];
+        return nil;
+    }
     [pdp release];
     
     NSData *truncatedName = [self.deviceName dataUsingEncoding:NSUTF8StringEncoding maxEncodedLength:255];
     if (truncatedName) {
-        if (![dict setData:truncatedName forStringKey:@"N" error:&error]) goto error;
+        if (![dict setData:truncatedName forStringKey:@"N" error:error]) {
+            [dict release];
+            return nil;
+        }
     }
         
     NSData *truncatedModel = [self.deviceModel dataUsingEncoding:NSUTF8StringEncoding maxEncodedLength:255];
     if (truncatedModel) {
-        if (![dict setData:truncatedModel forStringKey:@"M" error:&error]) goto error;
+        if (![dict setData:truncatedModel forStringKey:@"M" error:error]) {
+            [dict release];
+            return nil;
+        }
     }
     
     if (self.requestToken) {
-        if (![dict setData:self.requestToken forStringKey:@"T" error:&error]) goto error;
+        if (![dict setData:self.requestToken forStringKey:@"T" error:error]) {
+            [dict release];
+            return nil;
+        }
+    }
+    
+    if (keyPair) {
+        if (![dict signWithKeyPair:keyPair key:@"K" error:error]) {
+            [dict release];
+            return nil;
+        }
     }
     
     NSData *data = [dict data];
     [dict release];
     
     return data;
-    
-error:
-    NSLog(@"Unexpected error in [PDPMessage data]: %@", error);
-    exit(1);
 }
 
 

@@ -51,4 +51,8 @@
 	return *(NSUInteger*)pk;
 }
 
+-(NSData *)data {
+    return [NSData dataWithBytes:pk length:crypto_sign_ed25519_PUBLICKEYBYTES];
+}
+
 @end

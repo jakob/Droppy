@@ -11,6 +11,8 @@
 
 @implementation KVPMutableDictionary
 
+@synthesize mutableData = data;
+
 -(BOOL)setData:(NSData*)valueData forDataKey:(NSData*)keyData error:(NSError**)outError {
     if ([self dataForDataKey:keyData]) {
         [NSError set:outError
@@ -54,6 +56,27 @@
 
 -(BOOL)setString:(NSString*)value forStringKey:(NSString*)key error:(NSError**)outError {
     return [self setData:[value dataUsingEncoding:NSUTF8StringEncoding] forStringKey:key error:outError];
+}
+
+-(BOOL)signWithKeyPair:(Ed25519KeyPair*)keyPair key:(NSString*)key error:(NSError**)outError {
+    NSMutableData *signaturePlaceholder = [[NSMutableData alloc] initWithLength:96];
+    NSData *publicKeyData = keyPair.publicKey.data;
+    memcpy(signaturePlaceholder.mutableBytes, publicKeyData.bytes, 32);
+    if (![self setData:signaturePlaceholder forStringKey:key error:outError]) {
+        [signaturePlaceholder release];
+        return NO;
+    }
+    [signaturePlaceholder release];
+    
+    NSUInteger signatureOffset = data.length-64;
+    NSData *truncatedMessage = [NSData dataWithBytes:data.bytes length:signatureOffset];
+    NSData *signature = [keyPair signatureForMessage:truncatedMessage error:outError];
+    if (!signature) {
+        // Note: there is now a broken signature in data!!
+        return NO;
+    }
+    [data replaceBytesInRange:NSMakeRange(signatureOffset, 64) withBytes:signature.bytes];
+    return YES;
 }
 
 @end
