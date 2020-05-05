@@ -19,6 +19,5 @@
 -(NSData*)signatureForMessage:(NSData*)message error:(NSError**)error;
 -(BOOL)saveAsGenericKeychainItemWithServiceName:(NSString*)serviceName accountName:(NSString*)accountName error: (NSError**)error;
 +(Ed25519KeyPair*)keyPairFromKeychainWithServiceName:(NSString*)serviceName accountName:(NSString*)accountName error:(NSError**)error;
-+(Ed25519KeyPair*)currentDeviceKeyPair;
 
 @end

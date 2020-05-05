@@ -11,6 +11,7 @@
 
 @class PDPAgent;
 @class OCMessenger;
+@class Ed25519KeyPair;
 
 @protocol PDPAgentDelegate
 -(void)agent:(PDPAgent*)agent discoveredPeer:(PDPPeer*)peer;
@@ -32,5 +33,6 @@
 
 -(BOOL)scanWithError:(NSError**)error;
 
++(Ed25519KeyPair*)currentDeviceKeyPair;
 
 @end

@@ -117,52 +117,5 @@
 	return [keyPair autorelease];
 }
 
-+(Ed25519KeyPair*)currentDeviceKeyPair {
-    static Ed25519KeyPair *keyPair;
-    if (keyPair) return keyPair;
-    // First check if we already have an accound name
-    NSString *accountName = [[NSUserDefaults standardUserDefaults] stringForKey:@"DeviceAccountName"];
-    if (accountName) {
-        // try to get the key pair from the key chain
-        NSError *error = nil;
-        keyPair = [[self keyPairFromKeychainWithServiceName:@"OktettPeerDiscoveryKey" accountName:accountName error:&error] retain];
-        if (keyPair) return keyPair;
-        
-        // we couldn't get the key pair from the keychain (not found or no permission)
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText:@"Could not read device key"];
-        [alert setInformativeText:[NSString stringWithFormat:@"%@\n\nYou can generate a new key, but then your device will appear like an unknown device to others.", error.localizedDescription]];
-        [alert addButtonWithTitle:@"Quit"];
-        [alert addButtonWithTitle:@"Generate New Key"];
-        NSInteger result = [alert runModal];
-        [alert release];
-        if (result == NSAlertFirstButtonReturn) {
-            exit(0);
-        }
-    }
-    
-    // We need to generate a key!
-    accountName = [NSString stringWithFormat:@"Device%08X%08X", randombytes_random(), randombytes_random()];
-    keyPair = [[Ed25519KeyPair alloc] init];
-    NSError *keychainAddError = nil;
-    if ([keyPair saveAsGenericKeychainItemWithServiceName:@"OktettPeerDiscoveryKey" accountName:accountName error:&keychainAddError]) {
-        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-        [standardUserDefaults setObject:accountName forKey:@"DeviceAccountName"];
-        // Make sure we don't forget the name of our newly generated key in case of crash
-        [standardUserDefaults synchronize];
-    } else {
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText:@"Could not save device key"];
-        [alert setInformativeText:[NSString stringWithFormat:@"A newly generated device key could not be saved to the keychain because: %@.\n\nYou can continue, but this device will appear as an unknown device to others when you next start the app.", keychainAddError.localizedDescription]];
-        [alert addButtonWithTitle:@"Quit"];
-        [alert addButtonWithTitle:@"Continue"];
-        NSInteger result = [alert runModal];
-        [alert release];
-        if (result == NSAlertFirstButtonReturn) {
-            exit(0);
-        }
-    }
-    return keyPair;
-}
 
 @end

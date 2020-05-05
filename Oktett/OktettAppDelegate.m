@@ -8,7 +8,7 @@
 
 #import "OktettAppDelegate.h"
 #import "sodium.h"
-#import "Ed25519KeyPair.h"
+#import "PDPAgent.h"
 
 @implementation OktettAppDelegate
 
@@ -21,7 +21,7 @@
     }
     
     // Make sure we have a device key before any of the UI is loaded
-    [Ed25519KeyPair currentDeviceKeyPair];
+    [PDPAgent currentDeviceKeyPair];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
