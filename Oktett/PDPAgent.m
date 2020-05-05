@@ -1,23 +1,23 @@
 //
-//  OCPeerDiscoveryAgent.m
+//  PDPAgent.m
 //  Oktett
 //
 //  Created by Jakob on 21.04.20.
 //  Copyright 2020 __MyCompanyName__. All rights reserved.
 //
 
-#import "OCPeerDiscoveryAgent.h"
+#import "PDPAgent.h"
 #import "OCMessenger.h"
 #import "PDPMessage.h"
 #import "sodium.h"
 
-@interface OCPeerDiscoveryAgent() <OCMessengerDelegate> 
+@interface PDPAgent() <OCMessengerDelegate> 
 -(void)replyToQuery:(PDPMessage*)query from:(OCAddress*)addr;
 -(void)handlePeerIdentificationMessage:(PDPMessage*)message from:(OCAddress*)addr;
 @end
 
 
-@implementation OCPeerDiscoveryAgent
+@implementation PDPAgent
 
 @synthesize delegate;
 
@@ -77,7 +77,7 @@
 -(void)replyToQuery:(PDPMessage*)query from:(OCAddress*)addr {
     NSLog(@"Replying to query message from %@:%d requestToken: %@", addr.presentationAddress, addr.port, query.requestToken);
     PDPMessage *response = [[PDPMessage alloc] init];
-	OCPeer *localPeer = [OCPeer localPeer];
+	PDPPeer *localPeer = [PDPPeer localPeer];
     response.messageType = PDPMessageTypeAnnounce;
     response.supportsProtocolVersion1 = localPeer.supportsProtocolVersion1;
     response.supportsEd25519 = localPeer.supportsEd25519;
@@ -94,16 +94,16 @@
 
 -(void)handlePeerIdentificationMessage:(PDPMessage*)message from:(OCAddress*)addr {
     NSLog(@"Peer discovered: %@:%d %@ %@", addr.presentationAddress, addr.port, message.deviceModel, message.deviceName);
-    OCPeer *peer = nil;
+    PDPPeer *peer = nil;
     if (message.publicKey) {
-        for (OCPeer *existingPeer in peers) {
+        for (PDPPeer *existingPeer in peers) {
             if ([existingPeer.publicKey isEqual:message.publicKey]) {
                 peer = existingPeer;
                 break;
             }
         }
     } else {
-        for (OCPeer *existingPeer in peers) {
+        for (PDPPeer *existingPeer in peers) {
             if (existingPeer.publicKey) {
                 // if the peer has a public key, all their messages must be signed
                 continue;
@@ -116,7 +116,7 @@
     }
     BOOL isNew = !peer;
     if (isNew) {
-        peer = [[OCPeer alloc] init];
+        peer = [[PDPPeer alloc] init];
         peer.publicKey = message.publicKey;
         [peers addObject:peer];
         [peer release];

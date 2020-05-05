@@ -22,8 +22,8 @@
 		349A85FC2449CF6B001AE238 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A85FA2449CF6B001AE238 /* MainMenu.xib */; };
 		349A86042449FEEB001AE238 /* OktettWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 349A86032449FEEB001AE238 /* OktettWindowController.m */; };
 		349E67EA244ECF7E00A2E741 /* OCMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67E9244ECF7E00A2E741 /* OCMessenger.m */; };
-		349E67EE244EE4D800A2E741 /* OCPeerDiscoveryAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67ED244EE4D800A2E741 /* OCPeerDiscoveryAgent.m */; };
-		349E67F1244EE4F100A2E741 /* OCPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67F0244EE4F100A2E741 /* OCPeer.m */; };
+		349E67EE244EE4D800A2E741 /* PDPAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67ED244EE4D800A2E741 /* PDPAgent.m */; };
+		349E67F1244EE4F100A2E741 /* PDPPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67F0244EE4F100A2E741 /* PDPPeer.m */; };
 		349E6807245192D900A2E741 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E6806245192D900A2E741 /* NSString+Additions.m */; };
 		34AEE393244A3E90004E6CEC /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 34AEE392244A3E90004E6CEC /* README.txt */; };
 		34B60C06244E3B2A006C62B9 /* OCAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B60C05244E3B29006C62B9 /* OCAddress.m */; };
@@ -64,10 +64,10 @@
 		349A86032449FEEB001AE238 /* OktettWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OktettWindowController.m; sourceTree = "<group>"; };
 		349E67E8244ECF7E00A2E741 /* OCMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMessenger.h; sourceTree = "<group>"; };
 		349E67E9244ECF7E00A2E741 /* OCMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMessenger.m; sourceTree = "<group>"; };
-		349E67EC244EE4D800A2E741 /* OCPeerDiscoveryAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCPeerDiscoveryAgent.h; sourceTree = "<group>"; };
-		349E67ED244EE4D800A2E741 /* OCPeerDiscoveryAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCPeerDiscoveryAgent.m; sourceTree = "<group>"; };
-		349E67EF244EE4F100A2E741 /* OCPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCPeer.h; sourceTree = "<group>"; };
-		349E67F0244EE4F100A2E741 /* OCPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCPeer.m; sourceTree = "<group>"; };
+		349E67EC244EE4D800A2E741 /* PDPAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PDPAgent.h; sourceTree = "<group>"; };
+		349E67ED244EE4D800A2E741 /* PDPAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPAgent.m; sourceTree = "<group>"; };
+		349E67EF244EE4F100A2E741 /* PDPPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PDPPeer.h; sourceTree = "<group>"; };
+		349E67F0244EE4F100A2E741 /* PDPPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPPeer.m; sourceTree = "<group>"; };
 		349E6805245192D900A2E741 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
 		349E6806245192D900A2E741 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
 		34AEE392244A3E90004E6CEC /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
@@ -194,10 +194,10 @@
 		349E67EB244EE4B500A2E741 /* Discovery Agent */ = {
 			isa = PBXGroup;
 			children = (
-				349E67EC244EE4D800A2E741 /* OCPeerDiscoveryAgent.h */,
-				349E67ED244EE4D800A2E741 /* OCPeerDiscoveryAgent.m */,
-				349E67EF244EE4F100A2E741 /* OCPeer.h */,
-				349E67F0244EE4F100A2E741 /* OCPeer.m */,
+				349E67EC244EE4D800A2E741 /* PDPAgent.h */,
+				349E67ED244EE4D800A2E741 /* PDPAgent.m */,
+				349E67EF244EE4F100A2E741 /* PDPPeer.h */,
+				349E67F0244EE4F100A2E741 /* PDPPeer.m */,
 				344EA681245591EB00CFEE0A /* KVPDictionary.h */,
 				344EA682245591EB00CFEE0A /* KVPDictionary.m */,
 				344EA6852455CB1C00CFEE0A /* KVPMutableDictionary.h */,
@@ -280,8 +280,8 @@
 				3498D5F0244CE6DC00DC2101 /* OCInterface.m in Sources */,
 				34B60C06244E3B2A006C62B9 /* OCAddress.m in Sources */,
 				349E67EA244ECF7E00A2E741 /* OCMessenger.m in Sources */,
-				349E67EE244EE4D800A2E741 /* OCPeerDiscoveryAgent.m in Sources */,
-				349E67F1244EE4F100A2E741 /* OCPeer.m in Sources */,
+				349E67EE244EE4D800A2E741 /* PDPAgent.m in Sources */,
+				349E67F1244EE4F100A2E741 /* PDPPeer.m in Sources */,
 				368A4C952458180A0020E6CE /* Ed25519KeyPair.m in Sources */,
 				349E6807245192D900A2E741 /* NSString+Additions.m in Sources */,
 				344EA683245591EB00CFEE0A /* KVPDictionary.m in Sources */,

@@ -1,5 +1,5 @@
 //
-//  OCPeer.h
+//  PDPPeer.h
 //  Oktett
 //
 //  Created by Jakob on 21.04.20.
@@ -11,7 +11,7 @@
 @class OCAddress;
 @class Ed25519PublicKey;
 
-@interface OCPeer : NSObject {
+@interface PDPPeer : NSObject {
     BOOL supportsProtocolVersion1;
     BOOL supportsEd25519;
     NSString *deviceName;
@@ -29,6 +29,6 @@
 
 -(void)addRecentAddress:(OCAddress*)address;
 
-+(OCPeer*)localPeer;
++(PDPPeer*)localPeer;
 
 @end

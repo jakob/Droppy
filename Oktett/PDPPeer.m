@@ -1,15 +1,15 @@
 //
-//  OCPeer.m
+//  PDPPeer.m
 //  Oktett
 //
 //  Created by Jakob on 21.04.20.
 //  Copyright 2020 __MyCompanyName__. All rights reserved.
 //
 
-#import "OCPeer.h"
+#import "PDPPeer.h"
 
 
-@implementation OCPeer
+@implementation PDPPeer
 
 @synthesize supportsProtocolVersion1;
 @synthesize supportsEd25519;
@@ -25,10 +25,10 @@
     return self;
 }
 
-+(OCPeer*)localPeer {
-	static OCPeer *localPeer;
++(PDPPeer*)localPeer {
+	static PDPPeer *localPeer;
 	if (!localPeer) {
-		localPeer = [[OCPeer alloc] init];
+		localPeer = [[PDPPeer alloc] init];
 
         localPeer.supportsProtocolVersion1 = YES;
         

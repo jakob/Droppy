@@ -8,12 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class OCPeerDiscoveryAgent;
+@class PDPAgent;
 
 @interface OktettWindowController : NSWindowController<NSSplitViewDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource> {
     IBOutlet NSTextView *statusTextView;
     BOOL didSetup;
-    OCPeerDiscoveryAgent *discoveryAgent;
+    PDPAgent *discoveryAgent;
     IBOutlet NSOutlineView *outlineView;
 }
 

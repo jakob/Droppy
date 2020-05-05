@@ -8,9 +8,9 @@
 
 #import "OktettWindowController.h"
 
-#import "OCPeerDiscoveryAgent.h"
+#import "PDPAgent.h"
 
-@interface OktettWindowController() <OCPeerDiscoveryAgentDelegate> {
+@interface OktettWindowController() <PDPAgentDelegate> {
     
 }
 @end
@@ -40,7 +40,7 @@
     didSetup = YES;
     
     NSError *error = nil;
-    discoveryAgent = [[OCPeerDiscoveryAgent alloc] init];
+    discoveryAgent = [[PDPAgent alloc] init];
     discoveryAgent.delegate = self;
     if (![discoveryAgent setupWithError:&error]) {
         dispatch_async(dispatch_get_main_queue(), ^(void) {
@@ -49,7 +49,7 @@
     }
 }
 
--(void)agent:(OCPeerDiscoveryAgent *)agent discoveredPeer:(OCPeer *)peer {
+-(void)agent:(PDPAgent *)agent discoveredPeer:(PDPPeer *)peer {
 	NSString *message = [NSString stringWithFormat:@"%@\nDiscovered peer: %@ (%@)\n\n", [NSDate date], peer.deviceName, peer.deviceModel];
     [statusTextView replaceCharactersInRange:NSMakeRange(0, 0) withString:message];
     [statusTextView didChangeText];
@@ -57,7 +57,7 @@
     [outlineView reloadData];
 }
 
--(void)agent:(OCPeerDiscoveryAgent *)agent updatedPeer:(OCPeer *)peer {
+-(void)agent:(PDPAgent *)agent updatedPeer:(PDPPeer *)peer {
     NSString *message = [NSString stringWithFormat:@"%@\nUpdated peer: %@\n\n", [NSDate date], peer.deviceName];
     [statusTextView replaceCharactersInRange:NSMakeRange(0, 0) withString:message];
     [statusTextView didChangeText];
@@ -147,7 +147,7 @@
         }
     }
     if ([item isEqual:@"My Stuff"]) {
-        return [OCPeer localPeer];
+        return [PDPPeer localPeer];
     }
     if ([item isEqual:@"Discovered Stuff"]) {
         return [discoveryAgent.peers objectAtIndex:index];
@@ -159,7 +159,7 @@
     if ([item isKindOfClass:[NSString class]]) {
         return item;
     }
-    if ([item isKindOfClass:[OCPeer class]]) {
+    if ([item isKindOfClass:[PDPPeer class]]) {
         return [item deviceName];
     }
     return nil;
