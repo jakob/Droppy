@@ -1,3 +1,69 @@
+Motivation
+==========
+
+Modern computers have many network interfaces -- Wifi, Ethernet, Bluetooth, Thunderbolt, etc.
+The interfaces are all standardized, and interoperate more or less universally.
+Standards have evolved, but new devices are still compatible with devices that are more than 20 years old.
+
+And yet, I just can't figure out how to send a file from one computer to another.
+
+I have a brand new Mac, and a brand new machine from Microsoft, and I can't send files from one to the other.
+
+There are so many protocols that could accomplish the task. There's AFP, SMB, NFS, HTTP(S), (S)FTP and SSH.
+But somehow, even though most modern OSes support a bunch of them, there's always some compatibility issue.
+After 20 minutes of frustrated googling I always end up using a USB thumb drive to copy files.
+
+A few years ago, Apple introduced Airdrop to solve this once and forever, as long as you used only Apple devices.
+But they messed it up. When you activate Airdrop, you have a 50% chance of seeing the device you want to send to,
+even if it is on the same Wifi network.
+
+The only protocol that's universally supported is HTTP(S), through web browsers, as long as you are only interested
+in downloading files from a web server. (However, new sites have started using certificates that are no longer accepted by old devices)
+
+But even if your computers speak the same protocol, the experience is sub-par:
+
+
+- Discoverability is unreliable. Devices show up and disappear randomly.
+  When a computer goes to sleep, it may disappear, or linger in your sidebar, and you might be able to still connect to it or not.
+
+- As soon as more than one user accesses a network drive, permission issues are inevitable.
+
+- Security is questionable. Many protocols are unencrypted, and even when they use encryption, there is no way to authenticate that your peer is who they say they are.
+
+- Even if the protocols themselve are secure (SFTP), they do not have a way to verify integrity or trace the origin of transferred files.
+  So even in the best case, you have to rely on external tools for authenticating files.
+
+- People rarely set up secondary sharing accounts, so typically they share their account password with peers, and grant access to the entire home driectory, or even the entire hard drive.
+  This means that people expose a lot more information that they would like.
+
+
+The goal of this app is to solve all of these issues.
+
+- Secure by default. Devices are authenticate eachother with public key cryptography.
+  Network traffic is encrypted, preventing passive eavesdropping.
+  When an attacker tries to impersonate another device, it shows up as a new, unknown device.
+
+- No passwords. All crypto based on public keys. Easy to grant access to others, hard to leak data.
+
+- Simple Key verification with QR Codes / base64 / hex representations of keys.
+
+- Universal support. Simple protocol means it's easy to write apps for any OS.
+  First party apps are aim to be compatible with ancient versions (eg. we even support macOS 10.6 on 32bit)
+
+- Crypto is optional so we can potentially support even very old computers (eg. my old Macintosh Color Classic) or microcontrollers (eg. Arduino)
+
+- Really easy and reliable discovery. Other peers on the LAN appear instantly and inform others of state changes (eg. shutting down, going to sleep).
+
+- High performance. It should not take ages to transfer a folder just because it contains a lot of very small files.
+
+- Adaptible: New interfaces should be detected immediately as they become available.
+  If a transfer over Wifi is slow, plugging in an ethernet cable should speed it up instantly.
+  No user interaction should be necessary beyond plugging in a cable.
+
+
+
+
+
 Notes
 =====
 
