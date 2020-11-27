@@ -200,6 +200,7 @@ Name Brainstorming
     Lancrate
     Lanstack
     Langrid
+    LanDrop -> es gibt ein Github Repo, das Tool scheint etwas ähnliches zu tun, scheint aber obsolet
     Localbox / Globalbox
     Lankiste
     Netstick
