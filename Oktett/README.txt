@@ -160,13 +160,20 @@ UDP Protocol
 - When the app is opened, or when the user presses the scan button: Broadcast a scan message
 
 
-TCP Service ?
--------------
+Sending Files via TCP
+---------------------
 
-- Listen for connections. Respond with an announce message?
+ -  Server listens for TCP connections.
 
-- After the announce message, wait for more commands / messages
+<-> Establish an authenticated, encrypted connection
 
+ -> Send file metadata to server
+
+    Server verifies if client is allowed to send, closes connection if not
+
+ -> Send file data to server
+
+If a transfer fails, the server may later connect to the client to retry.
 
 Messages
 --------
