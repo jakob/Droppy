@@ -40,8 +40,9 @@
 -(BOOL)scanWithError:(NSError**)error {
     PDPMessage *message = [[PDPMessage alloc] init];
     
-    message.supportsProtocolVersion1 = YES;
     message.messageType = PDPMessageTypeScan;
+    message.supportsProtocolVersion1 = YES;
+    message.supportsEd25519 = YES;
     
     [lastScanToken release];
     NSMutableData *mutableToken = [[NSMutableData alloc] initWithLength:12];
