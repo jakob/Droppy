@@ -31,6 +31,7 @@
 		localPeer = [[PDPPeer alloc] init];
 
         localPeer.supportsProtocolVersion1 = YES;
+        localPeer.supportsEd25519 = YES;
         
 		/* Get computer model, eg. MacBookPro12,1 */
 		CFStringRef computerModel = nil;
