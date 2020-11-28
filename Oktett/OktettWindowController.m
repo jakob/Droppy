@@ -11,7 +11,6 @@
 #import "PDPAgent.h"
 
 @interface OktettWindowController() <PDPAgentDelegate> {
-    
 }
 @end
 
@@ -87,13 +86,23 @@
 }
 
 -(void)splitView:(NSSplitView *)splitView resizeSubviewsWithOldSize:(NSSize)oldSize {
-    // first, resize the last view to fit full width
+    CGFloat deltaX = [splitView frame].size.width - oldSize.width;
+    int resizableViewIndex = 1;
     NSArray *subviews = [splitView subviews];
-    NSView *lastView = [subviews objectAtIndex:[subviews count]-1];
-    NSRect lastViewFrame = [lastView frame];
-    CGFloat deltaX = NSMaxX([splitView bounds]) - NSMaxX(lastViewFrame);
-    lastViewFrame.size.width += deltaX;
-    [lastView setFrame:lastViewFrame];
+    for (int i=0; i<[subviews count]; i++) {
+        if (i == resizableViewIndex) {
+            NSView *sv = [subviews objectAtIndex:i];
+            NSRect frame = [sv frame];
+            frame.size.width += deltaX;
+            [sv setFrame:frame];
+        }
+        else if (i>resizableViewIndex) {
+            NSView *sv = [subviews objectAtIndex:i];
+            NSRect frame = [sv frame];
+            frame.origin.x += deltaX;
+            [sv setFrame:frame];
+        }
+    }
     
     // now call adjustsubviews to set vertical positions
     [splitView adjustSubviews];
@@ -164,4 +173,30 @@
     }
     return nil;
 }
+
+-(void)setSelectedPeer:(PDPPeer*)peer {
+    selectedPeer = peer;
+    
+    [nameField setStringValue:peer.deviceName ?: @""];
+    [modelField setStringValue:peer.deviceModel ?: @""];
+    [hexKeyField setStringValue:[peer.publicKey data].description ?: @""];
+//    [base64KeyField setStringValue:[[peer.publicKey data] base64] ?: @""];
+    
+    [nameField setEditable:peer == [PDPPeer localPeer]];
+    
+    [nameField setEnabled:!!peer];
+    [modelField setEnabled:!!peer];
+    [hexKeyField setEnabled:!!peer];
+    [base64KeyField setEnabled:!!peer];
+}
+
+-(void)outlineViewSelectionDidChange:(NSNotification *)notification {
+    id item = [outlineView itemAtRow:[outlineView selectedRow]];
+    if ([item isKindOfClass:[PDPPeer class]]) {
+        [self setSelectedPeer: item];
+    } else {
+        [self setSelectedPeer: nil];
+    }
+}
+
 @end
