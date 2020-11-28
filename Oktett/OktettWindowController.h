@@ -25,5 +25,6 @@
 
 -(void)setup;
 -(IBAction)sayHello:(id)sender;
+- (IBAction)sendFile:(id)sender;
 
 @end

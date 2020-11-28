@@ -33,6 +33,8 @@ extern NSString *KVPErrorDomain;
 -(NSString*)stringForStringKey:(NSString*)key;
 
 -(BOOL)getUInt16:(uint16_t*)outVal forStringKey:(NSString*)key error:(NSError**)error;
+-(BOOL)getUInt32:(uint32_t*)outVal forStringKey:(NSString*)key error:(NSError**)error;
+-(BOOL)getUInt64:(uint64_t*)outVal forStringKey:(NSString*)key error:(NSError**)error;
 
 -(Ed25519PublicKey*)verifiedPublicKeyForKey:(NSString*)key error:(NSError**)error;
 

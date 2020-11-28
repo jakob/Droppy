@@ -87,17 +87,53 @@ NSString *KVPErrorDomain = @"KVPErrorDomain";
 }
 
 -(BOOL)getUInt16:(uint16_t*)outVal forStringKey:(NSString*)key error:(NSError**)error {
+    size_t numBytes = sizeof(*outVal);
     NSData *value = [self dataForStringKey:key];
-    if ([value length] != 2) {
+    if ([value length] != numBytes) {
         [NSError set:error
               domain:@"KVPDictionary"
                 code:1
-              format:@"Expected length 2, got %d", (int)[value length]];
+              format:@"Expected length %d, got %d", numBytes, (int)[value length]];
         return NO;
     }
-    *outVal = ntohs(*(uint16_t*)[value bytes]);
+    const uint8_t *int_bytes = [value bytes];
+    *outVal = 0;
+    for (size_t i = 0; i < numBytes; i++) *outVal += (uint64_t)int_bytes[i] << ((numBytes-1-i)*8);
     return YES;
 }
+
+-(BOOL)getUInt32:(uint32_t*)outVal forStringKey:(NSString*)key error:(NSError**)error {
+    size_t numBytes = sizeof(*outVal);
+    NSData *value = [self dataForStringKey:key];
+    if ([value length] != numBytes) {
+        [NSError set:error
+              domain:@"KVPDictionary"
+                code:1
+              format:@"Expected length %d, got %d", numBytes, (int)[value length]];
+        return NO;
+    }
+    const uint8_t *int_bytes = [value bytes];
+    *outVal = 0;
+    for (size_t i = 0; i < numBytes; i++) *outVal += (uint64_t)int_bytes[i] << ((numBytes-1-i)*8);
+    return YES;
+}
+
+-(BOOL)getUInt64:(uint64_t*)outVal forStringKey:(NSString*)key error:(NSError**)error {
+    size_t numBytes = sizeof(*outVal);
+    NSData *value = [self dataForStringKey:key];
+    if ([value length] != numBytes) {
+        [NSError set:error
+              domain:@"KVPDictionary"
+                code:1
+              format:@"Expected length %d, got %d", numBytes, (int)[value length]];
+        return NO;
+    }
+    const uint8_t *int_bytes = [value bytes];
+    *outVal = 0;
+    for (size_t i = 0; i < numBytes; i++) *outVal += (uint64_t)int_bytes[i] << ((numBytes-1-i)*8);
+    return YES;
+}
+
 
 -(NSData *)data {
     return [[data copy] autorelease];

@@ -28,6 +28,9 @@
 		349E67EE244EE4D800A2E741 /* PDPAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67ED244EE4D800A2E741 /* PDPAgent.m */; };
 		349E67F1244EE4F100A2E741 /* PDPPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67F0244EE4F100A2E741 /* PDPPeer.m */; };
 		349E6807245192D900A2E741 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E6806245192D900A2E741 /* NSString+Additions.m */; };
+		34A5B65D2572F03300CF7C0B /* FileSendJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 34A5B65C2572F03300CF7C0B /* FileSendJob.m */; };
+		34A5B6612572F08B00CF7C0B /* FileReceiveJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 34A5B6602572F08B00CF7C0B /* FileReceiveJob.m */; };
+		34A5B6642572F09E00CF7C0B /* FileTransferMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 34A5B6632572F09E00CF7C0B /* FileTransferMetadata.m */; };
 		34AEE393244A3E90004E6CEC /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 34AEE392244A3E90004E6CEC /* README.txt */; };
 		34B60C06244E3B2A006C62B9 /* IPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B60C05244E3B29006C62B9 /* IPAddress.m */; };
 		368A4C952458180A0020E6CE /* Ed25519KeyPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 368A4C942458180A0020E6CE /* Ed25519KeyPair.m */; };
@@ -79,6 +82,12 @@
 		349E67F0244EE4F100A2E741 /* PDPPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPPeer.m; sourceTree = "<group>"; };
 		349E6805245192D900A2E741 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
 		349E6806245192D900A2E741 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
+		34A5B65B2572F03200CF7C0B /* FileSendJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSendJob.h; sourceTree = "<group>"; };
+		34A5B65C2572F03300CF7C0B /* FileSendJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSendJob.m; sourceTree = "<group>"; };
+		34A5B65F2572F08A00CF7C0B /* FileReceiveJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileReceiveJob.h; sourceTree = "<group>"; };
+		34A5B6602572F08B00CF7C0B /* FileReceiveJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileReceiveJob.m; sourceTree = "<group>"; };
+		34A5B6622572F09D00CF7C0B /* FileTransferMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileTransferMetadata.h; sourceTree = "<group>"; };
+		34A5B6632572F09E00CF7C0B /* FileTransferMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileTransferMetadata.m; sourceTree = "<group>"; };
 		34AEE392244A3E90004E6CEC /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		34B60C04244E3B29006C62B9 /* IPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPAddress.h; sourceTree = "<group>"; };
 		34B60C05244E3B29006C62B9 /* IPAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPAddress.m; sourceTree = "<group>"; };
@@ -173,6 +182,12 @@
 				349345C32572AF72000132EF /* NSData+EncodingHelpers.m */,
 				34AEE392244A3E90004E6CEC /* README.txt */,
 				349A85EC2449CF6B001AE238 /* Supporting Files */,
+				34A5B65B2572F03200CF7C0B /* FileSendJob.h */,
+				34A5B65C2572F03300CF7C0B /* FileSendJob.m */,
+				34A5B65F2572F08A00CF7C0B /* FileReceiveJob.h */,
+				34A5B6602572F08B00CF7C0B /* FileReceiveJob.m */,
+				34A5B6622572F09D00CF7C0B /* FileTransferMetadata.h */,
+				34A5B6632572F09E00CF7C0B /* FileTransferMetadata.m */,
 			);
 			path = Oktett;
 			sourceTree = "<group>";
@@ -306,6 +321,9 @@
 				349345BE257276BC000132EF /* TCPServer.m in Sources */,
 				349345C125727772000132EF /* TCPConnection.m in Sources */,
 				349345C42572AF73000132EF /* NSData+EncodingHelpers.m in Sources */,
+				34A5B65D2572F03300CF7C0B /* FileSendJob.m in Sources */,
+				34A5B6612572F08B00CF7C0B /* FileReceiveJob.m in Sources */,
+				34A5B6642572F09E00CF7C0B /* FileTransferMetadata.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

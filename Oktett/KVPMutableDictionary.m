@@ -59,8 +59,30 @@
 }
 
 -(BOOL)setUInt16:(uint16_t)value forStringKey:(NSString*)key error:(NSError**)outError {
-    value = htons(value);
-    NSData *dataValue = [[NSData alloc] initWithBytes:&value length:sizeof(value)];
+    size_t numBytes = sizeof(value);
+    NSMutableData *dataValue = [[NSMutableData alloc] initWithLength:numBytes];
+    uint8_t *mutableBytes = [dataValue mutableBytes];
+    for (size_t i = 0; i < numBytes; i++) mutableBytes[i] = value >> ((numBytes-1-i)*8);
+    BOOL res = [self setData:dataValue forStringKey:key error:outError];
+    [dataValue release];
+    return res;
+}
+
+-(BOOL)setUInt32:(uint32_t)value forStringKey:(NSString*)key error:(NSError**)outError {
+    size_t numBytes = sizeof(value);
+    NSMutableData *dataValue = [[NSMutableData alloc] initWithLength:numBytes];
+    uint8_t *mutableBytes = [dataValue mutableBytes];
+    for (size_t i = 0; i < numBytes; i++) mutableBytes[i] = value >> ((numBytes-1-i)*8);
+    BOOL res = [self setData:dataValue forStringKey:key error:outError];
+    [dataValue release];
+    return res;
+}
+
+-(BOOL)setUInt64:(uint64_t)value forStringKey:(NSString*)key error:(NSError**)outError {
+    size_t numBytes = sizeof(value);
+    NSMutableData *dataValue = [[NSMutableData alloc] initWithLength:numBytes];
+    uint8_t *mutableBytes = [dataValue mutableBytes];
+    for (size_t i = 0; i < numBytes; i++) mutableBytes[i] = value >> ((numBytes-1-i)*8);
     BOOL res = [self setData:dataValue forStringKey:key error:outError];
     [dataValue release];
     return res;

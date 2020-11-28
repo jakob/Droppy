@@ -11,6 +11,8 @@
 #import "PDPAgent.h"
 #import "NSData+EncodingHelpers.h"
 #import "TCPConnection.h"
+#import "FileReceiveJob.h"
+#import "FileSendJob.h"
 
 @interface OktettWindowController() <PDPAgentDelegate> {
 }
@@ -67,18 +69,8 @@
 }
 
 -(void)agent:(PDPAgent *)agent didAcceptConnection:(TCPConnection *)connection {
-    NSError *error = nil;
-    NSData *byte = [connection receiveDataWithLength:1 error:&error];
-    if (!byte) {
-        [self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
-        return;
-    }
-    NSString *message = [NSString stringWithFormat:@"Did receive message starting with %c", *(char*)byte.bytes];
-    NSAlert *alert = [[NSAlert alloc] init];
-    [alert setMessageText:@"Connection Received"];
-    [alert setInformativeText:message];
-    [alert beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
-    [alert release];
+    FileReceiveJob *job = [[FileReceiveJob alloc] init];
+    [job receiveFileInBackgroundFromConnection:connection];
 }
 
 -(IBAction)sayHello:(id)sender {   
@@ -87,6 +79,22 @@
         [self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
     }
 	[outlineView expandItem:@"Discovered Stuff"];
+}
+
+- (IBAction)sendFile:(id)sender {
+    if (!selectedPeer) {
+        NSBeep();
+        return;
+    }
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+        if (result==NSFileHandlingPanelOKButton) {
+            FileSendJob *job = [[FileSendJob alloc] init];
+            job.url = [panel URL];
+            job.recipient = selectedPeer;
+            [job start];
+        }
+    }];
 }
 
 - (void)dealloc
