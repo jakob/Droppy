@@ -15,7 +15,7 @@
 @synthesize remoteAddress;
 
 -(void)dealloc {
-    if (tcp_sock) close(tcp_sock);
+    if (tcp_sock > 0) close(tcp_sock);
     [remoteAddress release];
     [super dealloc];
 }
@@ -65,6 +65,7 @@
                   domain: @"TCPConnection"
                     code: 1
                   format: @"send() failed: %s", strerror(errno)];
+            [self close];
             return NO;        
         }
         if (sent == 0) {
@@ -72,11 +73,21 @@
                   domain: @"TCPConnection"
                     code: 1
                   format: @"send() sent 0 bytes"];
+            [self close];
             return NO;        
         }
         total += sent;
     }
     return YES;
+}
+
+-(BOOL)sendPacket:(NSData*)data error:(NSError**)error {
+    uint32_t packetLength = htonl([data length]);
+    NSData *lengthData = [[NSData alloc] initWithBytes:&packetLength length:4];
+    BOOL didSendLengthData = [self sendData:lengthData error:error];
+    [lengthData release];
+    if (!didSendLengthData) return NO;
+    return [self sendData:data error:error];
 }
 
 -(NSData *)receiveDataWithLength:(NSUInteger)length error:(NSError **)error {
@@ -92,6 +103,7 @@
                     code: 1
                   format: @"recv() failed: %s", strerror(errno)];
             [mutableData release];
+            [self close];
             return nil;        
         }
         if (received == 0) {
@@ -100,6 +112,7 @@
                     code: 1
                   format: @"Reached end of stream"];
             [mutableData release];
+            [self close];
             return nil;        
         }
         total += received;
@@ -107,14 +120,29 @@
     return [mutableData autorelease];
 }
 
+-(NSData*)receivePacketWithMaxLength:(NSUInteger)maxLen error:(NSError**)error {
+    NSData *lengthData = [self receiveDataWithLength:4 error:error];
+    if (!lengthData) return nil;
+    uint32_t packetLength = ntohl(*(uint32_t*)[lengthData bytes]);
+    if (packetLength > maxLen) {
+        [self close];
+        [NSError set: error
+              domain: @"TCPConnection"
+                code: 1
+              format: @"packet too large (%ld > %ld)", packetLength, maxLen];
+        return nil;
+    }
+    return [self receiveDataWithLength:packetLength error:error];
+}
+
 -(void)close {
-    if (!tcp_sock) {
+    if (tcp_sock <= 0) {
         //TODO: Error Handling
         NSLog(@"Trying to close closed connection");
         exit(1);
     }
     close(tcp_sock);
-    tcp_sock = 0;
+    tcp_sock = -1;
 }
 
 @end

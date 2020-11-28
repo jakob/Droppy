@@ -22,8 +22,10 @@
 +(TCPConnection*)connectTo:(IPAddress*)address error:(NSError**)outError;
 
 -(BOOL)sendData:(NSData*)data error:(NSError**)outError;
-
 -(NSData*)receiveDataWithLength:(NSUInteger)length error:(NSError**)outError;
+
+-(BOOL)sendPacket:(NSData*)data error:(NSError**)error;
+-(NSData*)receivePacketWithMaxLength:(NSUInteger)maxLen error:(NSError**)error;
 
 -(void)close;
 
