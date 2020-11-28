@@ -13,10 +13,12 @@
 @class UDPMessenger;
 @class Ed25519KeyPair;
 @class TCPServer;
+@class TCPConnection;
 
 @protocol PDPAgentDelegate
 -(void)agent:(PDPAgent*)agent discoveredPeer:(PDPPeer*)peer;
 -(void)agent:(PDPAgent*)agent updatedPeer:(PDPPeer*)peer;
+-(void)agent:(PDPAgent*)agent didAcceptConnection:(TCPConnection*)connection;
 @end
 
 @interface PDPAgent : NSObject {

@@ -139,6 +139,10 @@
     else [delegate agent:self updatedPeer:peer];
 }
 
+-(void)server:(TCPServer *)server didAcceptConnection:(TCPConnection *)connection {
+    [delegate agent:self didAcceptConnection:connection];
+}
+
 -(void)dealloc {
     [messenger release];
     [peers release];

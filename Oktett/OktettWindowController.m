@@ -10,6 +10,7 @@
 
 #import "PDPAgent.h"
 #import "NSData+EncodingHelpers.h"
+#import "TCPConnection.h"
 
 @interface OktettWindowController() <PDPAgentDelegate> {
 }
@@ -63,6 +64,21 @@
     [statusTextView didChangeText];
     [statusTextView setNeedsDisplay:YES];
     [outlineView reloadData];
+}
+
+-(void)agent:(PDPAgent *)agent didAcceptConnection:(TCPConnection *)connection {
+    NSError *error = nil;
+    NSData *byte = [connection receiveDataWithLength:1 error:&error];
+    if (!byte) {
+        [self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
+        return;
+    }
+    NSString *message = [NSString stringWithFormat:@"Did receive message starting with %c", *(char*)byte.bytes];
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setMessageText:@"Connection Received"];
+    [alert setInformativeText:message];
+    [alert beginSheetModalForWindow:self.window modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
+    [alert release];
 }
 
 -(IBAction)sayHello:(id)sender {   
@@ -182,6 +198,7 @@
     [modelField setStringValue:peer.deviceModel ?: @""];
     [hexKeyField setStringValue:[[peer.publicKey data] fast_hex] ?: @""];
     [base64KeyField setStringValue:[[peer.publicKey data] sodium_base64] ?: @""];
+    [tcpPortField setStringValue:[NSString stringWithFormat:@"%hu", peer.tcpListenPort]];
     
     [nameField setEditable:peer == [PDPPeer localPeer]];
     
@@ -189,6 +206,7 @@
     [modelField setEnabled:!!peer];
     [hexKeyField setEnabled:!!peer];
     [base64KeyField setEnabled:!!peer];
+    [tcpPortField setEnabled:!!peer];
 }
 
 -(void)outlineViewSelectionDidChange:(NSNotification *)notification {

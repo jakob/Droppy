@@ -19,6 +19,7 @@
     IBOutlet NSTextField *modelField;
     IBOutlet NSTextField *hexKeyField;
     IBOutlet NSTextField *base64KeyField;
+    IBOutlet NSTextField *tcpPortField;
     PDPPeer *selectedPeer;
 }
 
