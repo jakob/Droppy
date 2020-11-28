@@ -72,7 +72,9 @@
     }
     
     // open a connection to the recipient
-    TCPConnection *connection = [TCPConnection connectTo:[recipient.recentAddresses lastObject] error:&error];
+	IPAddress *address = [[[recipient.recentAddresses lastObject] copy] autorelease];
+	address.port = recipient.tcpListenPort;
+    TCPConnection *connection = [TCPConnection connectTo:address error:&error];
     if (!connection) {
         close(fd);
         [NSApp presentError:error];
