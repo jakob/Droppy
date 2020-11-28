@@ -12,6 +12,8 @@
 		344EA68A2455DBE700CFEE0A /* PDPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 344EA6892455DBE700CFEE0A /* PDPMessage.m */; };
 		344EA690245783F900CFEE0A /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 344EA68F245783F900CFEE0A /* libsodium.a */; };
 		344EA693245785BD00CFEE0A /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 344EA692245785BD00CFEE0A /* libsodium.a */; };
+		349345BE257276BC000132EF /* TCPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 349345BD257276BC000132EF /* TCPServer.m */; };
+		349345C125727772000132EF /* TCPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 349345C025727772000132EF /* TCPConnection.m */; };
 		3498D5ED244C8DD000DC2101 /* NSError+ConvenienceConstructors.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498D5EC244C8DD000DC2101 /* NSError+ConvenienceConstructors.m */; };
 		3498D5F0244CE6DC00DC2101 /* IPInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498D5EF244CE6DC00DC2101 /* IPInterface.m */; };
 		349A85E62449CF6B001AE238 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349A85E52449CF6B001AE238 /* Cocoa.framework */; };
@@ -43,9 +45,13 @@
 		344EA68F245783F900CFEE0A /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsodium.a; path = libsodium/libsodium.a; sourceTree = "<group>"; };
 		344EA691245784D800CFEE0A /* sodium.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sodium.h; path = libsodium/sodium.h; sourceTree = "<group>"; };
 		344EA692245785BD00CFEE0A /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsodium.a; path = libsodium/libsodium.a; sourceTree = "<group>"; };
+		349345BC257276BC000132EF /* TCPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPServer.h; sourceTree = "<group>"; };
+		349345BD257276BC000132EF /* TCPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPServer.m; sourceTree = "<group>"; };
+		349345BF25727771000132EF /* TCPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPConnection.h; sourceTree = "<group>"; };
+		349345C025727772000132EF /* TCPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPConnection.m; sourceTree = "<group>"; };
 		3498D5EB244C8DD000DC2101 /* NSError+ConvenienceConstructors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+ConvenienceConstructors.h"; sourceTree = "<group>"; };
 		3498D5EC244C8DD000DC2101 /* NSError+ConvenienceConstructors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+ConvenienceConstructors.m"; sourceTree = "<group>"; };
-		3498D5EE244CE6DC00DC2101 /* IPInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; path = IPInterface.h; sourceTree = "<group>"; };
+		3498D5EE244CE6DC00DC2101 /* IPInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPInterface.h; sourceTree = "<group>"; };
 		3498D5EF244CE6DC00DC2101 /* IPInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPInterface.m; sourceTree = "<group>"; };
 		349A85E12449CF6B001AE238 /* Oktett.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Oktett.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		349A85E52449CF6B001AE238 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -62,7 +68,7 @@
 		349A85FB2449CF6B001AE238 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		349A86022449FEEB001AE238 /* OktettWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OktettWindowController.h; sourceTree = "<group>"; };
 		349A86032449FEEB001AE238 /* OktettWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OktettWindowController.m; sourceTree = "<group>"; };
-		349E67E8244ECF7E00A2E741 /* UDPMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; path = UDPMessenger.h; sourceTree = "<group>"; };
+		349E67E8244ECF7E00A2E741 /* UDPMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPMessenger.h; sourceTree = "<group>"; };
 		349E67E9244ECF7E00A2E741 /* UDPMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPMessenger.m; sourceTree = "<group>"; };
 		349E67EC244EE4D800A2E741 /* PDPAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDPAgent.h; sourceTree = "<group>"; };
 		349E67ED244EE4D800A2E741 /* PDPAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPAgent.m; sourceTree = "<group>"; };
@@ -71,7 +77,7 @@
 		349E6805245192D900A2E741 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
 		349E6806245192D900A2E741 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
 		34AEE392244A3E90004E6CEC /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		34B60C04244E3B29006C62B9 /* IPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; path = IPAddress.h; sourceTree = "<group>"; };
+		34B60C04244E3B29006C62B9 /* IPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPAddress.h; sourceTree = "<group>"; };
 		34B60C05244E3B29006C62B9 /* IPAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPAddress.m; sourceTree = "<group>"; };
 		368A4C932458180A0020E6CE /* Ed25519KeyPair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ed25519KeyPair.h; sourceTree = "<group>"; };
 		368A4C942458180A0020E6CE /* Ed25519KeyPair.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Ed25519KeyPair.m; sourceTree = "<group>"; };
@@ -187,6 +193,10 @@
 				3498D5EF244CE6DC00DC2101 /* IPInterface.m */,
 				349E67E8244ECF7E00A2E741 /* UDPMessenger.h */,
 				349E67E9244ECF7E00A2E741 /* UDPMessenger.m */,
+				349345BC257276BC000132EF /* TCPServer.h */,
+				349345BD257276BC000132EF /* TCPServer.m */,
+				349345BF25727771000132EF /* TCPConnection.h */,
+				349345C025727772000132EF /* TCPConnection.m */,
 			);
 			name = RawNetwork;
 			sourceTree = "<group>";
@@ -288,6 +298,8 @@
 				344EA6872455CB1D00CFEE0A /* KVPMutableDictionary.m in Sources */,
 				344EA68A2455DBE700CFEE0A /* PDPMessage.m in Sources */,
 				368A4C9824581BE30020E6CE /* Ed25519PublicKey.m in Sources */,
+				349345BE257276BC000132EF /* TCPServer.m in Sources */,
+				349345C125727772000132EF /* TCPConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
