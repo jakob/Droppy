@@ -14,6 +14,7 @@
 		344EA693245785BD00CFEE0A /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 344EA692245785BD00CFEE0A /* libsodium.a */; };
 		349345BE257276BC000132EF /* TCPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 349345BD257276BC000132EF /* TCPServer.m */; };
 		349345C125727772000132EF /* TCPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 349345C025727772000132EF /* TCPConnection.m */; };
+		349345C42572AF73000132EF /* NSData+EncodingHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 349345C32572AF72000132EF /* NSData+EncodingHelpers.m */; };
 		3498D5ED244C8DD000DC2101 /* NSError+ConvenienceConstructors.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498D5EC244C8DD000DC2101 /* NSError+ConvenienceConstructors.m */; };
 		3498D5F0244CE6DC00DC2101 /* IPInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498D5EF244CE6DC00DC2101 /* IPInterface.m */; };
 		349A85E62449CF6B001AE238 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349A85E52449CF6B001AE238 /* Cocoa.framework */; };
@@ -49,6 +50,8 @@
 		349345BD257276BC000132EF /* TCPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPServer.m; sourceTree = "<group>"; };
 		349345BF25727771000132EF /* TCPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPConnection.h; sourceTree = "<group>"; };
 		349345C025727772000132EF /* TCPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPConnection.m; sourceTree = "<group>"; };
+		349345C22572AF71000132EF /* NSData+EncodingHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+EncodingHelpers.h"; sourceTree = "<group>"; };
+		349345C32572AF72000132EF /* NSData+EncodingHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+EncodingHelpers.m"; sourceTree = "<group>"; };
 		3498D5EB244C8DD000DC2101 /* NSError+ConvenienceConstructors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+ConvenienceConstructors.h"; sourceTree = "<group>"; };
 		3498D5EC244C8DD000DC2101 /* NSError+ConvenienceConstructors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+ConvenienceConstructors.m"; sourceTree = "<group>"; };
 		3498D5EE244CE6DC00DC2101 /* IPInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPInterface.h; sourceTree = "<group>"; };
@@ -166,6 +169,8 @@
 				3498D5EC244C8DD000DC2101 /* NSError+ConvenienceConstructors.m */,
 				349E6805245192D900A2E741 /* NSString+Additions.h */,
 				349E6806245192D900A2E741 /* NSString+Additions.m */,
+				349345C22572AF71000132EF /* NSData+EncodingHelpers.h */,
+				349345C32572AF72000132EF /* NSData+EncodingHelpers.m */,
 				34AEE392244A3E90004E6CEC /* README.txt */,
 				349A85EC2449CF6B001AE238 /* Supporting Files */,
 			);
@@ -300,6 +305,7 @@
 				368A4C9824581BE30020E6CE /* Ed25519PublicKey.m in Sources */,
 				349345BE257276BC000132EF /* TCPServer.m in Sources */,
 				349345C125727772000132EF /* TCPConnection.m in Sources */,
+				349345C42572AF73000132EF /* NSData+EncodingHelpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

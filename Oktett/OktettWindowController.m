@@ -9,6 +9,7 @@
 #import "OktettWindowController.h"
 
 #import "PDPAgent.h"
+#import "NSData+EncodingHelpers.h"
 
 @interface OktettWindowController() <PDPAgentDelegate> {
 }
@@ -179,8 +180,8 @@
     
     [nameField setStringValue:peer.deviceName ?: @""];
     [modelField setStringValue:peer.deviceModel ?: @""];
-    [hexKeyField setStringValue:[peer.publicKey data].description ?: @""];
-//    [base64KeyField setStringValue:[[peer.publicKey data] base64] ?: @""];
+    [hexKeyField setStringValue:[[peer.publicKey data] fast_hex] ?: @""];
+    [base64KeyField setStringValue:[[peer.publicKey data] sodium_base64] ?: @""];
     
     [nameField setEditable:peer == [PDPPeer localPeer]];
     
