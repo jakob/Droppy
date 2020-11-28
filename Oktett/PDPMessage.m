@@ -87,6 +87,7 @@
             // message with broken signature is not allowed
             // return error!
             if (error) *error = signatureError;
+            [message release];
             return nil;
         }
     }
