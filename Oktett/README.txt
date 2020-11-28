@@ -137,6 +137,7 @@ Keys:
 
 N         Device Name
 M         Device Model
+p         TCP Port Number
 T         Request Token (will be included in responses)
 K         32 byte Ed25519 Public Key + 64 byte Signature (must be last value)
 
