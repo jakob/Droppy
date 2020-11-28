@@ -7,7 +7,8 @@
 //
 
 #import "PDPPeer.h"
-
+#import "PDPAgent.h"
+#import "Ed25519KeyPair.h"
 
 @implementation PDPPeer
 
@@ -61,6 +62,8 @@
 	// #import <SystemConfiguration/SystemConfiguration.h>
 	// CFStringRef computername = SCDynamicStoreCopyComputerName(nil, nil);
 	
+    localPeer.publicKey = [PDPAgent currentDeviceKeyPair].publicKey;
+    
 	return localPeer;
 }
 
