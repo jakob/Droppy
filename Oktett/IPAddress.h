@@ -1,5 +1,5 @@
 //
-//  OCAddress.h
+//  IPAddress.h
 //  Oktett
 //
 //  Created by Jakob on 20.04.20.
@@ -12,7 +12,7 @@
 #include "arpa/inet.h"
 
 
-@interface OCAddress : NSObject<NSCopying> {
+@interface IPAddress : NSObject<NSCopying> {
     struct sockaddr_storage addr;
 }
 

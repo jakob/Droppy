@@ -1,12 +1,12 @@
 //
-//  OCInterface.m
+//  IPInterface.m
 //  Oktett
 //
 //  Created by Jakob on 19.04.20.
 //  Copyright 2020 __MyCompanyName__. All rights reserved.
 //
 
-#import "OCInterface.h"
+#import "IPInterface.h"
 
 #include <ifaddrs.h>
 #include <arpa/inet.h>
@@ -14,7 +14,7 @@
 
 #import "NSError+ConvenienceConstructors.h"
 
-@implementation OCInterface
+@implementation IPInterface
 
 @synthesize name, addr, dstaddr;
 
@@ -25,11 +25,11 @@
         name = [[NSString alloc] initWithUTF8String:ifaddr->ifa_name];
         
         // copy my local network address
-        addr = [[OCAddress alloc] initWithSockaddr:ifaddr->ifa_addr];
+        addr = [[IPAddress alloc] initWithSockaddr:ifaddr->ifa_addr];
         
         // copy broadcast address
         if (ifaddr->ifa_dstaddr) {
-            dstaddr = [[OCAddress alloc] initWithSockaddr:ifaddr->ifa_dstaddr];
+            dstaddr = [[IPAddress alloc] initWithSockaddr:ifaddr->ifa_dstaddr];
         }
     }
     return self;
@@ -68,7 +68,7 @@
         // ignore interfaces that for some reason don't have a broadcast address
         if (!(ifaddr->ifa_flags & IFF_BROADCAST) || ifaddr->ifa_dstaddr == NULL) continue;
         
-        OCInterface *interface = [[OCInterface alloc] initWithStruct:ifaddr];
+        IPInterface *interface = [[IPInterface alloc] initWithStruct:ifaddr];
         [interfaces addObject:interface];
         [interface release];
     }

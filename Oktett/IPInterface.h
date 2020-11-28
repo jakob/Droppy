@@ -1,5 +1,5 @@
 //
-//  OCInterface.h
+//  IPInterface.h
 //  Oktett
 //
 //  Created by Jakob on 19.04.20.
@@ -8,17 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-#import "OCAddress.h"
+#import "IPAddress.h"
 
-@interface OCInterface : NSObject {
+@interface IPInterface : NSObject {
     NSString *name;
-    OCAddress *addr;
-    OCAddress *dstaddr;
+    IPAddress *addr;
+    IPAddress *dstaddr;
 }
 
 @property(readonly) NSString *name;
-@property(readonly) OCAddress *addr;
-@property(readonly) OCAddress *dstaddr;
+@property(readonly) IPAddress *addr;
+@property(readonly) IPAddress *dstaddr;
 
 +(NSArray*)broadcastInterfacesWithError:(NSError**)error;
 

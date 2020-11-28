@@ -64,7 +64,7 @@
 	return localPeer;
 }
 
--(void)addRecentAddress:(OCAddress*)address {
+-(void)addRecentAddress:(IPAddress*)address {
     NSInteger numRecentAddresses = recentAddresses.count;
     if (numRecentAddresses) {
         if ([[recentAddresses objectAtIndex:numRecentAddresses-1] isEqual:address]) {

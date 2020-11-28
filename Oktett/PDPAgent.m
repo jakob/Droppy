@@ -7,13 +7,13 @@
 //
 
 #import "PDPAgent.h"
-#import "OCMessenger.h"
+#import "UDPMessenger.h"
 #import "PDPMessage.h"
 #import "sodium.h"
 
-@interface PDPAgent() <OCMessengerDelegate> 
--(void)replyToQuery:(PDPMessage*)query from:(OCAddress*)addr;
--(void)handlePeerIdentificationMessage:(PDPMessage*)message from:(OCAddress*)addr;
+@interface PDPAgent() <UDPMessengerDelegate> 
+-(void)replyToQuery:(PDPMessage*)query from:(IPAddress*)addr;
+-(void)handlePeerIdentificationMessage:(PDPMessage*)message from:(IPAddress*)addr;
 @end
 
 
@@ -25,7 +25,7 @@
     self = [super init];
     if (self) {
         peers = [[NSMutableArray alloc] initWithCapacity:8];
-        messenger = [[OCMessenger alloc] init];
+        messenger = [[UDPMessenger alloc] init];
         peerDiscoveryPort = 65012;
     }
     return self;
@@ -58,7 +58,7 @@
     return success;
 }
 
--(void)messenger:(OCMessenger *)messenger didReceiveData:(NSData *)data from:(OCAddress *)addr {
+-(void)messenger:(UDPMessenger *)messenger didReceiveData:(NSData *)data from:(IPAddress *)addr {
     NSError *parseError = nil;
     PDPMessage *message = [PDPMessage messageFromData:data error:&parseError];
     if (!message) {
@@ -75,7 +75,7 @@
     }
 }
 
--(void)replyToQuery:(PDPMessage*)query from:(OCAddress*)addr {
+-(void)replyToQuery:(PDPMessage*)query from:(IPAddress*)addr {
     NSLog(@"Replying to query message from %@:%d requestToken: %@", addr.presentationAddress, addr.port, query.requestToken);
     PDPMessage *response = [[PDPMessage alloc] init];
 	PDPPeer *localPeer = [PDPPeer localPeer];
@@ -93,7 +93,7 @@
     [response release];
 }
 
--(void)handlePeerIdentificationMessage:(PDPMessage*)message from:(OCAddress*)addr {
+-(void)handlePeerIdentificationMessage:(PDPMessage*)message from:(IPAddress*)addr {
     NSLog(@"Peer discovered: %@:%d %@ %@", addr.presentationAddress, addr.port, message.deviceModel, message.deviceName);
     PDPPeer *peer = nil;
     if (message.publicKey) {

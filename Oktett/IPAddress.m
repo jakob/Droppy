@@ -1,15 +1,15 @@
 //
-//  OCAddress.m
+//  IPAddress.m
 //  Oktett
 //
 //  Created by Jakob on 20.04.20.
 //  Copyright 2020 __MyCompanyName__. All rights reserved.
 //
 
-#import "OCAddress.h"
+#import "IPAddress.h"
 
 
-@implementation OCAddress
+@implementation IPAddress
 
 -(id)initWithSockaddr:(struct sockaddr*)anAddr {
     self = [super init];
@@ -73,7 +73,7 @@
 }
 
 -(id)copyWithZone:(NSZone *)zone {
-    OCAddress *copy = [[OCAddress allocWithZone:zone] init];
+    IPAddress *copy = [[IPAddress allocWithZone:zone] init];
     copy->addr = addr;
     return copy;
 }
@@ -83,8 +83,8 @@
 }
 
 -(BOOL)isEqual:(id)object {
-    if ([object isKindOfClass:[OCAddress class]]) {
-        OCAddress *otherAddr = object;
+    if ([object isKindOfClass:[IPAddress class]]) {
+        IPAddress *otherAddr = object;
         return [otherAddr.presentationAddress isEqual:self.presentationAddress] && otherAddr.port == self.port;
     }
     return NO;

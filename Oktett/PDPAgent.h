@@ -10,7 +10,7 @@
 #import "PDPPeer.h"
 
 @class PDPAgent;
-@class OCMessenger;
+@class UDPMessenger;
 @class Ed25519KeyPair;
 
 @protocol PDPAgentDelegate
@@ -20,7 +20,7 @@
 
 @interface PDPAgent : NSObject {
     NSMutableArray *peers;
-    OCMessenger *messenger;
+    UDPMessenger *messenger;
     uint16_t peerDiscoveryPort;
     id<PDPAgentDelegate> delegate;
     NSData *lastScanToken;

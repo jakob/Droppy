@@ -1,17 +1,17 @@
 //
-//  OCMessenger.m
+//  UDPMessenger.m
 //  Oktett
 //
 //  Created by Jakob on 21.04.20.
 //  Copyright 2020 __MyCompanyName__. All rights reserved.
 //
 
-#import "OCMessenger.h"
+#import "UDPMessenger.h"
 
 #import "NSError+ConvenienceConstructors.h"
-#import "OCInterface.h"
+#import "IPInterface.h"
 
-@implementation OCMessenger
+@implementation UDPMessenger
 
 -(void)dealloc {
     if (udp_sock) close(udp_sock);
@@ -19,11 +19,11 @@
     [super dealloc];
 }
 
--(BOOL)bindUDPPort:(uint16_t)port delegate:(id<OCMessengerDelegate>)delegate error:(NSError **)error {
+-(BOOL)bindUDPPort:(uint16_t)port delegate:(id<UDPMessengerDelegate>)delegate error:(NSError **)error {
     // ensure that we don't try to connect twice
     if (udp_sock) {
         [NSError set: error
-              domain: @"OCMessenger"
+              domain: @"UDPMessenger"
                 code: 1
               format: @"Can't bind to port: messenger already bound."];
         return NO;        
@@ -39,7 +39,7 @@
     int sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
     if (sock == -1) {
         [NSError set: error
-              domain: @"OCMessenger"
+              domain: @"UDPMessenger"
                 code: 1
               format: @"socket() failed: %s", strerror(errno)];
         return NO;        
@@ -49,7 +49,7 @@
     int yes = 1;
     if (-1 == setsockopt(sock, SOL_SOCKET, SO_BROADCAST, &yes, sizeof yes)) {
         [NSError set: error
-              domain: @"OCMessenger"
+              domain: @"UDPMessenger"
                 code: 1
               format: @"setsockopt() failed: %s", strerror(errno)];
         close(sock);
@@ -59,7 +59,7 @@
     // bind the socket to the local port and address
     if (-1 == bind(sock, (struct sockaddr*)&bindaddr, sizeof(bindaddr))) {
         [NSError set: error
-              domain: @"OCMessenger"
+              domain: @"UDPMessenger"
                 code: 1
               format: @"bind() failed: %s", strerror(errno)];
         close(sock);
@@ -80,7 +80,7 @@
     
     dispatch_source_set_event_handler(udp_sock_src, ^(void) {
         NSMutableData *data = [[NSMutableData alloc] initWithLength:4096];
-        OCAddress *srcaddr = [[OCAddress alloc] init];
+        IPAddress *srcaddr = [[IPAddress alloc] init];
         socklen_t sa_len = srcaddr.maxlen;
         ssize_t recvBytes = recvfrom(udp_sock, [data mutableBytes], [data length], 0, srcaddr.addr, &sa_len);
         if (recvBytes == -1) {
@@ -103,19 +103,19 @@
     // ensure that socket is bound to a local port
     if (!udp_sock) {
         [NSError set: error
-              domain: @"OCMessenger"
+              domain: @"UDPMessenger"
                 code: 1
               format: @"Must bind UDP socket before ssend."];
         return NO;        
     }
     
-    NSArray *interfaces = [OCInterface broadcastInterfacesWithError:error];
+    NSArray *interfaces = [IPInterface broadcastInterfacesWithError:error];
     if (!interfaces) return NO;
     
     // Make sure there is at least one network interface
     if (![interfaces count]) {
         [NSError set: error
-              domain: @"OCMessenger"
+              domain: @"UDPMessenger"
                 code: 1
               format: @"No network interfaces found."];
         return NO;        
@@ -123,8 +123,8 @@
     
     // send the message on all interfaces
     NSMutableArray *errors = [[NSMutableArray alloc] initWithCapacity:[interfaces count]];
-    for (OCInterface *interface in interfaces) {
-        OCAddress *destination = [interface.dstaddr copy];
+    for (IPInterface *interface in interfaces) {
+        IPAddress *destination = [interface.dstaddr copy];
         destination.port = port;
         // send the message
         NSError *sendError = nil;
@@ -146,16 +146,16 @@
     return YES;
 }
 
--(BOOL)sendMessage:(NSData *)message to:(OCAddress *)address error:(NSError **)error {
+-(BOOL)sendMessage:(NSData *)message to:(IPAddress *)address error:(NSError **)error {
     ssize_t sent_bytes = sendto(udp_sock, message.bytes, message.length, 0, address.addr, address.len);
     if (sent_bytes == -1) {
-        [NSError set:error domain:@"OCInterface"
+        [NSError set:error domain:@"IPInterface"
                 code: 1
               format: @"send() failed: %s", strerror(errno)];
         return NO;
     }
     else if (sent_bytes < message.length) {
-        [NSError set:error domain:@"OCInterface"
+        [NSError set:error domain:@"IPInterface"
                 code: 1
               format: @"send() sent only %d of %d bytes", (int)sent_bytes, (int)message.length];
         return NO;

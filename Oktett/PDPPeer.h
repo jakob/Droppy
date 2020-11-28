@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class OCAddress;
+@class IPAddress;
 @class Ed25519PublicKey;
 
 @interface PDPPeer : NSObject {
@@ -27,7 +27,7 @@
 @property(readonly) NSArray *recentAddresses;
 @property(retain) Ed25519PublicKey *publicKey;
 
--(void)addRecentAddress:(OCAddress*)address;
+-(void)addRecentAddress:(IPAddress*)address;
 
 +(PDPPeer*)localPeer;
 
