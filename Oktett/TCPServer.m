@@ -114,4 +114,8 @@
     return YES;
 }
 
+-(uint16)port {
+    return listen_port;
+}
+
 @end

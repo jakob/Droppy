@@ -58,6 +58,14 @@
     return [self setData:[value dataUsingEncoding:NSUTF8StringEncoding] forStringKey:key error:outError];
 }
 
+-(BOOL)setUInt16:(uint16_t)value forStringKey:(NSString*)key error:(NSError**)outError {
+    value = htons(value);
+    NSData *dataValue = [[NSData alloc] initWithBytesNoCopy:&value length:sizeof(value)];
+    BOOL res = [self setData:dataValue forStringKey:key error:outError];
+    [dataValue release];
+    return res;
+}
+
 -(BOOL)signWithKeyPair:(Ed25519KeyPair*)keyPair key:(NSString*)key error:(NSError**)outError {
     NSMutableData *signaturePlaceholder = [[NSMutableData alloc] initWithLength:96];
     NSData *publicKeyData = keyPair.publicKey.data;

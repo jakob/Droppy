@@ -12,6 +12,7 @@
 @class PDPAgent;
 @class UDPMessenger;
 @class Ed25519KeyPair;
+@class TCPServer;
 
 @protocol PDPAgentDelegate
 -(void)agent:(PDPAgent*)agent discoveredPeer:(PDPPeer*)peer;
@@ -21,6 +22,7 @@
 @interface PDPAgent : NSObject {
     NSMutableArray *peers;
     UDPMessenger *messenger;
+    TCPServer *server;
     uint16_t peerDiscoveryPort;
     id<PDPAgentDelegate> delegate;
     NSData *lastScanToken;

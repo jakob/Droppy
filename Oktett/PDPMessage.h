@@ -23,6 +23,7 @@ typedef enum {
     NSString *deviceModel;
     NSData *requestToken;
     Ed25519PublicKey *publicKey;
+    uint16_t tcpListenPort;
 }
 
 @property PDPMessageType messageType; 
@@ -32,6 +33,7 @@ typedef enum {
 @property(copy) NSString *deviceModel;
 @property(copy) NSData *requestToken;
 @property(retain) Ed25519PublicKey *publicKey;
+@property uint16_t tcpListenPort;
 
 -(NSData *)dataSignedWithKeyPair:(Ed25519KeyPair*)keyPair error:(NSError**)error;
 +(PDPMessage*)messageFromData:(NSData*)data error:(NSError**)error;

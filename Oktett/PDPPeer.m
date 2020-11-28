@@ -17,6 +17,7 @@
 @synthesize deviceName;
 @synthesize deviceModel;
 @synthesize publicKey;
+@synthesize tcpListenPort;
 
 -(id)init {
     self = [super init];

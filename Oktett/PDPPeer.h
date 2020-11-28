@@ -18,6 +18,7 @@
     NSString *deviceModel;
     NSMutableArray *recentAddresses;
     Ed25519PublicKey *publicKey;
+    uint16_t tcpListenPort;
 }
 
 @property BOOL supportsProtocolVersion1;
@@ -26,6 +27,7 @@
 @property(copy) NSString *deviceModel;
 @property(readonly) NSArray *recentAddresses;
 @property(retain) Ed25519PublicKey *publicKey;
+@property uint16_t tcpListenPort;
 
 -(void)addRecentAddress:(IPAddress*)address;
 

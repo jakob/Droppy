@@ -8,10 +8,11 @@
 
 #import "PDPAgent.h"
 #import "UDPMessenger.h"
+#import "TCPServer.h"
 #import "PDPMessage.h"
 #import "sodium.h"
 
-@interface PDPAgent() <UDPMessengerDelegate> 
+@interface PDPAgent() <UDPMessengerDelegate, TCPServerDelegate> 
 -(void)replyToQuery:(PDPMessage*)query from:(IPAddress*)addr;
 -(void)handlePeerIdentificationMessage:(PDPMessage*)message from:(IPAddress*)addr;
 @end
@@ -26,15 +27,20 @@
     if (self) {
         peers = [[NSMutableArray alloc] initWithCapacity:8];
         messenger = [[UDPMessenger alloc] init];
+        server = [[TCPServer alloc] init];
         peerDiscoveryPort = 65012;
     }
     return self;
 }
 
 -(BOOL)setupWithError:(NSError**)error {
-    return [messenger bindUDPPort: peerDiscoveryPort
-                         delegate: self
-                            error: error];
+    BOOL st;
+    st = [messenger bindUDPPort: peerDiscoveryPort delegate: self error: error];
+    if (!st) return NO;
+    st = [server listenOnRandomPortWithDelegate:self error:error];
+    if (!st) return NO;
+    [PDPPeer localPeer].tcpListenPort = server.port;
+    return YES;
 }
 
 -(BOOL)scanWithError:(NSError**)error {
@@ -84,6 +90,7 @@
     response.supportsEd25519 = localPeer.supportsEd25519;
     response.deviceName = localPeer.deviceName;
     response.deviceModel = localPeer.deviceModel;
+    response.tcpListenPort = localPeer.tcpListenPort;
     response.requestToken = query.requestToken;
     NSError *sendError = nil;
     NSData *message = [response dataSignedWithKeyPair:[PDPAgent currentDeviceKeyPair] error:&sendError];
@@ -124,6 +131,7 @@
     }
     if (message.deviceModel) peer.deviceModel = message.deviceModel;
     if (message.deviceName) peer.deviceName = message.deviceName;
+    peer.tcpListenPort = message.tcpListenPort;
     peer.supportsProtocolVersion1 = peer.supportsProtocolVersion1;
     peer.supportsEd25519 = peer.supportsEd25519;
     [peer addRecentAddress:addr];

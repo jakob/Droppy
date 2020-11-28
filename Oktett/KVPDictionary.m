@@ -86,6 +86,43 @@ NSString *KVPErrorDomain = @"KVPErrorDomain";
     return [[[NSString alloc] initWithData:valueData encoding:NSUTF8StringEncoding] autorelease];
 }
 
+-(BOOL)getUInt16:(uint16_t*)outVal forStringKey:(NSString*)key error:(NSError**)error {
+    NSData *value = [self dataForStringKey:key];
+    if ([value length] != 2) {
+        [NSError set:error
+              domain:@"KVPDictionary"
+                code:1
+              format:@"Expected length 2, got %d", (int)[value length]];
+        return NO;
+    }
+    *outVal = ntohs(*(uint16_t*)[value bytes]);
+    return YES;
+}
+
+-(NSNumber*)unsignedIntegralNumberOfLength:(ssize_t)len forStringKey:(NSString*)key error:(NSError**)error {
+    NSData *value = [self dataForStringKey:key];
+    if ([value length] != len) {
+        [NSError set:error
+              domain:@"KVPDictionary"
+                code:1
+              format:@"Expected length %d, got %d", (int)len, (int)[value length]];
+        return nil;
+    }
+    if (len==2) {
+        uint16_t num = ntohs(*(uint16_t*)[value bytes]);
+        return [[NSNumber numberWithShort:num] autorelease];
+    }
+    if (len==4) {
+        uint32_t num = ntohs(*(uint32_t*)[value bytes]);
+        return [[NSNumber numberWithLong:num] autorelease];
+    }
+    [NSError set:error
+          domain:@"KVPDictionary"
+            code:1
+          format:@"Unsupported length %d", (int)len];
+    return nil;
+}
+
 -(NSData *)data {
     return [[data copy] autorelease];
 }

@@ -21,9 +21,11 @@
 
 @interface TCPServer : NSObject {
     int listen_sock;
-    int listen_port;
+    uint16_t listen_port;
     dispatch_source_t listen_sock_src;
 }
+
+@property(readonly) uint16_t port;
 
 -(BOOL)listenOnRandomPortWithDelegate:(id<TCPServerDelegate>)delegate error:(NSError**)error;
 

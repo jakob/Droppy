@@ -21,6 +21,7 @@
 @synthesize deviceModel;
 @synthesize requestToken;
 @synthesize publicKey;
+@synthesize tcpListenPort;
 
 -(void)dealloc{
 	[deviceName release];
@@ -75,6 +76,11 @@
     message.deviceName = [dict stringForStringKey:@"N"];
     message.deviceModel = [dict stringForStringKey:@"M"];
     message.requestToken = [dict dataForStringKey:@"T"];
+    
+    uint16_t port;
+    if ([dict getUInt16:&port forStringKey:@"p" error:nil]) {
+        message.tcpListenPort = port;
+    }
     
     NSError *signatureError = nil;
     Ed25519PublicKey *publicKey = [dict verifiedPublicKeyForKey:@"K" error:&signatureError];
@@ -134,6 +140,14 @@
             return nil;
         }
     }
+    
+    if (tcpListenPort) {
+        if (![dict setUInt16:tcpListenPort forStringKey:@"p" error:error]) {
+            [dict release];
+            return nil;
+        }
+    }
+
     
     if (keyPair) {
         if (![dict signWithKeyPair:keyPair key:@"K" error:error]) {

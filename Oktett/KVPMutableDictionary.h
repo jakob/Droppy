@@ -20,6 +20,7 @@
 -(BOOL)setData:(NSData*)valueData forDataKey:(NSData*)keyData error:(NSError**)outError;
 -(BOOL)setData:(NSData*)valueData forStringKey:(NSString*)key error:(NSError**)outError;
 -(BOOL)setString:(NSString*)value forStringKey:(NSString*)key error:(NSError**)outError;
+-(BOOL)setUInt16:(uint16_t)value forStringKey:(NSString*)key error:(NSError**)outError;
 -(BOOL)signWithKeyPair:(Ed25519KeyPair*)keyPair key:(NSString*)key error:(NSError**)outError;
 
 @end
