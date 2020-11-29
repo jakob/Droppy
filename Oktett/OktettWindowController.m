@@ -71,6 +71,7 @@
 -(void)agent:(PDPAgent *)agent didAcceptConnection:(TCPConnection *)connection {
     FileReceiveJob *job = [[FileReceiveJob alloc] init];
     [job receiveFileInBackgroundFromConnection:connection];
+    [job release];
 }
 
 -(IBAction)sayHello:(id)sender {   
@@ -93,6 +94,7 @@
             job.url = [panel URL];
             job.recipient = selectedPeer;
             [job start];
+            [job release];
         }
     }];
 }
