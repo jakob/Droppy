@@ -63,7 +63,7 @@
     }
     // send mtime only if it isn't negative (We want to be ready for the 32bit Y2k38 problem...)
     if (statres.st_mtimespec.tv_sec > 0) {
-        uint64_t mtime_nano = 1000000000*statres.st_mtimespec.tv_sec + statres.st_mtimespec.tv_nsec;
+        uint64_t mtime_nano = 1000000000*(uint64_t)statres.st_mtimespec.tv_sec + (uint64_t)statres.st_mtimespec.tv_nsec;
         if (![dict setUInt64:mtime_nano forStringKey:@"mtime_nano" error:&error]) {
             close(fd);
             [NSApp presentError:error];
