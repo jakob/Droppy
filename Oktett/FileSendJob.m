@@ -13,79 +13,131 @@
 #include <sys/stat.h>
 #import "NSError+ConvenienceConstructors.h"
 
+@interface FileSendJob() {
+}
+-(BOOL)sendFileFromFileDescriptor:(int)fd metadata:(KVPDictionary*)metadata error:(NSError**)error;
+@end
+
 @implementation FileSendJob
 
 @synthesize url;
 @synthesize recipient;
 
--(void)start {    
+-(void)start {
+    [self performSelectorInBackground:@selector(doWork) withObject:nil];
+}
+
+-(void)doWork {
     NSError *error = nil;
+    BOOL didSend = NO;
     
-    // Try opening the file
-    int fd = open([[url path] fileSystemRepresentation], O_RDONLY);
-    if (fd==-1) {
-        [NSError set:&error 
-              domain:@"FileSendJob" 
-                code:1
-              format:@"open() failed: %s", strerror(errno)];
-        [NSApp presentError:error];
-        return;
-    }
+    NSAutoreleasePool *threadPool = [[NSAutoreleasePool alloc] init];
     
-    // Get file properties
-    struct stat statres;    
-    if (-1==fstat(fd, &statres)) {
-        [NSError set:&error 
-              domain:@"FileSendJob" 
-                code:1
-              format:@"fstat() failed: %s", strerror(errno)];
-        close(fd);
-        [NSApp presentError:error];
+    NSNumber *isDir;
+    if (![url getResourceValue:&isDir forKey:NSURLIsDirectoryKey error:&error]) {
+        [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+        [threadPool drain];
         return;
     }
     
-    // Create file metadata dictionary
-    KVPMutableDictionary *dict = [[[KVPMutableDictionary alloc] init] autorelease];
-    if (![dict setString:[[url lastPathComponent] stringByDeletingPathExtension] forStringKey:@"basename" error:&error]) {
-        close(fd);
-        [NSApp presentError:error];
-        return;
-    }
-    if (![dict setString:[url pathExtension] forStringKey:@"extension" error:&error]) {
-        close(fd);
-        [NSApp presentError:error];
-        return;
-    }
-    if (![dict setUInt64:statres.st_size forStringKey:@"size" error:&error]) {
-        close(fd);
-        [NSApp presentError:error];
-        return;
-    }
-    // send mtime only if it isn't negative (We want to be ready for the 32bit Y2k38 problem...)
-    if (statres.st_mtimespec.tv_sec > 0) {
-        uint64_t mtime_nano = 1000000000*(uint64_t)statres.st_mtimespec.tv_sec + (uint64_t)statres.st_mtimespec.tv_nsec;
-        if (![dict setUInt64:mtime_nano forStringKey:@"mtime_nano" error:&error]) {
-            close(fd);
-            [NSApp presentError:error];
+    if ([isDir boolValue]) {
+        // Create file metadata dictionary
+        KVPMutableDictionary *dict = [[[KVPMutableDictionary alloc] init] autorelease];
+        if (![dict setString:[[url lastPathComponent] stringByDeletingPathExtension] forStringKey:@"basename" error:&error]) {
+            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+            [threadPool drain];
             return;
         }
+        if (![dict setString:@"zip" forStringKey:@"extension" error:&error]) {
+            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+            [threadPool drain];
+            return;
+        }        
+
+        NSTask *ditto = [[NSTask alloc] init];
+        [ditto setLaunchPath:@"/usr/bin/ditto"];
+        [ditto setArguments:[NSArray arrayWithObjects:@"-c", @"-k", @"--sequesterRsrc", @"--keepParent", [url path], @"-", nil]];
+        NSPipe *outPipe = [[NSPipe alloc] init];
+        [ditto setStandardOutput:outPipe];
+        [ditto launch];
+        
+        didSend = [self sendFileFromFileDescriptor:[[outPipe fileHandleForReading] fileDescriptor] metadata:dict error:&error];
     }
-    
+    else
+    {
+        // Try opening the file
+        int fd = open([[url path] fileSystemRepresentation], O_RDONLY);
+        if (fd==-1) {
+            [NSError set:&error 
+                  domain:@"FileSendJob" 
+                    code:1
+                  format:@"open() failed: %s", strerror(errno)];
+            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+            [threadPool drain];
+            return;
+        }
+        
+        // Get file properties
+        struct stat statres;    
+        if (-1==fstat(fd, &statres)) {
+            [NSError set:&error 
+                  domain:@"FileSendJob" 
+                    code:1
+                  format:@"fstat() failed: %s", strerror(errno)];
+            close(fd);
+            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+            [threadPool drain];
+            return;
+        }
+        
+        // Create file metadata dictionary
+        KVPMutableDictionary *dict = [[[KVPMutableDictionary alloc] init] autorelease];
+        if (![dict setString:[[url lastPathComponent] stringByDeletingPathExtension] forStringKey:@"basename" error:&error]) {
+            close(fd);
+            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+            [threadPool drain];
+            return;
+        }
+        if (![dict setString:[url pathExtension] forStringKey:@"extension" error:&error]) {
+            close(fd);
+            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+            [threadPool drain];
+            return;
+        }
+        if (![dict setUInt64:statres.st_size forStringKey:@"size" error:&error]) {
+            close(fd);
+            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+            [threadPool drain];
+            return;
+        }
+        // send mtime only if it isn't negative (We want to be ready for the 32bit Y2k38 problem...)
+        if (statres.st_mtimespec.tv_sec > 0) {
+            uint64_t mtime_nano = 1000000000*(uint64_t)statres.st_mtimespec.tv_sec + (uint64_t)statres.st_mtimespec.tv_nsec;
+            if (![dict setUInt64:mtime_nano forStringKey:@"mtime_nano" error:&error]) {
+                close(fd);
+                [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+                [threadPool drain];
+                return;
+            }
+        }
+        
+        didSend = [self sendFileFromFileDescriptor:fd metadata:dict error:&error];
+        
+        close(fd);
+    }
+    if (!didSend) [NSApp presentError:error];
+}
+
+-(BOOL)sendFileFromFileDescriptor:(int)fd metadata:(KVPDictionary*)metadata error:(NSError**)error {
     // open a connection to the recipient
 	IPAddress *address = [[[recipient.recentAddresses lastObject] copy] autorelease];
 	address.port = recipient.tcpListenPort;
-    TCPConnection *connection = [TCPConnection connectTo:address error:&error];
-    if (!connection) {
-        close(fd);
-        [NSApp presentError:error];
-        return;
-    }
+    TCPConnection *connection = [TCPConnection connectTo:address error:error];
+    if (!connection) return NO;
     
     // send file metadata
-    if (![connection sendPacket:dict.data error:&error]) {
-        close(fd);
-        [NSApp presentError:error];
-        return;
+    if (![connection sendPacket:metadata.data error:error]) {
+        return NO;
     }
     
     // read file in 1MB chunks and send them
@@ -94,31 +146,28 @@
     *buffer = 'D';
     int bytesread;
     while ((bytesread = read(fd, buffer+1, chunksize))) {
+        NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc] init];
         if (bytesread == -1) {
             if (errno==EINTR) continue;
-            [NSError set:&error 
+            [NSError set:error 
                   domain:@"FileSendJob" 
                     code:1
                   format:@"read() failed: %s", strerror(errno)];
-            close(fd);
-            [NSApp presentError:error];
-            return;
+            return NO;
         }
         NSData *packet = [NSData dataWithBytes:buffer length:bytesread+1];
-        if (![connection sendPacket:packet error:&error]) {
-            close(fd);
-            [NSApp presentError:error];
-            return;
+        if (![connection sendPacket:packet error:error]) {
+            return NO;
         }
+        [loopPool drain];
     }
     
-    close(fd);
-
     // we're done! send a zero length packet to confirm
-    if (![connection sendPacket:[NSData data] error:&error]) {
-        [NSApp presentError:error];
-        return;
+    if (![connection sendPacket:[NSData data] error:error]) {
+        return NO;
     }
+    
+    return YES;
 }
 
 @end

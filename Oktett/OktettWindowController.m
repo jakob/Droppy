@@ -88,6 +88,8 @@
         return;
     }
     NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel setCanChooseDirectories:YES];
+    [panel setPrompt:@"Send"];
     [panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result==NSFileHandlingPanelOKButton) {
             FileSendJob *job = [[FileSendJob alloc] init];
