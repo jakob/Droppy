@@ -14,6 +14,7 @@
 #import "NSData+EncodingHelpers.h"
 #include <sys/stat.h>
 #include <sys/time.h>
+#import "SecureChannel.h"
 
 @implementation FileReceiveJob
 
@@ -25,6 +26,15 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSError *error = nil;
 
+    // Open secure channel
+    SecureChannel *channel = [[[SecureChannel alloc] init] autorelease];
+    if (![channel openChannelOverConnection:connection error:&error]) {
+        [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+        [pool release];
+        return;
+    }
+    connection = (id)channel;
+    
     // Try to get file metadata
     NSData *metadata = [connection receivePacketWithMaxLength:5000 error:&error];
     if (!metadata) {

@@ -12,6 +12,7 @@
 		344EA68A2455DBE700CFEE0A /* PDPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 344EA6892455DBE700CFEE0A /* PDPMessage.m */; };
 		344EA690245783F900CFEE0A /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 344EA68F245783F900CFEE0A /* libsodium.a */; };
 		344EA693245785BD00CFEE0A /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 344EA692245785BD00CFEE0A /* libsodium.a */; };
+		347A9F1625754F940038DDEA /* SecureChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 347A9F1525754F940038DDEA /* SecureChannel.m */; };
 		349345BE257276BC000132EF /* TCPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 349345BD257276BC000132EF /* TCPServer.m */; };
 		349345C125727772000132EF /* TCPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 349345C025727772000132EF /* TCPConnection.m */; };
 		349345C42572AF73000132EF /* NSData+EncodingHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 349345C32572AF72000132EF /* NSData+EncodingHelpers.m */; };
@@ -49,6 +50,8 @@
 		344EA68F245783F900CFEE0A /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsodium.a; path = libsodium/libsodium.a; sourceTree = "<group>"; };
 		344EA691245784D800CFEE0A /* sodium.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sodium.h; path = libsodium/sodium.h; sourceTree = "<group>"; };
 		344EA692245785BD00CFEE0A /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsodium.a; path = libsodium/libsodium.a; sourceTree = "<group>"; };
+		347A9F1425754F940038DDEA /* SecureChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecureChannel.h; sourceTree = "<group>"; };
+		347A9F1525754F940038DDEA /* SecureChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecureChannel.m; sourceTree = "<group>"; };
 		349345BC257276BC000132EF /* TCPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPServer.h; sourceTree = "<group>"; };
 		349345BD257276BC000132EF /* TCPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPServer.m; sourceTree = "<group>"; };
 		349345BF25727771000132EF /* TCPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPConnection.h; sourceTree = "<group>"; };
@@ -238,6 +241,8 @@
 				368A4C942458180A0020E6CE /* Ed25519KeyPair.m */,
 				368A4C9624581BE30020E6CE /* Ed25519PublicKey.h */,
 				368A4C9724581BE30020E6CE /* Ed25519PublicKey.m */,
+				347A9F1425754F940038DDEA /* SecureChannel.h */,
+				347A9F1525754F940038DDEA /* SecureChannel.m */,
 			);
 			name = "Discovery Agent";
 			sourceTree = "<group>";
@@ -324,6 +329,7 @@
 				34A5B65D2572F03300CF7C0B /* FileSendJob.m in Sources */,
 				34A5B6612572F08B00CF7C0B /* FileReceiveJob.m in Sources */,
 				34A5B6642572F09E00CF7C0B /* FileTransferMetadata.m in Sources */,
+				347A9F1625754F940038DDEA /* SecureChannel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

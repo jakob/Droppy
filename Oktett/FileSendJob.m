@@ -12,6 +12,7 @@
 #import "KVPMutableDictionary.h"
 #include <sys/stat.h>
 #import "NSError+ConvenienceConstructors.h"
+#import "SecureChannel.h"
 
 @interface FileSendJob() {
 }
@@ -135,6 +136,13 @@
     TCPConnection *connection = [TCPConnection connectTo:address error:error];
     if (!connection) return NO;
     
+    // Open secure channel
+    SecureChannel *channel = [[[SecureChannel alloc] init] autorelease];
+    if (![channel openChannelOverConnection:connection error:error]) {
+        return NO;
+    }
+    connection = (id)channel;
+
     // send file metadata
     if (![connection sendPacket:metadata.data error:error]) {
         return NO;
