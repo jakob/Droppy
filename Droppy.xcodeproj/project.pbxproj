@@ -266,7 +266,7 @@
 			dependencies = (
 			);
 			name = Droppy;
-			productName = Oktett;
+			productName = Droppy;
 			productReference = 349A85E12449CF6B001AE238 /* Droppy.app */;
 			productType = "com.apple.product-type.application";
 		};
