@@ -24,6 +24,12 @@
 @synthesize url;
 @synthesize recipient;
 
+-(void)dealloc {
+	[url release];
+	[recipient release];
+	[super dealloc];
+}
+
 -(void)start {
     [self performSelectorInBackground:@selector(doWork) withObject:nil];
 }
@@ -63,6 +69,8 @@
         [ditto launch];
         
         didSend = [self sendFileFromFileDescriptor:[[outPipe fileHandleForReading] fileDescriptor] metadata:dict error:&error];
+		[ditto release];
+		[outPipe release];
     }
     else
     {

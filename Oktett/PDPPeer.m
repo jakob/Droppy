@@ -87,6 +87,7 @@
     [recentAddresses release];
 	[deviceModel release];
 	[deviceName release];
+	[publicKey release];
     [super dealloc];
 }
 
