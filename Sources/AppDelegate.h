@@ -1,5 +1,5 @@
 //
-//  OktettAppDelegate.h
+//  AppDelegate.h
 //  Oktett
 //
 //  Created by Jakob on 17.04.20.
@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface OktettAppDelegate : NSObject <NSApplicationDelegate> {
+@interface AppDelegate : NSObject <NSApplicationDelegate> {
 @private
     NSWindow *window;
 }
