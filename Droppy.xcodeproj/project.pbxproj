@@ -132,7 +132,7 @@
 			children = (
 				344EA68F245783F900CFEE0A /* libsodium.a */,
 				344EA68B2457837C00CFEE0A /* Vendor */,
-				349A85EB2449CF6B001AE238 /* Oktett */,
+				349A85EB2449CF6B001AE238 /* Sources */,
 				349A85E42449CF6B001AE238 /* Frameworks */,
 				349A85E22449CF6B001AE238 /* Products */,
 			);
@@ -167,7 +167,7 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		349A85EB2449CF6B001AE238 /* Oktett */ = {
+		349A85EB2449CF6B001AE238 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				349E67EB244EE4B500A2E741 /* Discovery Agent */,
@@ -192,7 +192,7 @@
 				34A5B6622572F09D00CF7C0B /* FileTransferMetadata.h */,
 				34A5B6632572F09E00CF7C0B /* FileTransferMetadata.m */,
 			);
-			path = Oktett;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		349A85EC2449CF6B001AE238 /* Supporting Files */ = {
@@ -406,8 +406,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Oktett/Droppy-Prefix.pch";
-				INFOPLIST_FILE = "Oktett/Droppy-Info.plist";
+				GCC_PREFIX_HEADER = "Sources/Droppy-Prefix.pch";
+				INFOPLIST_FILE = "Sources/Droppy-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/libsodium\"",
@@ -425,8 +425,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Oktett/Droppy-Prefix.pch";
-				INFOPLIST_FILE = "Oktett/Droppy-Info.plist";
+				GCC_PREFIX_HEADER = "Sources/Droppy-Prefix.pch";
+				INFOPLIST_FILE = "Sources/Droppy-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/libsodium\"",
