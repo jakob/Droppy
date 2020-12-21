@@ -201,7 +201,7 @@
     [nameField setStringValue:peer.deviceName ?: @""];
     [modelField setStringValue:peer.deviceModel ?: @""];
     [hexKeyField setStringValue:[[peer.publicKey data] fast_hex] ?: @""];
-    [base64KeyField setStringValue:[[peer.publicKey data] sodium_base64] ?: @""];
+    [base58KeyField setStringValue:[[peer.publicKey data] base58EncodedString] ?: @""];
     [tcpPortField setStringValue:[NSString stringWithFormat:@"%hu", peer.tcpListenPort]];
     
     [nameField setEditable:peer == [PDPPeer localPeer]];
@@ -209,7 +209,7 @@
     [nameField setEnabled:!!peer];
     [modelField setEnabled:!!peer];
     [hexKeyField setEnabled:!!peer];
-    [base64KeyField setEnabled:!!peer];
+    [base58KeyField setEnabled:!!peer];
     [tcpPortField setEnabled:!!peer];
 }
 

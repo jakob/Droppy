@@ -2012,7 +2012,7 @@ zjbOts83z7jQOdC60TzRvtI/0sHTRNPG1EnUy9VO1dHWVdbY11zX4Nhk2OjZbNnx2nba+9uA3AXcit0Q
 												<int key="NSCellFlags">68157504</int>
 												<int key="NSCellFlags2">272630784</int>
 												<int key="NSControlSize2">0</int>
-												<string key="NSContents">Public Key (base64)</string>
+												<string key="NSContents">Public Key (base58)</string>
 												<reference key="NSSupport" ref="670005755"/>
 												<reference key="NSControlView" ref="448685822"/>
 												<reference key="NSBackgroundColor" ref="1071409812"/>
@@ -3272,7 +3272,7 @@ zjbOts83z7jQOdC60TzRvtI/0sHTRNPG1EnUy9VO1dHWVdbY11zX4Nhk2OjZbNnx2nba+9uA3AXcit0Q
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">base64KeyField</string>
+						<string key="label">base58KeyField</string>
 						<reference key="source" ref="105550241"/>
 						<reference key="destination" ref="203583131"/>
 					</object>

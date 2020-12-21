@@ -45,7 +45,7 @@ The goal of this app is to solve all of these issues.
 
 - No passwords. All crypto based on public keys. Easy to grant access to others, hard to leak data.
 
-- Simple Key verification with QR Codes / base64 / hex representations of keys.
+- Simple Key verification with QR Codes / base58 / hex representations of keys.
 
 - Universal support. Simple protocol means it's easy to write apps for any OS.
   First party apps are aim to be compatible with ancient versions (eg. we even support macOS 10.6 on 32bit)

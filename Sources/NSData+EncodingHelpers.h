@@ -5,5 +5,6 @@
 
 -(NSString*)fast_hex;
 -(NSString*)sodium_base64;
+-(NSString*)base58EncodedString;
 
 @end

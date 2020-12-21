@@ -36,4 +36,37 @@
     return [b64_string autorelease];
 }
 
+-(NSString*)base58EncodedString {
+	NSMutableData *xData = [self mutableCopy];
+	const char *alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+	uint8_t *x = [xData mutableBytes];
+	size_t xlen = [xData length];
+	size_t reslen = ceil(log(256) / log(58) * (double)xlen);
+	char *res = malloc(reslen);
+	for (size_t k = reslen; k-->0; ) {
+		
+		// divide x by 58
+		// division is performed in place
+		// r is the remainder of the division
+		// this algorithm is kinda how you learned to do division in school
+		// except that we use bytes instead of digits
+		uint16_t r = 0;
+		for (int i = 0; i < xlen; i++) {
+			uint16_t dividend = (r << 8) + x[i];
+			x[i] = dividend / 58;
+			r = dividend % 58;
+		}
+		
+		// the remainder is the least significant digit of the result
+		// (k is counting backwards)
+		res[k] = alphabet[r];
+	};
+	// after reslen iterations, x will be all zeros
+	// this method may end up with leading 1s
+	[xData release];
+	NSString *result = [[NSString alloc] initWithBytes:res length:reslen encoding:NSASCIIStringEncoding];
+	free(res);
+	return [result autorelease];
+}
+
 @end
