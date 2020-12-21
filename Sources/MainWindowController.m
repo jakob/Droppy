@@ -6,7 +6,7 @@
 //  Copyright 2020 __MyCompanyName__. All rights reserved.
 //
 
-#import "OktettWindowController.h"
+#import "MainWindowController.h"
 
 #import "PDPAgent.h"
 #import "NSData+EncodingHelpers.h"
@@ -14,11 +14,11 @@
 #import "FileReceiveJob.h"
 #import "FileSendJob.h"
 
-@interface OktettWindowController() <PDPAgentDelegate> {
+@interface MainWindowController() <PDPAgentDelegate> {
 }
 @end
 
-@implementation OktettWindowController
+@implementation MainWindowController
 
 - (id)initWithWindow:(NSWindow *)window
 {

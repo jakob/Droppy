@@ -24,7 +24,7 @@
 		349A85F62449CF6B001AE238 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 349A85F42449CF6B001AE238 /* Credits.rtf */; };
 		349A85F92449CF6B001AE238 /* OktettAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 349A85F82449CF6B001AE238 /* OktettAppDelegate.m */; };
 		349A85FC2449CF6B001AE238 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349A85FA2449CF6B001AE238 /* MainMenu.xib */; };
-		349A86042449FEEB001AE238 /* OktettWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 349A86032449FEEB001AE238 /* OktettWindowController.m */; };
+		349A86042449FEEB001AE238 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 349A86032449FEEB001AE238 /* MainWindowController.m */; };
 		349E67EA244ECF7E00A2E741 /* UDPMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67E9244ECF7E00A2E741 /* UDPMessenger.m */; };
 		349E67EE244EE4D800A2E741 /* PDPAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67ED244EE4D800A2E741 /* PDPAgent.m */; };
 		349E67F1244EE4F100A2E741 /* PDPPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E67F0244EE4F100A2E741 /* PDPPeer.m */; };
@@ -76,8 +76,8 @@
 		349A85F72449CF6B001AE238 /* OktettAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OktettAppDelegate.h; sourceTree = "<group>"; };
 		349A85F82449CF6B001AE238 /* OktettAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OktettAppDelegate.m; sourceTree = "<group>"; };
 		349A85FB2449CF6B001AE238 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		349A86022449FEEB001AE238 /* OktettWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OktettWindowController.h; sourceTree = "<group>"; };
-		349A86032449FEEB001AE238 /* OktettWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OktettWindowController.m; sourceTree = "<group>"; };
+		349A86022449FEEB001AE238 /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
+		349A86032449FEEB001AE238 /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		349E67E8244ECF7E00A2E741 /* UDPMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPMessenger.h; sourceTree = "<group>"; };
 		349E67E9244ECF7E00A2E741 /* UDPMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPMessenger.m; sourceTree = "<group>"; };
 		349E67EC244EE4D800A2E741 /* PDPAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDPAgent.h; sourceTree = "<group>"; };
@@ -177,8 +177,8 @@
 				349A85F72449CF6B001AE238 /* OktettAppDelegate.h */,
 				349A85F82449CF6B001AE238 /* OktettAppDelegate.m */,
 				349A85FA2449CF6B001AE238 /* MainMenu.xib */,
-				349A86022449FEEB001AE238 /* OktettWindowController.h */,
-				349A86032449FEEB001AE238 /* OktettWindowController.m */,
+				349A86022449FEEB001AE238 /* MainWindowController.h */,
+				349A86032449FEEB001AE238 /* MainWindowController.m */,
 				3498D5EB244C8DD000DC2101 /* NSError+ConvenienceConstructors.h */,
 				3498D5EC244C8DD000DC2101 /* NSError+ConvenienceConstructors.m */,
 				349E6805245192D900A2E741 /* NSString+Additions.h */,
@@ -317,7 +317,7 @@
 			files = (
 				349A85F32449CF6B001AE238 /* main.m in Sources */,
 				349A85F92449CF6B001AE238 /* OktettAppDelegate.m in Sources */,
-				349A86042449FEEB001AE238 /* OktettWindowController.m in Sources */,
+				349A86042449FEEB001AE238 /* MainWindowController.m in Sources */,
 				3498D5ED244C8DD000DC2101 /* NSError+ConvenienceConstructors.m in Sources */,
 				3498D5F0244CE6DC00DC2101 /* IPInterface.m in Sources */,
 				34B60C06244E3B2A006C62B9 /* IPAddress.m in Sources */,

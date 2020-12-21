@@ -10,7 +10,7 @@
 
 @class PDPAgent, PDPPeer;
 
-@interface OktettWindowController : NSWindowController<NSSplitViewDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource> {
+@interface MainWindowController : NSWindowController<NSSplitViewDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource> {
     IBOutlet NSTextView *statusTextView;
     BOOL didSetup;
     PDPAgent *discoveryAgent;
