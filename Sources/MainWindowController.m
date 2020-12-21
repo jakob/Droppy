@@ -1,5 +1,5 @@
 //
-//  OktettWindowController.m
+//  MainWindowController.m
 //  Oktett
 //
 //  Created by Jakob on 17.04.20.
