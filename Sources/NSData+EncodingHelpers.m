@@ -12,12 +12,10 @@
     char i = 0;
     const char const *end = bin + binlen;
     while (bin<end) {
-        char nibble = *bin & 0xF;
-        if (nibble < 0xA) *(curr++) = '0' + nibble;
-        else *(curr++) = 'A' + (nibble - 0xA);
-        nibble = (*bin >> 4) & 0xF;
-        if (nibble < 0xA) *(curr++) = '0' + nibble;
-        else *(curr++) = 'A' + (nibble - 0xA);
+        char big_nibble = (*bin >> 4) & 0xF;
+        *(curr++) = big_nibble < 0xA ? '0' + big_nibble : 'A' + (big_nibble - 0xA);
+        char small_nibble = *bin & 0xF;
+        *(curr++) = small_nibble < 0xA ? '0' + small_nibble : 'A' + (small_nibble - 0xA);
         if (i%4==3) *(curr++) = i%16==15 ? '\n' : ' ';
         bin++;
         i++;
