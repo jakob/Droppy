@@ -62,14 +62,14 @@
 		3498D5EC244C8DD000DC2101 /* NSError+ConvenienceConstructors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+ConvenienceConstructors.m"; sourceTree = "<group>"; };
 		3498D5EE244CE6DC00DC2101 /* IPInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPInterface.h; sourceTree = "<group>"; };
 		3498D5EF244CE6DC00DC2101 /* IPInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPInterface.m; sourceTree = "<group>"; };
-		349A85E12449CF6B001AE238 /* Oktett.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Oktett.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		349A85E12449CF6B001AE238 /* Droppy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droppy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		349A85E52449CF6B001AE238 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		349A85E82449CF6B001AE238 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		349A85E92449CF6B001AE238 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		349A85EA2449CF6B001AE238 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		349A85ED2449CF6B001AE238 /* Oktett-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Oktett-Info.plist"; sourceTree = "<group>"; };
+		349A85ED2449CF6B001AE238 /* Droppy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Droppy-Info.plist"; sourceTree = "<group>"; };
 		349A85EF2449CF6B001AE238 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		349A85F12449CF6B001AE238 /* Oktett-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Oktett-Prefix.pch"; sourceTree = "<group>"; };
+		349A85F12449CF6B001AE238 /* Droppy-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Droppy-Prefix.pch"; sourceTree = "<group>"; };
 		349A85F22449CF6B001AE238 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		349A85F52449CF6B001AE238 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		349A85F72449CF6B001AE238 /* OktettAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OktettAppDelegate.h; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 		349A85E22449CF6B001AE238 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				349A85E12449CF6B001AE238 /* Oktett.app */,
+				349A85E12449CF6B001AE238 /* Droppy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -198,9 +198,9 @@
 		349A85EC2449CF6B001AE238 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				349A85ED2449CF6B001AE238 /* Oktett-Info.plist */,
+				349A85ED2449CF6B001AE238 /* Droppy-Info.plist */,
 				349A85EE2449CF6B001AE238 /* InfoPlist.strings */,
-				349A85F12449CF6B001AE238 /* Oktett-Prefix.pch */,
+				349A85F12449CF6B001AE238 /* Droppy-Prefix.pch */,
 				349A85F22449CF6B001AE238 /* main.m */,
 				349A85F42449CF6B001AE238 /* Credits.rtf */,
 			);
@@ -250,9 +250,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		349A85E02449CF6B001AE238 /* Oktett */ = {
+		349A85E02449CF6B001AE238 /* Droppy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 349A85FF2449CF6B001AE238 /* Build configuration list for PBXNativeTarget "Oktett" */;
+			buildConfigurationList = 349A85FF2449CF6B001AE238 /* Build configuration list for PBXNativeTarget "Droppy" */;
 			buildPhases = (
 				349A85DD2449CF6B001AE238 /* Sources */,
 				349A85DE2449CF6B001AE238 /* Frameworks */,
@@ -262,9 +262,9 @@
 			);
 			dependencies = (
 			);
-			name = Oktett;
+			name = Droppy;
 			productName = Oktett;
-			productReference = 349A85E12449CF6B001AE238 /* Oktett.app */;
+			productReference = 349A85E12449CF6B001AE238 /* Droppy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -272,11 +272,14 @@
 /* Begin PBXProject section */
 		349A85D82449CF6A001AE238 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 349A85DB2449CF6A001AE238 /* Build configuration list for PBXProject "Oktett" */;
+			attributes = {
+			};
+			buildConfigurationList = 349A85DB2449CF6A001AE238 /* Build configuration list for PBXProject "Droppy" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 349A85D62449CF6A001AE238;
@@ -284,7 +287,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				349A85E02449CF6B001AE238 /* Oktett */,
+				349A85E02449CF6B001AE238 /* Droppy */,
 			);
 		};
 /* End PBXProject section */
@@ -403,13 +406,13 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Oktett/Oktett-Prefix.pch";
-				INFOPLIST_FILE = "Oktett/Oktett-Info.plist";
+				GCC_PREFIX_HEADER = "Oktett/Droppy-Prefix.pch";
+				INFOPLIST_FILE = "Oktett/Droppy-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/libsodium\"",
 				);
-				PRODUCT_NAME = Oktett;
+				PRODUCT_NAME = Droppy;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -422,13 +425,13 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Oktett/Oktett-Prefix.pch";
-				INFOPLIST_FILE = "Oktett/Oktett-Info.plist";
+				GCC_PREFIX_HEADER = "Oktett/Droppy-Prefix.pch";
+				INFOPLIST_FILE = "Oktett/Droppy-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/libsodium\"",
 				);
-				PRODUCT_NAME = Oktett;
+				PRODUCT_NAME = Droppy;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -436,7 +439,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		349A85DB2449CF6A001AE238 /* Build configuration list for PBXProject "Oktett" */ = {
+		349A85DB2449CF6A001AE238 /* Build configuration list for PBXProject "Droppy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				349A85FD2449CF6B001AE238 /* Debug */,
@@ -445,7 +448,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		349A85FF2449CF6B001AE238 /* Build configuration list for PBXNativeTarget "Oktett" */ = {
+		349A85FF2449CF6B001AE238 /* Build configuration list for PBXNativeTarget "Droppy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				349A86002449CF6B001AE238 /* Debug */,
