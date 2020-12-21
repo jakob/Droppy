@@ -34,6 +34,7 @@
 		34A5B6642572F09E00CF7C0B /* FileTransferMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 34A5B6632572F09E00CF7C0B /* FileTransferMetadata.m */; };
 		34AEE393244A3E90004E6CEC /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 34AEE392244A3E90004E6CEC /* README.txt */; };
 		34B60C06244E3B2A006C62B9 /* IPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B60C05244E3B29006C62B9 /* IPAddress.m */; };
+		360F09212590E90F001FE4EE /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 360F09202590E90F001FE4EE /* AppIcon.icns */; };
 		368A4C952458180A0020E6CE /* Ed25519KeyPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 368A4C942458180A0020E6CE /* Ed25519KeyPair.m */; };
 		368A4C9824581BE30020E6CE /* Ed25519PublicKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 368A4C9724581BE30020E6CE /* Ed25519PublicKey.m */; };
 		368A4C9A245AEF340020E6CE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 368A4C99245AEF340020E6CE /* Security.framework */; };
@@ -94,6 +95,7 @@
 		34AEE392244A3E90004E6CEC /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		34B60C04244E3B29006C62B9 /* IPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPAddress.h; sourceTree = "<group>"; };
 		34B60C05244E3B29006C62B9 /* IPAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPAddress.m; sourceTree = "<group>"; };
+		360F09202590E90F001FE4EE /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		368A4C932458180A0020E6CE /* Ed25519KeyPair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ed25519KeyPair.h; sourceTree = "<group>"; };
 		368A4C942458180A0020E6CE /* Ed25519KeyPair.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Ed25519KeyPair.m; sourceTree = "<group>"; };
 		368A4C9624581BE30020E6CE /* Ed25519PublicKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ed25519PublicKey.h; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 		349A85EC2449CF6B001AE238 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				360F09202590E90F001FE4EE /* AppIcon.icns */,
 				349A85ED2449CF6B001AE238 /* Droppy-Info.plist */,
 				349A85EE2449CF6B001AE238 /* InfoPlist.strings */,
 				349A85F12449CF6B001AE238 /* Droppy-Prefix.pch */,
@@ -297,6 +300,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				360F09212590E90F001FE4EE /* AppIcon.icns in Resources */,
 				349A85F02449CF6B001AE238 /* InfoPlist.strings in Resources */,
 				349A85F62449CF6B001AE238 /* Credits.rtf in Resources */,
 				349A85FC2449CF6B001AE238 /* MainMenu.xib in Resources */,
