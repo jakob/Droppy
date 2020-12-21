@@ -12,10 +12,8 @@
 #import "Ed25519KeyPair.h"
 
 @interface KVPMutableDictionary : KVPDictionary {
-    
+    NSMutableData *mutableData;
 }
-
-@property(retain) NSMutableData *mutableData;
 
 -(BOOL)setData:(NSData*)valueData forDataKey:(NSData*)keyData error:(NSError**)outError;
 -(BOOL)setData:(NSData*)valueData forStringKey:(NSString*)key error:(NSError**)outError;

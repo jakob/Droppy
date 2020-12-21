@@ -11,7 +11,15 @@
 
 @implementation KVPMutableDictionary
 
-@synthesize mutableData = data;
+-(id)init {
+	self = [super init];
+	if (self) {
+		NSMutableData *data = [[NSMutableData alloc] init];
+		self->data = data;
+		self->mutableData = data;
+	}
+	return self;
+}
 
 -(BOOL)setData:(NSData*)valueData forDataKey:(NSData*)keyData error:(NSError**)outError {
     if ([self dataForDataKey:keyData]) {
@@ -40,12 +48,12 @@
     
     uint8_t len;
     len = keyData.length;
-    [data appendBytes:&len length:1];
-    [data appendData:keyData];
+    [mutableData appendBytes:&len length:1];
+    [mutableData appendData:keyData];
     
     len = valueData.length;
-    [data appendBytes:&len length:1];
-    [data appendData:valueData];
+    [mutableData appendBytes:&len length:1];
+    [mutableData appendData:valueData];
     
     return YES;
 }
@@ -105,7 +113,7 @@
         // Note: there is now a broken signature in data!!
         return NO;
     }
-    [data replaceBytesInRange:NSMakeRange(signatureOffset, 64) withBytes:signature.bytes];
+    [mutableData replaceBytesInRange:NSMakeRange(signatureOffset, 64) withBytes:signature.bytes];
     return YES;
 }
 

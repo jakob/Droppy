@@ -13,14 +13,6 @@ NSString *KVPErrorDomain = @"KVPErrorDomain";
 
 @implementation KVPDictionary
 
--(id)init {
-    self = [super init];
-    if (self) {
-        data = [[NSMutableData alloc] init];
-    }
-    return self;
-}
-
 -(void)dealloc {
     [data release];
     [super dealloc];
@@ -35,7 +27,7 @@ NSString *KVPErrorDomain = @"KVPErrorDomain";
         return nil;
     }
     KVPDictionary *dict = [[KVPDictionary alloc] init];
-    [dict->data appendData:data];
+    dict->data = [data copy];
     return [dict autorelease];
 }
 

@@ -17,7 +17,7 @@ typedef enum {
 extern NSString *KVPErrorDomain;
 
 @interface KVPDictionary : NSObject {
-    NSMutableData *data;
+    NSData *data;
 }
 
 @property(readonly) NSData *data;
