@@ -1,11 +1,3 @@
-//
-//  KVPMutableDictionary.m
-//  Oktett
-//
-//  Created by Jakob on 26.04.20.
-//  Copyright 2020 __MyCompanyName__. All rights reserved.
-//
-
 #import "KVPMutableDictionary.h"
 #import "NSError+ConvenienceConstructors.h"
 

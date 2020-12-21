@@ -1,10 +1,3 @@
-//
-//  Ed25519KeyPair.m
-//  Oktett
-//
-//  Created by Jakob Egger on 2020-04-28.
-//
-
 #import <Security/Security.h>
 #import "Ed25519KeyPair.h"
 #import "Ed25519PublicKey.h"

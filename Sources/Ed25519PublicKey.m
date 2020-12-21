@@ -1,10 +1,3 @@
-//
-//  Ed25519PublicKey.m
-//  Oktett
-//
-//  Created by Jakob Egger on 2020-04-28.
-//
-
 #import "Ed25519PublicKey.h"
 #import "NSError+ConvenienceConstructors.h"
 

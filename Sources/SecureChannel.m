@@ -1,11 +1,3 @@
-//
-//  SecureChannel.m
-//  Oktett
-//
-//  Created by Jakob on 30.11.20.
-//  Copyright 2020 __MyCompanyName__. All rights reserved.
-//
-
 #import "SecureChannel.h"
 #import "TCPConnection.h"
 #import "NSError+ConvenienceConstructors.h"

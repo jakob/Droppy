@@ -1,11 +1,3 @@
-//
-//  KVPDictionary.h
-//  Oktett
-//
-//  Created by Jakob on 26.04.20.
-//  Copyright 2020 __MyCompanyName__. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
 #import "Ed25519PublicKey.h"
 

@@ -1,11 +1,3 @@
-//
-//  PDPPeer.m
-//  Oktett
-//
-//  Created by Jakob on 21.04.20.
-//  Copyright 2020 __MyCompanyName__. All rights reserved.
-//
-
 #import "PDPPeer.h"
 #import "PDPAgent.h"
 #import "Ed25519KeyPair.h"

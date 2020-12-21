@@ -1,10 +1,3 @@
-//
-//  Ed25519PublicKey.h
-//  Oktett
-//
-//  Created by Jakob Egger on 2020-04-28.
-//
-
 #import <Foundation/Foundation.h>
 #import "sodium.h"
 

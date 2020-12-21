@@ -1,11 +1,3 @@
-//
-//  IPAddress.m
-//  Oktett
-//
-//  Created by Jakob on 20.04.20.
-//  Copyright 2020 __MyCompanyName__. All rights reserved.
-//
-
 #import "IPAddress.h"
 
 

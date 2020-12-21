@@ -1,11 +1,3 @@
-//
-//  FileSendJob.m
-//  Oktett
-//
-//  Created by Jakob on 28.11.20.
-//  Copyright 2020 __MyCompanyName__. All rights reserved.
-//
-
 #import "FileSendJob.h"
 #import "TCPConnection.h"
 #import "PDPPeer.h"
