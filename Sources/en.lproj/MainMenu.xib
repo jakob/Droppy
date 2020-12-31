@@ -1671,7 +1671,7 @@ ADIALgAyACCCcl9pY8+P8JAadShwcF6mfPtlcAAgADIALgAyACBjz4/wZYdO9gAAA</bytes>
 												<object class="NSTextField" id="692688874">
 													<reference key="NSNextResponder" ref="511022150"/>
 													<int key="NSvFlags">274</int>
-													<string key="NSFrame">{{17, 48}, {322, 118}}</string>
+													<string key="NSFrame">{{17, 48}, {322, 137}}</string>
 													<reference key="NSSuperview" ref="511022150"/>
 													<reference key="NSWindow"/>
 													<reference key="NSNextKeyView" ref="692965148"/>
@@ -1687,7 +1687,10 @@ ADIALgAyACCCcl9pY8+P8JAadShwcF6mfPtlcAAgADIALgAyACBjz4/wZYdO9gAAA</bytes>
 														</object>
 														<reference key="NSControlView" ref="692688874"/>
 														<reference key="NSBackgroundColor" ref="583760798"/>
-														<reference key="NSTextColor" ref="673633776"/>
+														<object class="NSColor" key="NSTextColor">
+															<int key="NSColorSpace">4</int>
+															<bytes key="NSWhite">MCAwLjYwMDAwMDAyMzgAA</bytes>
+														</object>
 													</object>
 												</object>
 												<object class="NSButton" id="692965148">
@@ -1713,7 +1716,7 @@ ADIALgAyACCCcl9pY8+P8JAadShwcF6mfPtlcAAgADIALgAyACBjz4/wZYdO9gAAA</bytes>
 													</object>
 												</object>
 											</array>
-											<string key="NSFrame">{{20, 61}, {356, 186}}</string>
+											<string key="NSFrame">{{20, 53}, {356, 205}}</string>
 											<reference key="NSSuperview" ref="1036936229"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="692688874"/>
@@ -1874,7 +1877,7 @@ ADIALgAyACCCcl9pY8+P8JAadShwcF6mfPtlcAAgADIALgAyACBjz4/wZYdO9gAAA</bytes>
 																<string>WebURLsWithTitlesPboardType</string>
 																<string>public.url</string>
 															</set>
-															<string key="NSFrameSize">{262, 378}</string>
+															<string key="NSFrame">{{0, 58}, {262, 320}}</string>
 															<reference key="NSSuperview" ref="668040177"/>
 															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="222393502"/>
