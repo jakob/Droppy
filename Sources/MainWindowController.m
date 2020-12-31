@@ -10,6 +10,9 @@
 }
 @end
 
+static NSString *localPeerGroup = @"My Device";
+static NSString *discoveredPeersGroup = @"Network";
+
 @implementation MainWindowController
 
 - (id)initWithWindow:(NSWindow *)window
@@ -71,7 +74,7 @@
     if (![discoveryAgent scanWithError:&error]) {
         [self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
     }
-	[outlineView expandItem:@"Discovered Stuff"];
+	[outlineView expandItem:discoveredPeersGroup];
 }
 
 - (IBAction)sendFile:(id)sender {
@@ -133,10 +136,10 @@
     if (item == nil) {
         return 2;
     }
-    if ([item isEqual:@"My Stuff"]) {
+    if ([item isEqual:localPeerGroup]) {
         return 1;
     }
-    if ([item isEqual:@"Discovered Stuff"]) {
+    if ([item isEqual:discoveredPeersGroup]) {
         return discoveryAgent.peers.count;
     }
     return 0;
@@ -170,16 +173,16 @@
 -(id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
     if (item == nil) {
         if (index==0) {
-            return @"My Stuff";
+            return localPeerGroup;
         }
         if (index==1) {
-            return @"Discovered Stuff";
+            return discoveredPeersGroup;
         }
     }
-    if ([item isEqual:@"My Stuff"]) {
+    if ([item isEqual:localPeerGroup]) {
         return [PDPPeer localPeer];
     }
-    if ([item isEqual:@"Discovered Stuff"]) {
+    if ([item isEqual:discoveredPeersGroup]) {
         return [discoveryAgent.peers objectAtIndex:index];
     }
     return nil;
