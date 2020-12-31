@@ -32,6 +32,7 @@
 		34A5B65D2572F03300CF7C0B /* FileSendJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 34A5B65C2572F03300CF7C0B /* FileSendJob.m */; };
 		34A5B6612572F08B00CF7C0B /* FileReceiveJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 34A5B6602572F08B00CF7C0B /* FileReceiveJob.m */; };
 		34A5B6642572F09E00CF7C0B /* FileTransferMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 34A5B6632572F09E00CF7C0B /* FileTransferMetadata.m */; };
+		34AA3578259E019600D63D77 /* FileDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34AA3577259E019600D63D77 /* FileDropView.m */; };
 		34AEE393244A3E90004E6CEC /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 34AEE392244A3E90004E6CEC /* README.txt */; };
 		34B60C06244E3B2A006C62B9 /* IPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B60C05244E3B29006C62B9 /* IPAddress.m */; };
 		360F09212590E90F001FE4EE /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 360F09202590E90F001FE4EE /* AppIcon.icns */; };
@@ -92,6 +93,8 @@
 		34A5B6602572F08B00CF7C0B /* FileReceiveJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileReceiveJob.m; sourceTree = "<group>"; };
 		34A5B6622572F09D00CF7C0B /* FileTransferMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileTransferMetadata.h; sourceTree = "<group>"; };
 		34A5B6632572F09E00CF7C0B /* FileTransferMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileTransferMetadata.m; sourceTree = "<group>"; };
+		34AA3576259E019600D63D77 /* FileDropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDropView.h; sourceTree = "<group>"; };
+		34AA3577259E019600D63D77 /* FileDropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileDropView.m; sourceTree = "<group>"; };
 		34AEE392244A3E90004E6CEC /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		34B60C04244E3B29006C62B9 /* IPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPAddress.h; sourceTree = "<group>"; };
 		34B60C05244E3B29006C62B9 /* IPAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPAddress.m; sourceTree = "<group>"; };
@@ -177,6 +180,8 @@
 				349A85F72449CF6B001AE238 /* AppDelegate.h */,
 				349A85F82449CF6B001AE238 /* AppDelegate.m */,
 				349A85FA2449CF6B001AE238 /* MainMenu.xib */,
+				34AA3576259E019600D63D77 /* FileDropView.h */,
+				34AA3577259E019600D63D77 /* FileDropView.m */,
 				349A86022449FEEB001AE238 /* MainWindowController.h */,
 				349A86032449FEEB001AE238 /* MainWindowController.m */,
 				3498D5EB244C8DD000DC2101 /* NSError+ConvenienceConstructors.h */,
@@ -275,8 +280,6 @@
 /* Begin PBXProject section */
 		349A85D82449CF6A001AE238 /* Project object */ = {
 			isa = PBXProject;
-			attributes = {
-			};
 			buildConfigurationList = 349A85DB2449CF6A001AE238 /* Build configuration list for PBXProject "Droppy" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -337,6 +340,7 @@
 				34A5B6612572F08B00CF7C0B /* FileReceiveJob.m in Sources */,
 				34A5B6642572F09E00CF7C0B /* FileTransferMetadata.m in Sources */,
 				347A9F1625754F940038DDEA /* SecureChannel.m in Sources */,
+				34AA3578259E019600D63D77 /* FileDropView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,3 +1,4 @@
+#import "IPAddress.h"
 #import "PDPPeer.h"
 #import "PDPAgent.h"
 #import "Ed25519KeyPair.h"
@@ -75,11 +76,42 @@
     return [[recentAddresses copy] autorelease];
 }
 
+-(NSString*)mostRecentPresentationAddressAndPort {
+    if (!recentAddresses.count) return @"no recent address";
+    NSString *recentAddress = [[recentAddresses lastObject] presentationAddress];
+    if (tcpListenPort == 0) {
+        return recentAddress;
+    }
+    else if ([recentAddress rangeOfString:@":"].location == NSNotFound) {
+        return [NSString stringWithFormat:@"%@:%hu", recentAddress, tcpListenPort];
+    }
+    else {
+        return [NSString stringWithFormat:@"[%@]:%hu", recentAddress, tcpListenPort];
+    }
+}
+
+-(BOOL)acceptIncomingTransfers {
+    return [incomingTransferMode isEqual:@"accept"];
+}
+
+-(void)setAcceptIncomingTransfers:(BOOL)acceptIncomingTransfers {
+    NSString *newMode;
+    if (acceptIncomingTransfers) {
+        newMode = @"accept";
+    } else {
+        newMode = @"reject";
+    }
+    NSString *oldMode = incomingTransferMode;
+    incomingTransferMode = [newMode retain];
+    [oldMode release];
+}
+
 -(void)dealloc {
     [recentAddresses release];
 	[deviceModel release];
 	[deviceName release];
 	[publicKey release];
+    [incomingTransferMode release];
     [super dealloc];
 }
 

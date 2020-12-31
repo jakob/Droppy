@@ -8,15 +8,15 @@
     PDPAgent *discoveryAgent;
     IBOutlet NSOutlineView *outlineView;
     IBOutlet NSTextField *nameField;
-    IBOutlet NSTextField *modelField;
-    IBOutlet NSTextField *hexKeyField;
     IBOutlet NSTextField *base58KeyField;
-    IBOutlet NSTextField *tcpPortField;
+    IBOutlet NSTextField *recentAddressField;
+    IBOutlet NSButton *incomingTransfersCheckbox;
     PDPPeer *selectedPeer;
 }
 
 -(void)setup;
 -(IBAction)sayHello:(id)sender;
 - (IBAction)sendFile:(id)sender;
+-(IBAction)takeAcceptsIncomingTranfersFromCheckbox:(NSButton*)checkbox;
 
 @end

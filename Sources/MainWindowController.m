@@ -30,6 +30,7 @@ static NSString *discoveredPeersGroup = @"Network";
     [self setup];
     [outlineView expandItem:[outlineView itemAtRow:1]];
     [outlineView expandItem:[outlineView itemAtRow:0]];
+    [outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:1] byExtendingSelection:NO];
 }
 
 
@@ -202,18 +203,17 @@ static NSString *discoveredPeersGroup = @"Network";
     selectedPeer = peer;
     
     [nameField setStringValue:peer.deviceName ?: @""];
-    [modelField setStringValue:peer.deviceModel ?: @""];
-    [hexKeyField setStringValue:[[peer.publicKey data] fast_hex] ?: @""];
     [base58KeyField setStringValue:[[peer.publicKey data] base58EncodedString] ?: @""];
-    [tcpPortField setStringValue:[NSString stringWithFormat:@"%hu", peer.tcpListenPort]];
-    
-    [nameField setEditable:peer == [PDPPeer localPeer]];
+    [recentAddressField setStringValue:peer.mostRecentPresentationAddressAndPort];
+    [incomingTransfersCheckbox setState:peer.acceptIncomingTransfers];
     
     [nameField setEnabled:!!peer];
-    [modelField setEnabled:!!peer];
-    [hexKeyField setEnabled:!!peer];
     [base58KeyField setEnabled:!!peer];
-    [tcpPortField setEnabled:!!peer];
+    [recentAddressField setEnabled:!!peer];
+}
+
+-(IBAction)takeAcceptsIncomingTranfersFromCheckbox:(NSButton*)checkbox {
+    selectedPeer.acceptIncomingTransfers = [checkbox state] == NSOnState;
 }
 
 -(void)outlineViewSelectionDidChange:(NSNotification *)notification {
