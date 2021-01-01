@@ -200,12 +200,10 @@ static NSString *discoveredPeersGroup = @"Network";
     
     [nameField setStringValue:peer.deviceName ?: @""];
     [base58KeyField setStringValue:[[peer.publicKey data] base58EncodedString] ?: @""];
-    [recentAddressField setStringValue:peer.mostRecentPresentationAddressAndPort];
     [incomingTransfersCheckbox setState:peer.acceptIncomingTransfers];
     
     [nameField setEnabled:!!peer];
     [base58KeyField setEnabled:!!peer];
-    [recentAddressField setEnabled:!!peer];
 }
 
 -(IBAction)takeAcceptsIncomingTranfersFromCheckbox:(NSButton*)checkbox {

@@ -8,7 +8,6 @@
     IBOutlet NSOutlineView *outlineView;
     IBOutlet NSTextField *nameField;
     IBOutlet NSTextField *base58KeyField;
-    IBOutlet NSTextField *recentAddressField;
     IBOutlet NSButton *incomingTransfersCheckbox;
     PDPPeer *selectedPeer;
 }
