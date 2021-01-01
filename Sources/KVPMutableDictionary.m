@@ -6,9 +6,9 @@
 -(id)init {
 	self = [super init];
 	if (self) {
-		NSMutableData *data = [[NSMutableData alloc] init];
-		self->data = data;
-		self->mutableData = data;
+		NSMutableData *d = [[NSMutableData alloc] init];
+		self->data = d;
+		self->mutableData = d;
 	}
 	return self;
 }
