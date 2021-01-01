@@ -3,7 +3,6 @@
 @class PDPAgent, PDPPeer;
 
 @interface MainWindowController : NSWindowController<NSSplitViewDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource> {
-    IBOutlet NSTextView *statusTextView;
     BOOL didSetup;
     PDPAgent *discoveryAgent;
     IBOutlet NSOutlineView *outlineView;

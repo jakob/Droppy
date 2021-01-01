@@ -81,7 +81,7 @@
     if (!message) {
         NSLog(@"Received invalid message: %@", parseError);
     }
-    if (message.messageType == PDPMessageTypeScan) {
+    else if (message.messageType == PDPMessageTypeScan) {
         [self replyToQuery:message from:addr];
     }
     else if (message.messageType == PDPMessageTypeAnnounce) {
@@ -93,7 +93,6 @@
 }
 
 -(void)replyToQuery:(PDPMessage*)query from:(IPAddress*)addr {
-    NSLog(@"Replying to query message from %@:%d requestToken: %@", addr.presentationAddress, addr.port, query.requestToken);
     PDPMessage *response = [[PDPMessage alloc] init];
 	PDPPeer *localPeer = [PDPPeer localPeer];
     response.messageType = PDPMessageTypeAnnounce;
@@ -112,7 +111,6 @@
 }
 
 -(void)handlePeerIdentificationMessage:(PDPMessage*)message from:(IPAddress*)addr {
-    NSLog(@"Peer discovered: %@:%d %@ %@", addr.presentationAddress, addr.port, message.deviceModel, message.deviceName);
     PDPPeer *peer = nil;
     if (message.publicKey) {
         for (PDPPeer *existingPeer in peers) {

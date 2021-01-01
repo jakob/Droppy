@@ -8,6 +8,7 @@
 
 @interface MainWindowController() <PDPAgentDelegate> {
 }
+-(void)setSelectedPeer:(PDPPeer*)peer;
 @end
 
 static NSString *localPeerGroup = @"My Device";
@@ -49,19 +50,14 @@ static NSString *discoveredPeersGroup = @"Network";
 }
 
 -(void)agent:(PDPAgent *)agent discoveredPeer:(PDPPeer *)peer {
-	NSString *message = [NSString stringWithFormat:@"%@\nDiscovered peer: %@ (%@)\n\n", [NSDate date], peer.deviceName, peer.deviceModel];
-    [statusTextView replaceCharactersInRange:NSMakeRange(0, 0) withString:message];
-    [statusTextView didChangeText];
-    [statusTextView setNeedsDisplay:YES];
     [outlineView reloadData];
 }
 
 -(void)agent:(PDPAgent *)agent updatedPeer:(PDPPeer *)peer {
-    NSString *message = [NSString stringWithFormat:@"%@\nUpdated peer: %@\n\n", [NSDate date], peer.deviceName];
-    [statusTextView replaceCharactersInRange:NSMakeRange(0, 0) withString:message];
-    [statusTextView didChangeText];
-    [statusTextView setNeedsDisplay:YES];
     [outlineView reloadData];
+    if (peer == selectedPeer) {
+        [self setSelectedPeer:selectedPeer];
+    }
 }
 
 -(void)agent:(PDPAgent *)agent didAcceptConnection:(TCPConnection *)connection {
