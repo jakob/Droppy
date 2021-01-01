@@ -138,6 +138,9 @@
 -(void)handlePeerIdentificationMessage:(PDPMessage*)message from:(IPAddress*)addr {
     PDPPeer *peer = nil;
     if (message.publicKey) {
+        if ([message.publicKey isEqual:[PDPPeer localPeer].publicKey]) {
+            return;
+        }
         for (PDPPeer *existingPeer in peers) {
             if ([existingPeer.publicKey isEqual:message.publicKey]) {
                 peer = existingPeer;
