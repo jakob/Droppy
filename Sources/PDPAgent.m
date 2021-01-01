@@ -43,6 +43,31 @@
     }
 }
 
+-(void)removePeer:(PDPPeer *)peer {
+    Ed25519PublicKey *publicKey = peer.publicKey;
+    if (publicKey) {
+        NSArray *peerDicts = [[NSUserDefaults standardUserDefaults] objectForKey:@"Peers"];
+        if ([peerDicts isKindOfClass:[NSArray class]]) {
+            NSMutableArray *mutablePeerDicts = [peerDicts mutableCopy];
+            for (int i=[peerDicts count]; i-->0;) {
+                NSDictionary *dict = [peerDicts objectAtIndex:i];
+                if ([dict isKindOfClass:[NSDictionary class]]) {
+                    NSString *deviceKey = [dict objectForKey:@"DeviceKey"];
+                    if ([deviceKey isKindOfClass:[NSString class]]) {
+                        Ed25519PublicKey *peerPublicKey = [Ed25519PublicKey publicKeyWithStringRepresentation:deviceKey error:nil];
+                        if ([peerPublicKey isEqual:publicKey]) {
+                            [mutablePeerDicts removeObjectAtIndex:i];
+                        }
+                    }
+                }
+            }
+            [[NSUserDefaults standardUserDefaults] setObject:mutablePeerDicts forKey:@"Peers"];
+            [mutablePeerDicts release];
+        }
+    }
+    [peers removeObject:peer];
+}
+
 -(BOOL)setupWithError:(NSError**)error {
     [self readPeersFromUserDefaults];
     BOOL st;

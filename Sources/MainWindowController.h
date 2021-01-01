@@ -18,5 +18,6 @@
 -(IBAction)sayHello:(id)sender;
 - (IBAction)sendFile:(id)sender;
 -(IBAction)takeAcceptsIncomingTranfersFromCheckbox:(NSButton*)checkbox;
+-(IBAction)removePeer:(id)sender;
 
 @end

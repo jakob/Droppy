@@ -216,6 +216,13 @@ static NSString *discoveredPeersGroup = @"Network";
     [selectedPeer writeToUserDefaults];
 }
 
+-(void)removePeer:(id)sender {
+    [discoveryAgent removePeer: selectedPeer];
+    [outlineView reloadData];
+    [outlineView expandItem:[outlineView itemAtRow:0]];
+    [outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:1] byExtendingSelection:NO];
+}
+
 -(void)outlineViewSelectionDidChange:(NSNotification *)notification {
     id item = [outlineView itemAtRow:[outlineView selectedRow]];
     if ([item isKindOfClass:[PDPPeer class]]) {

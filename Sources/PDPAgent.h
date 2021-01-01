@@ -31,4 +31,6 @@
 
 +(Ed25519KeyPair*)currentDeviceKeyPair;
 
+-(void)removePeer:(PDPPeer*)peer;
+
 @end
