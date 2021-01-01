@@ -8,7 +8,9 @@
     IBOutlet NSOutlineView *outlineView;
     IBOutlet NSTextField *nameField;
     IBOutlet NSTextField *base58KeyField;
+    IBOutlet NSView *fileDropView;
     IBOutlet NSButton *incomingTransfersCheckbox;
+    IBOutlet NSButton *removePeerButton;
     PDPPeer *selectedPeer;
 }
 

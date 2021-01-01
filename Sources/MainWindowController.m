@@ -204,6 +204,11 @@ static NSString *discoveredPeersGroup = @"Network";
     
     [nameField setEnabled:!!peer];
     [base58KeyField setEnabled:!!peer];
+
+    BOOL isLocalPeer = [PDPPeer localPeer] == peer;
+    [fileDropView setHidden:isLocalPeer];
+    [incomingTransfersCheckbox setHidden:isLocalPeer];
+    [removePeerButton setHidden:isLocalPeer];
 }
 
 -(IBAction)takeAcceptsIncomingTranfersFromCheckbox:(NSButton*)checkbox {
