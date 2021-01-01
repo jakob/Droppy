@@ -34,7 +34,7 @@
         [NSError set:outError
               domain:@"KVPDictionary"
                 code:4
-              format:@"Value too lon"];
+              format:@"Value too long"];
         return NO;
     }
     
