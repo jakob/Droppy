@@ -6,5 +6,6 @@
 -(NSString*)fast_hex;
 -(NSString*)sodium_base64;
 -(NSString*)base58EncodedString;
++(NSData*)dataWithLength:(size_t)xlen fromBase58EncodedString:(NSString*)str error:(NSError**)outError;
 
 @end

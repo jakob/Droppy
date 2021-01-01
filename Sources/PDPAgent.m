@@ -26,7 +26,25 @@
     return self;
 }
 
+-(void)readPeersFromUserDefaults {
+    [peers removeAllObjects];
+    NSArray *peerDicts = [[NSUserDefaults standardUserDefaults] objectForKey:@"Peers"];
+    if ([peerDicts isKindOfClass:[NSArray class]]) {
+        for (int i=0; i<[peerDicts count]; i++) {
+            NSDictionary *dict = [peerDicts objectAtIndex:i];
+            if ([dict isKindOfClass:[NSDictionary class]]) {
+                PDPPeer *peer = [[PDPPeer alloc] init];
+                if ([peer setDictionaryRepresentation:dict error:nil]) {
+                    [peers addObject:peer];
+                }
+                [peer release];
+            }
+        }
+    }
+}
+
 -(BOOL)setupWithError:(NSError**)error {
+    [self readPeersFromUserDefaults];
     BOOL st;
     st = [messenger bindUDPPort: peerDiscoveryPort delegate: self error: error];
     if (!st) return NO;
@@ -128,6 +146,7 @@
     peer.supportsProtocolVersion1 = peer.supportsProtocolVersion1;
     peer.supportsEd25519 = peer.supportsEd25519;
     [peer addRecentAddress:addr];
+    [peer writeToUserDefaults];
     if (isNew) [delegate agent:self discoveredPeer:peer];
     else [delegate agent:self updatedPeer:peer];
 }

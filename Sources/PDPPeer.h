@@ -12,6 +12,7 @@
     NSString *incomingTransferMode;
     Ed25519PublicKey *publicKey;
     uint16_t tcpListenPort;
+    NSDictionary *dictionaryRepresentation;
 }
 
 @property BOOL supportsProtocolVersion1;
@@ -23,8 +24,13 @@
 @property(retain) Ed25519PublicKey *publicKey;
 @property uint16_t tcpListenPort;
 @property(readonly) NSString *mostRecentPresentationAddressAndPort;
+@property(readonly) NSDictionary *dictionaryRepresentation;
 
 -(void)addRecentAddress:(IPAddress*)address;
+
+-(BOOL)setDictionaryRepresentation:(NSDictionary *)dict error:(NSError**)outError;
+
+-(void)writeToUserDefaults;
 
 +(PDPPeer*)localPeer;
 

@@ -1,5 +1,6 @@
 #import "Ed25519PublicKey.h"
 #import "NSError+ConvenienceConstructors.h"
+#import "NSData+EncodingHelpers.h"
 
 @implementation Ed25519PublicKey
 
@@ -16,6 +17,15 @@
 	memcpy(key->pk, data.bytes, crypto_sign_ed25519_PUBLICKEYBYTES);
 	return [key autorelease];
 }
+
++(Ed25519PublicKey*)publicKeyWithStringRepresentation:(NSString*)str error:(NSError**)error {
+    NSData *keyData = [NSData dataWithLength:crypto_sign_ed25519_PUBLICKEYBYTES fromBase58EncodedString:str error:error];
+    if (!keyData) return nil;
+    Ed25519PublicKey *key = [[Ed25519PublicKey alloc] init];
+	memcpy(key->pk, keyData.bytes, crypto_sign_ed25519_PUBLICKEYBYTES);
+	return [key autorelease];
+}
+
 
 -(BOOL)verifySignature:(NSData*)sig forMessage:(NSData*)message error:(NSError**)error {
 	if (sig.length != crypto_sign_ed25519_BYTES) {
@@ -46,6 +56,10 @@
 
 -(NSData *)data {
     return [NSData dataWithBytes:pk length:crypto_sign_ed25519_PUBLICKEYBYTES];
+}
+
+-(NSString *)stringRepresentation {
+    return [[NSData dataWithBytes:pk length:crypto_sign_ed25519_PUBLICKEYBYTES] base58EncodedString];
 }
 
 @end

@@ -7,8 +7,10 @@
 }
 
 @property(readonly) NSData *data;
+@property(readonly) NSString *stringRepresentation;
 
 +(Ed25519PublicKey*)publicKeyWithData:(NSData*)data error:(NSError**)error;
++(Ed25519PublicKey*)publicKeyWithStringRepresentation:(NSString*)str error:(NSError**)error;
 
 -(BOOL)verifySignature:(NSData*)sig forMessage:(NSData*)message error:(NSError**)error;
 

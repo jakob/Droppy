@@ -214,6 +214,7 @@ static NSString *discoveredPeersGroup = @"Network";
 
 -(IBAction)takeAcceptsIncomingTranfersFromCheckbox:(NSButton*)checkbox {
     selectedPeer.acceptIncomingTransfers = [checkbox state] == NSOnState;
+    [selectedPeer writeToUserDefaults];
 }
 
 -(void)outlineViewSelectionDidChange:(NSNotification *)notification {
