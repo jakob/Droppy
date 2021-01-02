@@ -9,8 +9,8 @@ typedef enum {
 
 @interface PDPMessage : NSObject {
     PDPMessageType messageType;
-    BOOL supportsProtocolVersion1;
-    BOOL supportsEd25519;
+    BOOL supportsUnencryptedConnection;
+    BOOL supportsEncryptedConnectionV1;
     NSString *deviceName;
     NSString *deviceModel;
     NSData *requestToken;
@@ -19,8 +19,8 @@ typedef enum {
 }
 
 @property PDPMessageType messageType; 
-@property BOOL supportsProtocolVersion1;
-@property BOOL supportsEd25519;
+@property BOOL supportsUnencryptedConnection;
+@property BOOL supportsEncryptedConnectionV1;
 @property(copy) NSString *deviceName;
 @property(copy) NSString *deviceModel;
 @property(copy) NSData *requestToken;

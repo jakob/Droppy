@@ -83,8 +83,8 @@
     PDPMessage *message = [[PDPMessage alloc] init];
     
     message.messageType = PDPMessageTypeScan;
-    message.supportsProtocolVersion1 = YES;
-    message.supportsEd25519 = YES;
+    message.supportsUnencryptedConnection = NO;
+    message.supportsEncryptedConnectionV1 = YES;
     
     [lastScanToken release];
     NSMutableData *mutableToken = [[NSMutableData alloc] initWithLength:12];
@@ -121,8 +121,8 @@
     PDPMessage *response = [[PDPMessage alloc] init];
 	PDPPeer *localPeer = [PDPPeer localPeer];
     response.messageType = PDPMessageTypeAnnounce;
-    response.supportsProtocolVersion1 = localPeer.supportsProtocolVersion1;
-    response.supportsEd25519 = localPeer.supportsEd25519;
+    response.supportsUnencryptedConnection = localPeer.supportsUnencryptedConnection;
+    response.supportsEncryptedConnectionV1 = localPeer.supportsEncryptedConnectionV1;
     response.deviceName = localPeer.deviceName;
     response.deviceModel = localPeer.deviceModel;
     response.tcpListenPort = localPeer.tcpListenPort;
@@ -133,6 +133,21 @@
         NSLog(@"Failed to reply to query: %@", sendError);
     }
     [response release];
+}
+
+-(BOOL)announceWithError:(NSError**)error {
+    PDPMessage *response = [[PDPMessage alloc] init];
+	PDPPeer *localPeer = [PDPPeer localPeer];
+    response.messageType = PDPMessageTypeAnnounce;
+    response.supportsUnencryptedConnection = localPeer.supportsUnencryptedConnection;
+    response.supportsEncryptedConnectionV1 = localPeer.supportsEncryptedConnectionV1;
+    response.deviceName = localPeer.deviceName;
+    response.deviceModel = localPeer.deviceModel;
+    response.tcpListenPort = localPeer.tcpListenPort;
+    NSData *message = [response dataSignedWithKeyPair:[PDPAgent currentDeviceKeyPair] error:error];
+    BOOL status = message && [messenger broadcastMessage:message port:peerDiscoveryPort error:error];
+    [response release];
+    return status;
 }
 
 -(void)handlePeerIdentificationMessage:(PDPMessage*)message from:(IPAddress*)addr {
@@ -169,8 +184,8 @@
     if (message.deviceModel) peer.deviceModel = message.deviceModel;
     if (message.deviceName) peer.deviceName = message.deviceName;
     peer.tcpListenPort = message.tcpListenPort;
-    peer.supportsProtocolVersion1 = peer.supportsProtocolVersion1;
-    peer.supportsEd25519 = peer.supportsEd25519;
+    peer.supportsUnencryptedConnection = peer.supportsUnencryptedConnection;
+    peer.supportsEncryptedConnectionV1 = peer.supportsEncryptedConnectionV1;
     [peer addRecentAddress:addr];
     [peer writeToUserDefaults];
     if (isNew) [delegate agent:self discoveredPeer:peer];

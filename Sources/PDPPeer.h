@@ -4,8 +4,8 @@
 @class Ed25519PublicKey;
 
 @interface PDPPeer : NSObject {
-    BOOL supportsProtocolVersion1;
-    BOOL supportsEd25519;
+    BOOL supportsUnencryptedConnection;
+    BOOL supportsEncryptedConnectionV1;
     NSString *deviceName;
     NSString *deviceModel;
     NSMutableArray *recentAddresses;
@@ -15,8 +15,8 @@
     NSDictionary *dictionaryRepresentation;
 }
 
-@property BOOL supportsProtocolVersion1;
-@property BOOL supportsEd25519;
+@property BOOL supportsUnencryptedConnection;
+@property BOOL supportsEncryptedConnectionV1;
 @property BOOL acceptIncomingTransfers;
 @property(copy) NSString *deviceName;
 @property(copy) NSString *deviceModel;

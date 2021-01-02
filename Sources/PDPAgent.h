@@ -28,6 +28,7 @@
 -(BOOL)setupWithError:(NSError**)error;
 
 -(BOOL)scanWithError:(NSError**)error;
+-(BOOL)announceWithError:(NSError**)error;
 
 +(Ed25519KeyPair*)currentDeviceKeyPair;
 

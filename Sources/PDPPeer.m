@@ -6,8 +6,8 @@
 
 @implementation PDPPeer
 
-@synthesize supportsProtocolVersion1;
-@synthesize supportsEd25519;
+@synthesize supportsUnencryptedConnection;
+@synthesize supportsEncryptedConnectionV1;
 @synthesize deviceName;
 @synthesize deviceModel;
 @synthesize publicKey;
@@ -26,8 +26,8 @@
 	if (!localPeer) {
 		localPeer = [[PDPPeer alloc] init];
 
-        localPeer.supportsProtocolVersion1 = YES;
-        localPeer.supportsEd25519 = YES;
+        localPeer.supportsUnencryptedConnection = NO;
+        localPeer.supportsEncryptedConnectionV1 = YES;
         
 		/* Get computer model, eg. MacBookPro12,1 */
 		CFStringRef computerModel = nil;

@@ -42,7 +42,7 @@ static NSString *discoveredPeersGroup = @"Network";
     NSError *error = nil;
     discoveryAgent = [[PDPAgent alloc] init];
     discoveryAgent.delegate = self;
-    if (![discoveryAgent setupWithError:&error]) {
+    if (![discoveryAgent setupWithError:&error] || ![discoveryAgent scanWithError:&error] || ![discoveryAgent announceWithError:&error]) {
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             [self presentError:error modalForWindow:self.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
         });

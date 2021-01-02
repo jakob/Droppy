@@ -1,3 +1,23 @@
+Droppy
+======
+
+Send files from one device to another over the LAN
+
+Droppy is the easiest way to transfer files on the local network. It does not require servers, Internet, and it isn't limited to specific hardware.
+
+Droppy encrypts and authenticates transfers, and it has the simplest possible permission model.
+
+Droppy's goal is to support any computing device that can work with files.
+
+Currently, there's only a Mac app:
+
+Mac app
+-------
+
+The Mac app is a native Cocoa / Objective-C app that runs on macOS 10.6 or later.
+It's built for 32bit and 64bit Intel processors. It also runs on on Apple Silicon thanks to Rosetta 2.
+
+
 Motivation
 ==========
 
@@ -104,8 +124,8 @@ All UDP messages start with a "magic number", which makes random collisions much
 
 1 byte    Flags
 
-          0x01 Supports v1 protocol
-          0x02 Has Ed25519 Key + Signature
+          0x01 Supports Unencrypted Connections
+          0x02 Supports Encrypted Connections with Version 1 Protocol
           0x04 Reserved
           0x08 Reserved
           0x10 Reserved

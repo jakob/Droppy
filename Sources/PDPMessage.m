@@ -7,8 +7,8 @@
 @implementation PDPMessage
 
 @synthesize messageType;
-@synthesize supportsProtocolVersion1;
-@synthesize supportsEd25519;
+@synthesize supportsUnencryptedConnection;
+@synthesize supportsEncryptedConnectionV1;
 @synthesize deviceName;
 @synthesize deviceModel;
 @synthesize requestToken;
@@ -61,8 +61,8 @@
     const uint8_t *pdp_bytes = pdp.bytes;
     message.messageType = pdp_bytes[0];
     uint8_t flags = pdp_bytes[1];
-    message.supportsProtocolVersion1 = flags & 0x01 ? YES : NO;
-    message.supportsEd25519 = flags & 0x02 ? YES : NO;
+    message.supportsUnencryptedConnection = flags & 0x01 ? YES : NO;
+    message.supportsEncryptedConnectionV1 = flags & 0x02 ? YES : NO;
     
     // Extract optional fields
     message.deviceName = [dict stringForStringKey:@"N"];
@@ -101,8 +101,8 @@
     NSMutableData *pdp = [[NSMutableData alloc] initWithLength:2];
     uint8_t *pdp_bytes = pdp.mutableBytes;
     pdp_bytes[0] = self.messageType;
-    if (self.supportsProtocolVersion1) pdp_bytes[1] |= 0x01;
-    if (self.supportsEd25519) pdp_bytes[1] |= 0x02;
+    if (self.supportsUnencryptedConnection) pdp_bytes[1] |= 0x01;
+    if (self.supportsEncryptedConnectionV1) pdp_bytes[1] |= 0x02;
     if (![dict setData:pdp forStringKey:@"PDP" error:error]) {
         [pdp release];
         [dict release];
